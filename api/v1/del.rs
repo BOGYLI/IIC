@@ -62,7 +62,7 @@ pub fn template_del(id: i64) -> Result<String, String> {
 }
 
 #[post("/templatetparameter/del", data = "<data>") ]
-pub fn templatetparameter_del(data: Form<TemplateTParameter>) -> Result<String, String> {
+pub fn templatetparameter_del(data: Form<TemplateTParameterDEL>) -> Result<String, String> {
 	Ok(String::from(""))
 }
 
