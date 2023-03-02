@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% include "static/head/default" %}
+    {% include "static/head/bootstrap" %}
+    <title>Login</title>
+  </head>
+  <body class="text-center" style="display: flex;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;">
+    <main class="form-signin m-auto" style="width: 400px; height: 600px">
+      <form action="/api/v1/login" method="post">
+        <svg class="mb-4" xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
+          <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/>
+          <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+        </svg>
+        <h1 class="h3 mb-3 fw-normal">Bitte einloggen</h1>
+
+        <div class="form-floating">
+          <input type="email" class="form-control mb-3" id="floatingInput" placeholder="name@example.com">
+          <label for="floatingInput">Emailaddresse</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control mb-3" id="floatingPassword" placeholder="Password">
+          <label for="floatingPassword">Passwort</label>
+        </div>
+
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me"> Eingeloggt bleiben
+          </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
+        <p class="mt-5 mb-3 text-muted">© 2022–2023</p>
+      </form>
+    </main>
+    {% include "static/js/bootstrap" %}
+  </body>
+</html>

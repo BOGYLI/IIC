@@ -1,0 +1,6 @@
+CREATE TABLE Template(
+	id				SERIAL	NOT NULL,
+	pfad			TEXT	NOT NULL,
+
+	PRIMARY KEY(id)
+);

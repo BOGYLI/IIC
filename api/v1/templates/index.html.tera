@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API-INDEX</title>
+
+    <style>
+        td {
+          border: solid 1px gray;
+          padding: 10px;
+          text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tbody>
+            <!-- Tabellenname -->
+            <tr>
+                <td><b>Tabellenname</b></td>
+                <td>Umfrageantwort</td>
+                <td>Umfrage</td>
+                <td>UmfrageUFrage</td>
+                <td>UAntwort</td>
+                <td>UFrage</td>
+                <td>UFrageUAntwort</td>
+                <td>UmfrageBenutzer</td>
+                <td>Medien</td>
+                <td>Artikel</td>
+                <td>ArtikelAutor</td>
+                <td>Benutzer</td>
+                <td>Template</td>
+                <td>TemplateTParameter</td>
+                <td>TParameter</td>
+            </tr>
+            <!-- Spalten -->
+            <tr>
+                <td><b>Spalten</b></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <!-- new -->
+            <tr>
+                <td><b>new</b></td>
+                <td><input type="checkbox" checked></td>   <!-- Umfrageantwort -->
+                <td><input type="checkbox" checked></td>   <!-- Umfrage -->
+                <td><input type="checkbox"        ></td>   <!-- UmfrageUFrage -->
+                <td><input type="checkbox" checked></td>   <!-- UAntwort -->
+                <td><input type="checkbox" checked></td>   <!-- UFrage -->
+                <td><input type="checkbox" checked></td>   <!-- UFrageUAntwort -->
+                <td><input type="checkbox" checked></td>   <!-- UmfrageBenutzer -->
+                <td><input type="checkbox" checked></td>   <!-- Medien -->
+                <td><input type="checkbox" checked></td>   <!-- Artikel -->
+                <td><input type="checkbox" checked></td>   <!-- ArtikelAutor -->
+                <td><input type="checkbox" checked></td>   <!-- Benutzer -->
+                <td><input type="checkbox" checked></td>   <!-- Template -->
+                <td><input type="checkbox" checked></td>   <!-- TemplateTParameter -->
+                <td><input type="checkbox" checked></td>   <!-- TParameter -->
+            </tr>
+            <!-- delete -->
+            <tr>
+                <td><b>delete</b></td>
+                <td><input type="checkbox"        ></td>   <!-- Umfrageantwort -->
+                <td><input type="checkbox" checked></td>   <!-- Umfrage -->
+                <td><input type="checkbox"        ></td>   <!-- UmfrageUFrage -->
+                <td><input type="checkbox" checked></td>   <!-- UAntwort -->
+                <td><input type="checkbox" checked></td>   <!-- UFrage -->
+                <td><input type="checkbox"        ></td>   <!-- UFrageUAntwort -->
+                <td><input type="checkbox"        ></td>   <!-- UmfrageBenutzer -->
+                <td><input type="checkbox" checked></td>   <!-- Medien -->
+                <td><input type="checkbox" checked></td>   <!-- Artikel -->
+                <td><input type="checkbox"        ></td>   <!-- ArtikelAutor -->
+                <td><input type="checkbox" checked></td>   <!-- Benutzer -->
+                <td><input type="checkbox" checked></td>   <!-- Template -->
+                <td><input type="checkbox"        ></td>   <!-- TemplateTParameter -->
+                <td><input type="checkbox" checked></td>   <!-- TParameter -->
+            </tr>
+            <!-- edit -->
+            <tr>
+                <td><b>edit</b></td>
+                <td><input type="checkbox" checked></td>   <!-- Umfrageantwort -->
+                <td><input type="checkbox" checked></td>   <!-- Umfrage -->
+                <td><input type="checkbox"        ></td>   <!-- UmfrageUFrage -->
+                <td><input type="checkbox" checked></td>   <!-- UAntwort -->
+                <td><input type="checkbox" checked></td>   <!-- UFrage -->
+                <td><input type="checkbox"        ></td>   <!-- UFrageUAntwort -->
+                <td><input type="checkbox" checked></td>   <!-- UmfrageBenutzer -->
+                <td><input type="checkbox" checked></td>   <!-- Medien -->
+                <td><input type="checkbox" checked></td>   <!-- Artikel -->
+                <td><input type="checkbox" checked></td>   <!-- ArtikelAutor -->
+                <td><input type="checkbox" checked></td>   <!-- Benutzer -->
+                <td><input type="checkbox" checked></td>   <!-- Template -->
+                <td><input type="checkbox" checked></td>   <!-- TemplateTParameter -->
+                <td><input type="checkbox" checked></td>   <!-- TParameter -->
+            </tr>
+            <!-- get_all -->
+            <tr>
+                <td><b>get_all</b></td>
+                <td><input type="checkbox" checked></td>   <!-- Umfrageantwort -->
+                <td><input type="checkbox" checked></td>   <!-- Umfrage -->
+                <td><input type="checkbox"        ></td>   <!-- UmfrageUFrage -->
+                <td><input type="checkbox" checked></td>   <!-- UAntwort -->
+                <td><input type="checkbox" checked></td>   <!-- UFrage -->
+                <td><input type="checkbox"        ></td>   <!-- UFrageUAntwort -->
+                <td><input type="checkbox" checked></td>   <!-- UmfrageBenutzer -->
+                <td><input type="checkbox" checked></td>   <!-- Medien -->
+                <td><input type="checkbox" checked></td>   <!-- Artikel -->
+                <td><input type="checkbox" checked></td>   <!-- ArtikelAutor -->
+                <td><input type="checkbox" checked></td>   <!-- Benutzer -->
+                <td><input type="checkbox" checked></td>   <!-- Template -->
+                <td><input type="checkbox" checked></td>   <!-- TemplateTParameter -->
+                <td><input type="checkbox" checked></td>   <!-- TParameter -->
+            </tr>
+            <!-- get (by id) -->
+            <tr>
+                <td><b>get</b> <em>by id</em></td>
+                <td><input type="checkbox"        ></td>   <!-- Umfrageantwort -->
+                <td><input type="checkbox" checked></td>   <!-- Umfrage -->
+                <td><input type="checkbox"        ></td>   <!-- UmfrageUFrage -->
+                <td><input type="checkbox" checked></td>   <!-- UAntwort -->
+                <td><input type="checkbox" checked></td>   <!-- UFrage -->
+                <td><input type="checkbox"        ></td>   <!-- UFrageUAntwort -->
+                <td><input type="checkbox"        ></td>   <!-- UmfrageBenutzer -->
+                <td><input type="checkbox" checked></td>   <!-- Medien -->
+                <td><input type="checkbox" checked></td>   <!-- Artikel -->
+                <td><input type="checkbox"        ></td>   <!-- ArtikelAutor -->
+                <td><input type="checkbox" checked></td>   <!-- Benutzer -->
+                <td><input type="checkbox" checked></td>   <!-- Template -->
+                <td><input type="checkbox"        ></td>   <!-- TemplateTParameter -->
+                <td><input type="checkbox" checked></td>   <!-- TParameter -->
+            </tr>
+        </tbody>
+    </table>
+</body>
+<script>
+    let list = document.getElementsByTagName("input");
+    for (i in list) {
+        list[i].addEventListener('click', (event) => {
+            event.preventDefault();
+        }, false);
+    }
+</script>
+</html>
