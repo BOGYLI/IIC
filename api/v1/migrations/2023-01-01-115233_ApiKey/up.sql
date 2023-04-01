@@ -6,4 +6,4 @@ CREATE TABLE ApiKey(
 	dauer		INTEGER NOT NULL,
 	
 	PRIMARY KEY(id)
-)
+);
