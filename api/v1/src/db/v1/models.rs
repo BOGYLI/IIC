@@ -110,6 +110,13 @@ pub struct ArtikelAutor {
 	pub benutzerid: i32,
 }
 
+#[derive(Queryable,   AsChangeset, Clone, Serialize, Deserialize, FromForm)]
+#[diesel(table_name = artikelmedien)]
+pub struct ArtikelMedien {
+	pub artikelid: i32,
+	pub medienid: i32,
+}
+
 
 
 #[derive(Queryable,   AsChangeset, Clone, Serialize, Deserialize, FromForm)]
@@ -117,7 +124,8 @@ pub struct ArtikelAutor {
 pub struct SSpiel {
 	pub id: i32,
 	pub name: String,
-	pub apikey: String,	// TODO
+	pub apikeyId: i32,	// TODO
+	pub url: String
 	pub highscore: Option<i32>,
 	pub best: Option<i32>
 }
@@ -127,7 +135,8 @@ pub struct SSpiel {
 pub struct MSpiel {
 	pub id: i32,
 	pub name: String,
-	pub apikey: String,	// TODO
+	pub apikeyId: i32,	// TODO
+	pub url: String,
 	pub highscore: Option<i32>,
 	pub best: Option<i32>
 }
@@ -161,6 +170,7 @@ pub struct MSpieler {
 pub struct Team {
 	pub id: i32,
 	pub name: String,
+	pub apikeyId: i32,
 	pub overallscore: i32,
 }
 

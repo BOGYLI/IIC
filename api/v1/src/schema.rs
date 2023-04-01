@@ -1,6 +1,15 @@
 // @generated automatically by Diesel CLI.
 
 diesel::table! {
+    apikey (id) {
+        id -> Int4,
+        wert -> Text,
+        zeitpunkt -> Text,
+        dauer -> Int4,
+    }
+}
+
+diesel::table! {
     artikel (id) {
         id -> Int4,
         pfad -> Text,
@@ -18,6 +27,13 @@ diesel::table! {
 }
 
 diesel::table! {
+    artikelmedien (artikelid, medienid) {
+        artikelid -> Int4,
+        medienid -> Int4,
+    }
+}
+
+diesel::table! {
     benutzer (id) {
         id -> Int4,
         vorname -> Text,
@@ -29,9 +45,25 @@ diesel::table! {
 }
 
 diesel::table! {
+    benutzerberechtigung (benutzerid, berechtigungid) {
+        benutzerid -> Int4,
+        berechtigungid -> Int4,
+    }
+}
+
+diesel::table! {
     benutzerteam (teamid, benutzerid) {
         teamid -> Int4,
         benutzerid -> Int4,
+    }
+}
+
+diesel::table! {
+    berechtigung (id) {
+        id -> Int4,
+        name -> Text,
+        beschreibung -> Text,
+        apikeyid -> Int4,
     }
 }
 
@@ -48,7 +80,8 @@ diesel::table! {
     mspiel (id) {
         id -> Int4,
         name -> Text,
-        apikey -> Text,
+        apikeyid -> Int4,
+        url -> Text,
         highscore -> Nullable<Int4>,
         best -> Nullable<Int4>,
     }
@@ -72,7 +105,8 @@ diesel::table! {
     sspiel (id) {
         id -> Int4,
         name -> Text,
-        apikey -> Text,
+        apikeyid -> Int4,
+        url -> Text,
         highscore -> Nullable<Int4>,
         best -> Nullable<Int4>,
     }
@@ -148,7 +182,7 @@ diesel::table! {
 }
 
 diesel::table! {
-    umfrageantwort (umfrageid, benutzerid, frageid, antwortid) {
+    umfrageantwort (umfrageid, benutzerid, frageid) {
         umfrageid -> Int4,
         benutzerid -> Int4,
         frageid -> Int4,
@@ -167,10 +201,17 @@ diesel::table! {
 diesel::joinable!(artikel -> template (templateid));
 diesel::joinable!(artikelautor -> artikel (artikelid));
 diesel::joinable!(artikelautor -> benutzer (benutzerid));
+diesel::joinable!(artikelmedien -> artikel (artikelid));
+diesel::joinable!(artikelmedien -> medien (medienid));
+diesel::joinable!(benutzerberechtigung -> benutzer (benutzerid));
+diesel::joinable!(benutzerberechtigung -> berechtigung (berechtigungid));
 diesel::joinable!(benutzerteam -> benutzer (benutzerid));
 diesel::joinable!(benutzerteam -> team (teamid));
+diesel::joinable!(berechtigung -> apikey (apikeyid));
+diesel::joinable!(mspiel -> apikey (apikeyid));
 diesel::joinable!(mspiel -> team (best));
 diesel::joinable!(mspieler -> mspiel (spielid));
+diesel::joinable!(sspiel -> apikey (apikeyid));
 diesel::joinable!(sspiel -> benutzer (best));
 diesel::joinable!(sspieler -> benutzer (benutzerid));
 diesel::joinable!(sspieler -> sspiel (spielid));
@@ -186,10 +227,14 @@ diesel::joinable!(umfragebenutzer -> benutzer (benutzerid));
 diesel::joinable!(umfragebenutzer -> umfrage (umfrageid));
 
 diesel::allow_tables_to_appear_in_same_query!(
+    apikey,
     artikel,
     artikelautor,
+    artikelmedien,
     benutzer,
+    benutzerberechtigung,
     benutzerteam,
+    berechtigung,
     medien,
     mspiel,
     mspieler,
