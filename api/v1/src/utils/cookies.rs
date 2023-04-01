@@ -133,8 +133,115 @@ impl<'r> FromRequest<'r> for ApiKey {
 
 
 
+#[derive(Debug)]
+pub enum PermissionError {
+    Missing,
+    Invalid,
+}
+pub struct ReadPermission();
+impl ReadPermission {
+	pub fn is_valid(key: Vec<&str>) -> bool {
+		//let count = (*uri).segment_count();
+		//let segments = *uri.segments();
+		
+		/*match segments[0].to_string() {
+			"api" => {},
+			_ => {}
+		}*/
+		true
+	}
+}
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for ReadPermission {
+    type Error = PermissionError;
 
+    async fn from_request(request: &'r Request<'_>) -> Outcome<ReadPermission, PermissionError> {
+        let keys: Vec<_> = request.headers().get("x-api-key").collect();
+        match keys.len() {
+            0 => Outcome::Failure((Status::Unauthorized, PermissionError::Missing)),
+            _ if ReadPermission::is_valid(keys) => Outcome::Success(ReadPermission()),
+            _ => Outcome::Failure((Status::Unauthorized, PermissionError::Invalid)),
+        }
+    }
+}
+pub struct DeletePermission();
+impl DeletePermission {
+	pub fn is_valid(key: Vec<&str>) -> bool {
+		//let count = (*uri).segment_count();
+		//let segments = *uri.segments();
+		
+		/*match segments[0].to_string() {
+			"api" => {},
+			_ => {}
+		}*/
+		true
+	}
+}
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for DeletePermission {
+    type Error = PermissionError;
 
+    async fn from_request(request: &'r Request<'_>) -> Outcome<DeletePermission, PermissionError> {
+        let keys: Vec<_> = request.headers().get("x-api-key").collect();
+        match keys.len() {
+            0 => Outcome::Failure((Status::Unauthorized, PermissionError::Missing)),
+            _ if DeletePermission::is_valid(keys) => Outcome::Success(DeletePermission()),
+            _ => Outcome::Failure((Status::Unauthorized, PermissionError::Invalid)),
+        }
+    }
+}
+pub struct NewPermission();
+impl NewPermission {
+	pub fn is_valid(key: Vec<&str>) -> bool {
+		//let count = (*uri).segment_count();
+		//let segments = *uri.segments();
+		
+		/*match segments[0].to_string() {
+			"api" => {},
+			_ => {}
+		}*/
+		true
+	}
+}
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for NewPermission {
+    type Error = PermissionError;
+
+    async fn from_request(request: &'r Request<'_>) -> Outcome<NewPermission, PermissionError> {
+        let keys: Vec<_> = request.headers().get("x-api-key").collect();
+        match keys.len() {
+            0 => Outcome::Failure((Status::Unauthorized, PermissionError::Missing)),
+            _ if NewPermission::is_valid(keys) => Outcome::Success(NewPermission()),
+            _ => Outcome::Failure((Status::Unauthorized, PermissionError::Invalid)),
+        }
+    }
+}
+pub struct UpdatePermission();
+impl UpdatePermission {
+	pub fn is_valid(key: Vec<&str>) -> bool {
+		//let count = (*uri).segment_count();
+		//let segments = *uri.segments();
+		
+		/*match segments[0].to_string() {
+			"api" => {},
+			_ => {}
+		}*/
+		true
+	}
+}
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for UpdatePermission {
+    type Error = PermissionError;
+
+    async fn from_request(request: &'r Request<'_>) -> Outcome<UpdatePermission, PermissionError> {
+        let keys: Vec<_> = request.headers().get("x-api-key").collect();
+        match keys.len() {
+            0 => Outcome::Failure((Status::Unauthorized, PermissionError::Missing)),
+            _ if UpdatePermission::is_valid(keys) => Outcome::Success(UpdatePermission()),
+            _ => Outcome::Failure((Status::Unauthorized, PermissionError::Invalid)),
+        }
+    }
+}
 
 
 
