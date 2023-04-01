@@ -1,0 +1,19 @@
+[debug]
+address = "0.0.0.0"
+port = 8000
+workers = 4
+keep_alive = 5
+secret_key = "12345ghdfithbjdkfjreof945icdbndkfj4otekjfjrt"
+limits = { forms = 32768 }
+
+[release]
+address = "0.0.0.0"
+port = 80
+workers = 4
+keep_alive = 5
+#secret_key = "12345ghdfithbjdkfjreof945icdbndkfj4otekjfjrt"
+limits = { forms = 32768 }
+
+[global.tls]
+certs = "certs/cert.pem"
+key = "certs/key.pem"

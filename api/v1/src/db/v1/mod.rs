@@ -4,7 +4,7 @@ use dotenvy::dotenv;
 use std::env;
 
 pub mod models;
-pub mod schema;
+pub use super::super::schema;
 mod models_new;
 mod insert;
 mod query;
@@ -25,7 +25,7 @@ pub trait DBInsertable<T: Queryable<S, diesel::pg::Pg>, S> {
 }
 
 pub trait DBQueryable<T: Queryable<S, diesel::pg::Pg>, S> {
-    fn get_all(&self, conn: &mut PgConnection) -> Result<Vec<Self>, diesel::result::Error> where Self: Sized;
+    fn get_all(conn: &mut PgConnection) -> Result<Vec<Self>, diesel::result::Error> where Self: Sized;
     fn get(&self, conn: &mut PgConnection) -> Result<Self, diesel::result::Error> where Self: Sized;
     fn delete(&self, conn: &mut PgConnection) -> Result<usize, diesel::result::Error>; // evtl. ohne 'bool'
     fn update(&self, conn: &mut PgConnection) -> Result<usize, diesel::result::Error>;

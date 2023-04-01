@@ -2,6 +2,7 @@ use crate::db::v1::models::*;
 use rocket::form::Form;
 use crate::db::v1::DBQueryable;
 use rocket::http::Status;
+use crate::utils::v1::cookies::{ApiKey};
 
 #[put("/umfrageantwort", data = "<data>") ]
 pub fn umfrageantwort(data: Form<Umfrageantwort>) -> Result<Status, Status> {
@@ -99,6 +100,57 @@ pub fn templatetparameter(data: Form<TemplateTParameter>) -> Result<Status, Stat
 
 #[put("/tparameter", data = "<data>") ]
 pub fn tparameter(data: Form<TParameter>) -> Result<Status, Status> {
+	match data.into_inner().update(&mut crate::db::v1::establish_connection()) {
+		Ok(_) => Ok(Status::Ok),
+		Err(_) => Err(Status::InternalServerError)
+	}
+}
+
+
+
+
+#[put("/sspiel", data = "<data>") ]
+pub fn sspiel(data: Form<SSpiel>, apikey: ApiKey) -> Result<Status, Status> {
+	match data.into_inner().update(&mut crate::db::v1::establish_connection()) {
+		Ok(_) => Ok(Status::Ok),
+		Err(_) => Err(Status::InternalServerError)
+	}
+}
+
+#[put("/mspiel", data = "<data>") ]
+pub fn mspiel(data: Form<MSpiel>, apikey: ApiKey) -> Result<Status, Status> {
+	match data.into_inner().update(&mut crate::db::v1::establish_connection()) {
+		Ok(_) => Ok(Status::Ok),
+		Err(_) => Err(Status::InternalServerError)
+	}
+}
+
+#[put("/sspieler", data = "<data>") ]
+pub fn sspieler(data: Form<SSpieler>, apikey: ApiKey) -> Result<Status, Status> {
+	match data.into_inner().update(&mut crate::db::v1::establish_connection()) {
+		Ok(_) => Ok(Status::Ok),
+		Err(_) => Err(Status::InternalServerError)
+	}
+}
+
+#[put("/mspieler", data = "<data>") ]
+pub fn mspieler(data: Form<MSpieler>, apikey: ApiKey) -> Result<Status, Status> {
+	match data.into_inner().update(&mut crate::db::v1::establish_connection()) {
+		Ok(_) => Ok(Status::Ok),
+		Err(_) => Err(Status::InternalServerError)
+	}
+}
+
+#[put("/team", data = "<data>") ]
+pub fn team(data: Form<Team>) -> Result<Status, Status> {
+	match data.into_inner().update(&mut crate::db::v1::establish_connection()) {
+		Ok(_) => Ok(Status::Ok),
+		Err(_) => Err(Status::InternalServerError)
+	}
+}
+
+#[put("/benutzerteam", data = "<data>") ]
+pub fn benutzerteam(data: Form<BenutzerTeam>) -> Result<Status, Status> {
 	match data.into_inner().update(&mut crate::db::v1::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
 		Err(_) => Err(Status::InternalServerError)
