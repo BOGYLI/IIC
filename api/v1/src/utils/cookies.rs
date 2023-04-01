@@ -141,13 +141,7 @@ pub enum PermissionError {
 pub struct ReadPermission();
 impl ReadPermission {
 	pub fn is_valid(key: Vec<&str>) -> bool {
-		//let count = (*uri).segment_count();
-		//let segments = *uri.segments();
-		
-		/*match segments[0].to_string() {
-			"api" => {},
-			_ => {}
-		}*/
+		// select ApiKey WHERE id = 0
 		true
 	}
 }
@@ -167,13 +161,7 @@ impl<'r> FromRequest<'r> for ReadPermission {
 pub struct DeletePermission();
 impl DeletePermission {
 	pub fn is_valid(key: Vec<&str>) -> bool {
-		//let count = (*uri).segment_count();
-		//let segments = *uri.segments();
-		
-		/*match segments[0].to_string() {
-			"api" => {},
-			_ => {}
-		}*/
+		// select ApiKey WHERE id = 1
 		true
 	}
 }
@@ -193,13 +181,7 @@ impl<'r> FromRequest<'r> for DeletePermission {
 pub struct NewPermission();
 impl NewPermission {
 	pub fn is_valid(key: Vec<&str>) -> bool {
-		//let count = (*uri).segment_count();
-		//let segments = *uri.segments();
-		
-		/*match segments[0].to_string() {
-			"api" => {},
-			_ => {}
-		}*/
+		// select ApiKey WHERE id = 2
 		true
 	}
 }
@@ -219,13 +201,7 @@ impl<'r> FromRequest<'r> for NewPermission {
 pub struct UpdatePermission();
 impl UpdatePermission {
 	pub fn is_valid(key: Vec<&str>) -> bool {
-		//let count = (*uri).segment_count();
-		//let segments = *uri.segments();
-		
-		/*match segments[0].to_string() {
-			"api" => {},
-			_ => {}
-		}*/
+		// select ApiKey WHERE id = 3
 		true
 	}
 }
