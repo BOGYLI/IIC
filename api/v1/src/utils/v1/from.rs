@@ -59,6 +59,7 @@ impl DBQueryableUtils<models::Benutzer, schema::benutzer::SqlType> for models::B
             id: id,
             vorname: String::new(),
             nachname: String::new(),
+            passwort: String::new(),
             klasse: String::new(),
             rolle: String::new(),
         }
@@ -128,6 +129,83 @@ impl DBQueryableUtils<models::Artikel, schema::artikel::SqlType> for models::Art
         models::ArtikelAutor {
             id: id,
             titel: String::new(),
+        }
+    }
+}*/
+
+
+
+
+impl DBQueryableUtils<models::SSpiel, schema::sspiel::SqlType> for models::SSpiel {
+    fn new_by_id(id: i32) -> models::SSpiel {
+        models::SSpiel {
+            id: id,
+            name: String::new(),
+            apikey: String::new(),
+            highscore: None,
+            best: None,
+        }
+    }
+}
+
+impl DBQueryableUtils<models::MSpiel, schema::mspiel::SqlType> for models::MSpiel {
+    fn new_by_id(id: i32) -> models::MSpiel {
+        models::MSpiel {
+            id: id,
+            name: String::new(),
+            apikey: String::new(),
+            highscore: None,
+            best: None,
+        }
+    }
+}
+/*
+impl DBQueryableUtils<models::SSpieler, schema::artikel::SqlType> for models::Artikel {
+    fn new_by_id(id: i32) -> models::Artikel {
+        models::Artikel {
+            matchid: id,
+            team1id: 0,
+            team2id: 0,
+            spielid: 0,
+            level: 0,
+            score1: 0,
+            score2: 0,
+            einstellungen1: String::new(),
+            einstellungen2: String::new(),
+        }
+    }
+}
+
+impl DBQueryableUtils<models::MSpieler, schema::artikel::SqlType> for models::Artikel {
+    fn new_by_id(id: i32) -> models::Artikel {
+        models::Artikel {
+            id: id,
+            pfad: String::new(),
+            erstelldatum: String::new(),
+            status: String::new(),
+            templateid: 0,
+        }
+    }
+}
+*/
+impl DBQueryableUtils<models::Team, schema::team::SqlType> for models::Team {
+    fn new_by_id(id: i32) -> models::Team {
+        models::Team {
+            id: id,
+            name: String::new(),
+            overallscore: 0,
+        }
+    }
+}
+/*
+impl DBQueryableUtils<models::BenutzerTeam, schema::artikel::SqlType> for models::Artikel {
+    fn new_by_id(id: i32) -> models::Artikel {
+        models::Artikel {
+            id: id,
+            pfad: String::new(),
+            erstelldatum: String::new(),
+            status: String::new(),
+            templateid: 0,
         }
     }
 }*/

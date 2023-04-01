@@ -6,13 +6,17 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-rocket = {version = "0.5.0-rc.2", features = ["secrets", "json"] }
-serde = { version = "1", features = ["derive"] }
-serde_derive = { version = "1" }
-serde_rusqlite = { version = "0.31.0" }
+rocket = {version = "0.5.0-rc.2", features = ["secrets", "json", "tls"] }
+serde = { version = "1.0.159", features = ["derive"] }
+serde_derive = { version = "1.0.159" }
+#serde_rusqlite = { version = "0.31.0" }
 
-diesel = { version = "2.0.0", features = ["postgres"] }
+diesel = { version = "2.0.3", features = ["postgres"] }
 dotenvy = "0.15"
+rand = "0.8.5"
+
+wp-lib = { path = "../../lib/wp-lib" }
+mebis-lib = { path = "../../lib/mebis-lib" }
 
 
 [dependencies.rocket_dyn_templates]

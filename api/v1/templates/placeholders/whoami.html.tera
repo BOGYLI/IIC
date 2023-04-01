@@ -1,0 +1,4 @@
+<h1>Vorname: {{vorname}}</h1>
+<h1>Nachname: {{nachname}}</h1>
+<h1>Klasse: {{klasse}}</h1>
+<h1>Rolle: {{rolle}}</h1>

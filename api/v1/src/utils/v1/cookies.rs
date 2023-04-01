@@ -1,0 +1,207 @@
+use rocket::request::Outcome;
+use rocket::http::Status;
+use rocket::request::{self, Request, FromRequest};
+use rocket::outcome::IntoOutcome;
+use rocket::outcome::try_outcome;
+use rocket::http::Cookie;
+use rocket::http::CookieJar;
+use rocket::http::SameSite;
+
+use crate::db::v1::models::Benutzer;
+use crate::utils::v1::DBQueryableUtils;
+use crate::db::v1::DBQueryable;
+
+/*#[rocket::async_trait]
+impl<'r> FromRequest<'r> for Benutzer {
+    type Error = std::convert::Infallible;
+
+    async fn from_request(request: &'r Request<'_>) -> request::Outcome<Self, Self::Error> {
+        request.cookies()
+            .get_private("user_id")
+            .and_then(|c| c.value().parse().ok())
+            .map(|id| Benutzer::new_by_id(id).get(&mut crate::db::v1::establish_connection()).ok().unwrap())
+            .or_forward(())
+    }
+}*/
+
+
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for Benutzer {
+    type Error = ();
+
+    async fn from_request(request: &'r Request<'_>) -> Outcome<Benutzer, ()> {
+        request.cookies()
+            .get_private("user_id")
+            .and_then(|cookie| cookie.value().parse().ok())
+            .and_then(|id| Benutzer::new_by_id(id).get(&mut crate::db::v1::establish_connection()).ok())
+            .or_forward(())
+    }
+}
+
+
+
+pub struct Admin{
+    pub user: Benutzer
+}
+impl Benutzer{
+	pub fn is_admin(&self) -> bool {
+		return self.rolle == "Admin"
+	}
+}
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for Admin {
+    type Error = ();
+
+    async fn from_request(request: &'r Request<'_>) -> Outcome<Admin, ()> {
+        // This will unconditionally query the database!
+        let user = try_outcome!(request.guard::<Benutzer>().await);
+        if user.is_admin() {
+            Outcome::Success(Admin { user })
+        } else {
+            Outcome::Forward(())
+        }
+    }
+}
+
+
+
+pub struct Lehrer{
+    pub user: Benutzer
+}
+impl Benutzer{
+	pub fn is_lehrer(&self) -> bool {
+		return self.rolle == "Lehrer"
+	}
+}
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for Lehrer {
+    type Error = ();
+
+    async fn from_request(request: &'r Request<'_>) -> Outcome<Lehrer, ()> {
+        // This will unconditionally query the database!
+        let user = try_outcome!(request.guard::<Benutzer>().await);
+        if user.is_lehrer() {
+            Outcome::Success(Lehrer { user })
+        } else {
+            Outcome::Forward(())
+        }
+    }
+}
+
+
+
+
+#[derive(Debug)]
+pub enum ApiKeyError {
+    BadCount,
+    Missing,
+    Invalid,
+}
+pub struct ApiKey(String);
+impl ApiKey {
+	pub fn is_valid(key: &str, uri: &rocket::http::uri::Origin<'_>) -> bool {
+		//let count = (*uri).segment_count();
+		//let segments = *uri.segments();
+		
+		/*match segments[0].to_string() {
+			"api" => {},
+			_ => {}
+		}*/
+		true
+	}
+}
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for ApiKey {
+    type Error = ApiKeyError;
+
+    async fn from_request(request: &'r Request<'_>) -> Outcome<ApiKey, ApiKeyError> {
+        let keys: Vec<_> = request.headers().get("x-api-key").collect();
+        let uri = request.uri();
+        println!("{}", uri);
+        match keys.len() {
+            0 => Outcome::Failure((Status::BadRequest, ApiKeyError::Missing)),
+            1 if ApiKey::is_valid(keys[0], uri) => Outcome::Success(ApiKey(keys[0].to_string())),
+            1 => Outcome::Failure((Status::BadRequest, ApiKeyError::Invalid)),
+            _ => Outcome::Failure((Status::BadRequest, ApiKeyError::BadCount)),
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+// Authentizierung als irgendein angemeldeter Benutzer mit Rolle
+#[derive(Serialize)]
+pub struct Rolle(Benutzer);
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for Rolle {
+    type Error = std::convert::Infallible;
+
+    async fn from_request(request: &'r Request<'_>) -> request::Outcome<Self, Self::Error> {
+        request.cookies()
+            .get_private("user_id")
+            .and_then(|c| c.value().parse().ok())
+            .map(|id| Benutzer::new_by_id(id).get(&mut crate::db::v1::establish_connection()).ok().expect("Database error"))
+            .map(|benutzer| Rolle(benutzer))
+            .or_forward(())
+    }
+}
+
+
+// Authentizierung als irgendein Lehrer
+pub struct Lehrer();
+#[rocket::async_trait]
+impl Lehrer {
+	pub fn from(rolle: String) -> Option<Self> {
+		if rolle == "Lehrer" {
+			Some(Lehrer())
+		} else {
+			None
+		}
+	}
+}
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for Lehrer {
+    type Error = std::convert::Infallible;
+
+    async fn from_request(request: &'r Request<'_>) -> request::Outcome<Self, Self::Error> {
+        request.cookies()
+            .get_private("user_id")
+            .and_then(|c| c.value().parse().ok())
+            .map(|id| Benutzer::new_by_id(id).get(&mut crate::db::v1::establish_connection()).ok().unwrap())
+            .map(|benutzer| Lehrer::from(benutzer.rolle).or())
+            .or_forward(())
+    }
+}
+
+
+// Authentizierung als irgendein Schueler
+pub struct Schueler(Benutzer);
+impl Benutzer {
+	pub fn is_schueler(&self) -> bool {
+		self.rolle == "Schueler"
+	}
+}
+impl<'a> FromRequest<'a> for Schueler {
+    type Error = ();
+
+    fn from_request(request: &'a Request<'_>) -> request::Outcome<Schueler, ()> {
+        // This will unconditionally query the database!
+        let user = request.guard::<Benutzer>().unwrap();
+
+        if user.is_schueler() {
+            Outcome::Success(Schueler(user))
+        } else {
+            Outcome::Forward(())
+        }
+    }
+}
+*/

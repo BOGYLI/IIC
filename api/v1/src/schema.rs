@@ -22,8 +22,16 @@ diesel::table! {
         id -> Int4,
         vorname -> Text,
         nachname -> Text,
+        passwort -> Text,
         klasse -> Text,
         rolle -> Text,
+    }
+}
+
+diesel::table! {
+    benutzerteam (teamid, benutzerid) {
+        teamid -> Int4,
+        benutzerid -> Int4,
     }
 }
 
@@ -33,6 +41,58 @@ diesel::table! {
         typ -> Text,
         pfad -> Text,
         erstelldatum -> Text,
+    }
+}
+
+diesel::table! {
+    mspiel (id) {
+        id -> Int4,
+        name -> Text,
+        apikey -> Text,
+        highscore -> Nullable<Int4>,
+        best -> Nullable<Int4>,
+    }
+}
+
+diesel::table! {
+    mspieler (matchid, spielid) {
+        matchid -> Int4,
+        team1id -> Int4,
+        team2id -> Int4,
+        spielid -> Int4,
+        score1 -> Int4,
+        score2 -> Int4,
+        level -> Int4,
+        einstellungen1 -> Text,
+        einstellungen2 -> Text,
+    }
+}
+
+diesel::table! {
+    sspiel (id) {
+        id -> Int4,
+        name -> Text,
+        apikey -> Text,
+        highscore -> Nullable<Int4>,
+        best -> Nullable<Int4>,
+    }
+}
+
+diesel::table! {
+    sspieler (benutzerid, spielid) {
+        benutzerid -> Int4,
+        spielid -> Int4,
+        level -> Int4,
+        highscore -> Int4,
+        einstellungen -> Text,
+    }
+}
+
+diesel::table! {
+    team (id) {
+        id -> Int4,
+        name -> Text,
+        overallscore -> Int4,
     }
 }
 
@@ -107,6 +167,13 @@ diesel::table! {
 diesel::joinable!(artikel -> template (templateid));
 diesel::joinable!(artikelautor -> artikel (artikelid));
 diesel::joinable!(artikelautor -> benutzer (benutzerid));
+diesel::joinable!(benutzerteam -> benutzer (benutzerid));
+diesel::joinable!(benutzerteam -> team (teamid));
+diesel::joinable!(mspiel -> team (best));
+diesel::joinable!(mspieler -> mspiel (spielid));
+diesel::joinable!(sspiel -> benutzer (best));
+diesel::joinable!(sspieler -> benutzer (benutzerid));
+diesel::joinable!(sspieler -> sspiel (spielid));
 diesel::joinable!(templatetparameter -> template (templateid));
 diesel::joinable!(templatetparameter -> tparameter (parameterid));
 diesel::joinable!(ufrageuantwort -> uantwort (antwortid));
@@ -122,7 +189,13 @@ diesel::allow_tables_to_appear_in_same_query!(
     artikel,
     artikelautor,
     benutzer,
+    benutzerteam,
     medien,
+    mspiel,
+    mspieler,
+    sspiel,
+    sspieler,
+    team,
     template,
     templatetparameter,
     tparameter,

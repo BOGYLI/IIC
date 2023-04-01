@@ -5,7 +5,7 @@ CREATE TABLE Umfrageantwort(
 	antwortId		INTEGER	NOT NULL,
 	wert			TEXT,
 
-	PRIMARY KEY(umfrageId, benutzerId, frageId, antwortId),
+	PRIMARY KEY(umfrageId, benutzerId, frageId),
 	FOREIGN KEY(umfrageId) REFERENCES Umfrage(id),
 	FOREIGN KEY(benutzerId) REFERENCES Benutzer(id),
 	FOREIGN KEY(frageId) REFERENCES UFrage(id),

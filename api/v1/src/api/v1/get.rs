@@ -5,6 +5,7 @@ use rocket::http::Status;
 use crate::utils::from::*;
 use crate::utils::v1::DBQueryableUtils;
 use crate::db::v1::DBQueryable;
+use crate::utils::v1::cookies::{ApiKey};
 
 
 #[post("/umfrage/<id>") ]
@@ -114,5 +115,53 @@ pub fn artikelautor(data: Form<ArtikelAutor>) -> Result<rocket::serde::json::Jso
 
 
 
+
+#[post("/sspiel/<id>") ]
+pub fn sspiel(id: i32, apikey: ApiKey) -> Result<rocket::serde::json::Json<SSpiel>, Status> {
+	match SSpiel::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+		Ok(data) => Ok(rocket::serde::json::Json(data)),
+		Err(_) => Err(Status::InternalServerError)
+	}
+}
+
+#[post("/mspiel/<id>") ]
+pub fn mspiel(id: i32, apikey: ApiKey) -> Result<rocket::serde::json::Json<MSpiel>, Status> {
+	match MSpiel::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+		Ok(data) => Ok(rocket::serde::json::Json(data)),
+		Err(_) => Err(Status::InternalServerError)
+	}
+}
+
+/*#[post("/sspieler/<id>") ]
+pub fn sspieler(id: i32) -> Result<rocket::serde::json::Json<SSpieler>, Status> {
+	match SSpieler::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+		Ok(data) => Ok(rocket::serde::json::Json(data)),
+		Err(_) => Err(Status::InternalServerError)
+	}
+}
+
+#[post("/mspieler/<id>") ]
+pub fn mspieler(id: i32) -> Result<rocket::serde::json::Json<MSpieler>, Status> {
+	match MSpieler::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+		Ok(data) => Ok(rocket::serde::json::Json(data)),
+		Err(_) => Err(Status::InternalServerError)
+	}
+}*/
+
+#[post("/team/<id>") ]
+pub fn team(id: i32) -> Result<rocket::serde::json::Json<Team>, Status> {
+	match Team::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+		Ok(data) => Ok(rocket::serde::json::Json(data)),
+		Err(_) => Err(Status::InternalServerError)
+	}
+}
+
+/*#[post("/benutzerteam/<id>") ]
+pub fn benutzerteam(id: i32) -> Result<rocket::serde::json::Json<BenutzerTeam>, Status> {
+	match BenutzerTeam::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+		Ok(data) => Ok(rocket::serde::json::Json(data)),
+		Err(_) => Err(Status::InternalServerError)
+	}
+}*/
 
 

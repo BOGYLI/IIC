@@ -1,6 +1,9 @@
 use diesel::prelude::*;
 use super::schema::*;
 
+use crate::utils::v1::apikey;
+use serde::{Serialize, Deserialize};
+
 #[derive(Insertable, FromForm)]
 #[diesel(table_name = umfrage)]
 pub struct NewUmfrage<'a> {
@@ -45,6 +48,7 @@ pub struct NewBenutzer<'a> {
 	//pub id: i32,
 	pub vorname: &'a str,
 	pub nachname: &'a str,
+	pub passwort: &'a str,
 	pub klasse: &'a str,
 	pub rolle: &'a str
 }
@@ -104,3 +108,67 @@ pub struct NewArtikelAutor {
 	pub artikelid: i32,
 	pub benutzerid: i32,
 }
+
+
+
+#[derive(Insertable, FromForm, Debug, Clone)]
+#[derive(Serialize, Deserialize)]
+#[diesel(table_name = sspiel)]
+pub struct NewSSpiel {
+	pub name: String,
+	#[serde(default = "apikey::generate")]
+	pub apikey: String,
+	//pub highscore: i32,
+	//pub best: i32
+}
+
+#[derive(Insertable, FromForm)]
+#[derive(Serialize, Deserialize)]
+#[diesel(table_name = mspiel)]
+pub struct NewMSpiel {
+	pub name: String,
+	#[serde(default = "apikey::generate")]
+	pub apikey: String,
+	//pub highscore: i32,
+	//pub best: i32
+}
+
+#[derive(Insertable, FromForm)]
+#[diesel(table_name = sspieler)]
+pub struct NewSSpieler {
+	pub benutzerid: i32,
+	pub spielid: i32,
+	pub level: i32,
+	pub highscore: i32,
+	pub einstellungen: String,
+}
+
+#[derive(Insertable, FromForm)]
+#[diesel(table_name = mspieler)]
+pub struct NewMSpieler {
+	pub matchid: i32,
+	pub team1id: i32,
+	pub team2id: i32,
+	pub spielid: i32,
+	pub level: i32,
+	pub score1: i32,
+	pub score2: i32,
+	pub einstellungen1: String,
+	pub einstellungen2: String,
+}
+
+#[derive(Insertable, FromForm)]
+#[diesel(table_name = team)]
+pub struct NewTeam {
+	pub name: String,
+	pub overallscore: i32,
+}
+
+#[derive(Insertable, FromForm)]
+#[diesel(table_name = benutzerteam)]
+pub struct NewBenutzerTeam {
+	pub benutzerid: i32,
+	pub teamid: i32
+}
+
+

@@ -1,0 +1,13 @@
+<html>
+<body>
+<form method="get" action="http://localhost:8000/api/v1/get_all/benutzer">
+<input name="id" value="*" type="number">
+<input name="vorname" value="*" type="text">
+<input name="nachname" value="*" type="text">
+<input name="passwort" value="*" type="text">
+<input name="klasse" value="*" type="text">
+<input name="rolle" value="*" type="text">
+<input type="submit">
+</form>
+</body>
+</html>
