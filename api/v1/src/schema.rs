@@ -36,11 +36,9 @@ diesel::table! {
 diesel::table! {
     benutzer (id) {
         id -> Int4,
-        vorname -> Text,
-        nachname -> Text,
+        name -> Text,
         passwort -> Text,
-        klasse -> Text,
-        rolle -> Text,
+        mebistoken -> Text,
     }
 }
 
@@ -126,6 +124,7 @@ diesel::table! {
     team (id) {
         id -> Int4,
         name -> Text,
+        apikeyid -> Int4,
         overallscore -> Int4,
     }
 }
@@ -198,6 +197,13 @@ diesel::table! {
     }
 }
 
+diesel::table! {
+    umfrageufrage (umfrageid, frageid) {
+        umfrageid -> Int4,
+        frageid -> Int4,
+    }
+}
+
 diesel::joinable!(artikel -> template (templateid));
 diesel::joinable!(artikelautor -> artikel (artikelid));
 diesel::joinable!(artikelautor -> benutzer (benutzerid));
@@ -225,6 +231,8 @@ diesel::joinable!(umfrageantwort -> ufrage (frageid));
 diesel::joinable!(umfrageantwort -> umfrage (umfrageid));
 diesel::joinable!(umfragebenutzer -> benutzer (benutzerid));
 diesel::joinable!(umfragebenutzer -> umfrage (umfrageid));
+diesel::joinable!(umfrageufrage -> ufrage (frageid));
+diesel::joinable!(umfrageufrage -> umfrage (umfrageid));
 
 diesel::allow_tables_to_appear_in_same_query!(
     apikey,
@@ -250,4 +258,5 @@ diesel::allow_tables_to_appear_in_same_query!(
     umfrage,
     umfrageantwort,
     umfragebenutzer,
+    umfrageufrage,
 );
