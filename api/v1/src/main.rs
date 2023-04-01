@@ -24,7 +24,7 @@ pub mod api;
 pub mod utils;
 pub mod schema;
 
-use utils::v1::cookies::*;
+use utils::cookies::*;
 
 /*#[get("/static/<file..>")]
 async fn files(file: PathBuf) -> Option<NamedFile> {
@@ -104,7 +104,7 @@ async fn login_fail() -> Template {
 use crate::db::models::SSpiel;
 #[get("/sspiel")]
 async fn sspiel() -> Result<Template, Status> {
-    match SSpiel::get_all(&mut crate::db::v1::establish_connection()) {
+    match SSpiel::get_all(&mut crate::db::establish_connection()) {
         Ok(games) => {
             Ok(Template::render("placeholders/games", context! {
                 games: games
@@ -114,39 +114,56 @@ async fn sspiel() -> Result<Template, Status> {
     }
 }
 
-use crate::utils::v1::DBQueryableUtils;
-use crate::db::v1::DBQueryable;
+use crate::utils::DBQueryableUtils;
+use crate::db::DBQueryable;
 use rocket::serde::json::Json;
 
 #[derive(Deserialize, FromForm)]
 struct Login<'r> {
-    vorname: &'r str,
-    nachname: &'r str,
-    passwort: &'r str,
+    name: &'r str,
+    passwort: Option<&'r str>,
+    token: Option<&'r str>,
 }
 #[post("/login", data = "<data>")]
 async fn login(data: Form<Login<'_>>, cookies: &CookieJar<'_>) -> Result<Template, Redirect> {
-    match Benutzer::authenticate(data.vorname, data.nachname, data.passwort, &mut crate::db::v1::establish_connection()) {
-        Some(benutzer) => {
-            cookies.remove_private(Cookie::named("user_id"));
-            cookies.add_private(Cookie::new("user_id", benutzer.id.to_string()));
-            Ok(Template::render("placeholders/loggedin", context! {
-            }))
-        }
-        None => {
-            Err(Redirect::to(uri!(login_fail)))
-        }
+    match data.token {
+        Some(token) => {
+            match Benutzer::mebis(data.name.to_string(), token.to_string(), &mut crate::db::establish_connection()) {
+                Some(benutzer) => {
+                    cookies.remove_private(Cookie::named("user_id"));
+                    cookies.add_private(Cookie::new("user_id", benutzer.id.to_string()));
+                    return Ok(Template::render("placeholders/loggedin", context! {
+                    }));
+                }
+                None => {}
+            }
+        },
+        None => return Err(Redirect::to(uri!(login_fail)))
     }
+    match data.passwort {
+        Some(passwort) => {
+            match Benutzer::authenticate(data.name.to_string(), passwort.to_string(), &mut crate::db::establish_connection()) {
+                Some(benutzer) => {
+                    cookies.remove_private(Cookie::named("user_id"));
+                    cookies.add_private(Cookie::new("user_id", benutzer.id.to_string()));
+                    return Ok(Template::render("placeholders/loggedin", context! {
+                    }));
+                }
+                None => return Err(Redirect::to(uri!(login_fail)))
+            }
+        },
+        None => {}
+    }
+    Err(Redirect::to(uri!(login_fail)))
 }
 
 use crate::db::models::Benutzer;
 #[get("/whoami")]
 async fn whoami(user: Benutzer) -> Template {
     Template::render("placeholders/whoami", context! {
-        vorname: user.vorname,
-        nachname: user.nachname,
-        klasse: user.klasse,
-        rolle: user.rolle
+        name: user.name,
+        mebistoken: user.mebistoken,
+        passwort: user.passwort,
     })
 }
 #[get("/whoami", rank = 2)]
@@ -195,14 +212,14 @@ async fn lehrer(rolle: Lehrer) -> Template {
 #[get("/lehrer", rank = 2)]
 async fn keinlehrer(user: Benutzer) -> Template {
     Template::render("placeholders/wrong_role", context! {
-        rolle: user.rolle
+        //rolle: user.rolle
     })
 }
 
 #[get("/schueler", rank = 2)]
 async fn schueler(user: Benutzer) -> Template {
     Template::render("placeholders/wrong_role", context! {
-        rolle: user.rolle
+        //rolle: user.rolle
     })
 }
 
@@ -241,11 +258,11 @@ fn rocket() -> _ {
     rocket::custom(config)
         .mount("/", routes![index, favicon, api_v1, home, wordpress_post, login_page, login_fail, login, register, whoami, whoami2, placeholders, sspiel, lehrer, keinlehrer, schueler])
         .mount("/features/v1", routes![feat_v1_news, feat_v1_navi, feat_v1_spiele, feat_v1_umfragen, feat_v1_geburtstag])
-        .mount("/api/v1/delete", routes![api::v1::del::umfrage, api::v1::del::medien, api::v1::del::template, api::v1::del::tparameter, api::v1::del::benutzer, api::v1::del::ufrage, api::v1::del::uantwort, api::v1::del::artikel, api::v1::del::sspiel, api::v1::del::mspiel, api::v1::del::team])
-        .mount("/api/v1/edit", routes![api::v1::edit::umfrageantwort, api::v1::edit::umfrage, api::v1::edit::uantwort, api::v1::edit::umfragebenutzer, api::v1::edit::ufrage, api::v1::edit::medien, api::v1::edit::artikel, api::v1::edit::artikelautor, api::v1::edit::benutzer, api::v1::edit::template, api::v1::edit::templatetparameter, api::v1::edit::tparameter, api::v1::edit::sspiel, api::v1::edit::mspiel, api::v1::edit::sspieler, api::v1::edit::mspieler, api::v1::edit::team, api::v1::edit::benutzerteam])
-        .mount("/api/v1/get_all", routes![api::v1::get_all::umfrageantwort, api::v1::get_all::umfrage, api::v1::get_all::uantwort, api::v1::get_all::umfragebenutzer, api::v1::get_all::ufrage, api::v1::get_all::medien, api::v1::get_all::artikel, api::v1::get_all::artikelautor, api::v1::get_all::benutzer, api::v1::get_all::template, api::v1::get_all::templatetparameter, api::v1::get_all::tparameter, api::v1::get_all::sspiel, api::v1::get_all::mspiel, api::v1::get_all::sspieler, api::v1::get_all::mspieler, api::v1::get_all::team, api::v1::get_all::benutzerteam])
-        .mount("/api/v1/get", routes![api::v1::get::umfrage, api::v1::get::medien, api::v1::get::template, api::v1::get::tparameter, api::v1::get::benutzer, api::v1::get::ufrage, api::v1::get::uantwort, api::v1::get::artikel, api::v1::del::sspiel, api::v1::del::mspiel, api::v1::del::team])
-        .mount("/api/v1/new", routes![api::v1::new::umfrageantwort, api::v1::new::umfrage, api::v1::new::uantwort, api::v1::new::umfragebenutzer, api::v1::new::ufrage, api::v1::new::medien, api::v1::new::artikel, api::v1::new::artikelautor, api::v1::new::benutzer, api::v1::new::template, api::v1::new::templatetparameter, api::v1::new::tparameter, api::v1::new::sspiel, api::v1::new::mspiel, api::v1::new::sspieler, api::v1::new::mspieler, api::v1::new::team, api::v1::new::benutzerteam])
+        .mount("/api/v1/delete", routes![api::del::umfrage, api::del::medien, api::del::template, api::del::tparameter, api::del::benutzer, api::del::ufrage, api::del::uantwort, api::del::artikel, api::del::sspiel, api::del::mspiel, api::del::team])
+        .mount("/api/v1/edit", routes![api::edit::umfrageantwort, api::edit::umfrage, api::edit::uantwort, api::edit::umfragebenutzer, api::edit::ufrage, api::edit::medien, api::edit::artikel, api::edit::artikelautor, api::edit::benutzer, api::edit::template, api::edit::templatetparameter, api::edit::tparameter, api::edit::sspiel, api::edit::mspiel, api::edit::sspieler, api::edit::mspieler, api::edit::team, api::edit::benutzerteam])
+        .mount("/api/v1/get_all", routes![api::get_all::umfrageantwort, api::get_all::umfrage, api::get_all::uantwort, api::get_all::umfragebenutzer, api::get_all::ufrage, api::get_all::medien, api::get_all::artikel, api::get_all::artikelautor, api::get_all::benutzer, api::get_all::template, api::get_all::templatetparameter, api::get_all::tparameter, api::get_all::sspiel, api::get_all::mspiel, api::get_all::sspieler, api::get_all::mspieler, api::get_all::team, api::get_all::benutzerteam])
+        .mount("/api/v1/get", routes![api::get::umfrage, api::get::medien, api::get::template, api::get::tparameter, api::get::benutzer, api::get::ufrage, api::get::uantwort, api::get::artikel, api::del::sspiel, api::del::mspiel, api::del::team])
+        .mount("/api/v1/new", routes![api::new::umfrageantwort, api::new::umfrage, api::new::uantwort, api::new::umfragebenutzer, api::new::ufrage, api::new::medien, api::new::artikel, api::new::artikelautor, api::new::benutzer, api::new::template, api::new::templatetparameter, api::new::tparameter, api::new::sspiel, api::new::mspiel, api::new::sspieler, api::new::mspieler, api::new::team, api::new::benutzerteam])
         .mount("/static", FileServer::from("static"))
         .register("/", catchers![not_found, internal])
         .attach(Template::fairing())

@@ -1,16 +1,16 @@
-use crate::db::v1::models::*;
+use crate::db::models::*;
 use rocket::form::Form;
 use rocket::http::Status;
 
 use crate::utils::from::*;
-use crate::utils::v1::DBQueryableUtils;
-use crate::db::v1::DBQueryable;
-use crate::utils::v1::cookies::{ApiKey};
+use crate::utils::DBQueryableUtils;
+use crate::db::DBQueryable;
+use crate::utils::cookies::{ApiKey};
 
 
 #[post("/umfrage/<id>") ]
 pub fn umfrage(id: i32) -> Result<rocket::serde::json::Json<Umfrage>, Status> {
-	match Umfrage::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match Umfrage::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -18,7 +18,7 @@ pub fn umfrage(id: i32) -> Result<rocket::serde::json::Json<Umfrage>, Status> {
 
 #[post("/medien/<id>") ]
 pub fn medien(id: i32) -> Result<rocket::serde::json::Json<Medien>, Status> {
-	match Medien::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match Medien::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -26,7 +26,7 @@ pub fn medien(id: i32) -> Result<rocket::serde::json::Json<Medien>, Status> {
 
 #[post("/template/<id>") ]
 pub fn template(id: i32) -> Result<rocket::serde::json::Json<Template>, Status> {
-	match Template::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match Template::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -34,7 +34,7 @@ pub fn template(id: i32) -> Result<rocket::serde::json::Json<Template>, Status> 
 
 #[post("/tparameter/<id>") ]
 pub fn tparameter(id: i32) -> Result<rocket::serde::json::Json<TParameter>, Status> {
-	match TParameter::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match TParameter::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -42,7 +42,7 @@ pub fn tparameter(id: i32) -> Result<rocket::serde::json::Json<TParameter>, Stat
 
 /*#[post("/templatetparameter/del", data = "<data>") ]
 pub fn templatetparameter(data: Form<TemplateTParameter>) -> Result<rocket::serde::json::Json<usize>, Status> {
-	match TemplateTParameter::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match TemplateTParameter::new_by_id(id).get(&mut crate::db::establish_connection()()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -50,7 +50,7 @@ pub fn templatetparameter(data: Form<TemplateTParameter>) -> Result<rocket::serd
 
 #[post("/benutzer/<id>") ]
 pub fn benutzer(id: i32) -> Result<rocket::serde::json::Json<Benutzer>, Status> {
-	match Benutzer::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match Benutzer::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -58,7 +58,7 @@ pub fn benutzer(id: i32) -> Result<rocket::serde::json::Json<Benutzer>, Status> 
 
 #[post("/ufrage/<id>") ]
 pub fn ufrage(id: i32) -> Result<rocket::serde::json::Json<UFrage>, Status> {
-	match UFrage::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match UFrage::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -66,7 +66,7 @@ pub fn ufrage(id: i32) -> Result<rocket::serde::json::Json<UFrage>, Status> {
 
 #[post("/uantwort/<id>") ]
 pub fn uantwort(id: i32) -> Result<rocket::serde::json::Json<UAntwort>, Status> {
-	match UAntwort::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match UAntwort::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -74,7 +74,7 @@ pub fn uantwort(id: i32) -> Result<rocket::serde::json::Json<UAntwort>, Status> 
 
 /*#[post("/ufrageuantwort/<id>") ]
 pub fn ufrageuantwort(id: i32) -> Result<rocket::serde::json::Json<usize>, Status> {
-	match UFrageUAntwort::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match UFrageUAntwort::new_by_id(id).get(&mut crate::db::establish_connection()()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -82,7 +82,7 @@ pub fn ufrageuantwort(id: i32) -> Result<rocket::serde::json::Json<usize>, Statu
 
 /*#[post("/umfragebenutzer/<id>") ]
 pub fn umfragebenutzer(id: i32) -> Result<rocket::serde::json::Json<usize>, Status> {
-	match UmfrageBenutzer::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match UmfrageBenutzer::new_by_id(id).get(&mut crate::db::establish_connection()()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -90,7 +90,7 @@ pub fn umfragebenutzer(id: i32) -> Result<rocket::serde::json::Json<usize>, Stat
 
 /*#[post("/umfrageantwort/del", data = "<data>") ]
 pub fn umfrageantwort(data: Form<Umfrageantwort>) -> Result<rocket::serde::json::Json<usize>, Status> {
-	match Umfrageantwort::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match Umfrageantwort::new_by_id(id).get(&mut crate::db::establish_connection()()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -98,7 +98,7 @@ pub fn umfrageantwort(data: Form<Umfrageantwort>) -> Result<rocket::serde::json:
 
 #[post("/artikel/<id>") ]
 pub fn artikel(id: i32) -> Result<rocket::serde::json::Json<Artikel>, Status> {
-	match Artikel::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match Artikel::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -106,7 +106,7 @@ pub fn artikel(id: i32) -> Result<rocket::serde::json::Json<Artikel>, Status> {
 
 /*#[post("/artikelautor/del", data = "<data>") ]
 pub fn artikelautor(data: Form<ArtikelAutor>) -> Result<rocket::serde::json::Json<usize>, Status> {
-	match ArtikelAutor::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match ArtikelAutor::new_by_id(id).get(&mut crate::db::establish_connection()()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -118,7 +118,7 @@ pub fn artikelautor(data: Form<ArtikelAutor>) -> Result<rocket::serde::json::Jso
 
 #[post("/sspiel/<id>") ]
 pub fn sspiel(id: i32, apikey: ApiKey) -> Result<rocket::serde::json::Json<SSpiel>, Status> {
-	match SSpiel::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match SSpiel::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -126,7 +126,7 @@ pub fn sspiel(id: i32, apikey: ApiKey) -> Result<rocket::serde::json::Json<SSpie
 
 #[post("/mspiel/<id>") ]
 pub fn mspiel(id: i32, apikey: ApiKey) -> Result<rocket::serde::json::Json<MSpiel>, Status> {
-	match MSpiel::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match MSpiel::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -134,7 +134,7 @@ pub fn mspiel(id: i32, apikey: ApiKey) -> Result<rocket::serde::json::Json<MSpie
 
 /*#[post("/sspieler/<id>") ]
 pub fn sspieler(id: i32) -> Result<rocket::serde::json::Json<SSpieler>, Status> {
-	match SSpieler::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match SSpieler::new_by_id(id).get(&mut crate::db::establish_connection()()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -142,7 +142,7 @@ pub fn sspieler(id: i32) -> Result<rocket::serde::json::Json<SSpieler>, Status> 
 
 #[post("/mspieler/<id>") ]
 pub fn mspieler(id: i32) -> Result<rocket::serde::json::Json<MSpieler>, Status> {
-	match MSpieler::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match MSpieler::new_by_id(id).get(&mut crate::db::establish_connection()()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -150,7 +150,7 @@ pub fn mspieler(id: i32) -> Result<rocket::serde::json::Json<MSpieler>, Status> 
 
 #[post("/team/<id>") ]
 pub fn team(id: i32) -> Result<rocket::serde::json::Json<Team>, Status> {
-	match Team::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match Team::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}
@@ -158,7 +158,7 @@ pub fn team(id: i32) -> Result<rocket::serde::json::Json<Team>, Status> {
 
 /*#[post("/benutzerteam/<id>") ]
 pub fn benutzerteam(id: i32) -> Result<rocket::serde::json::Json<BenutzerTeam>, Status> {
-	match BenutzerTeam::new_by_id(id).get(&mut crate::db::v1::establish_connection()) {
+	match BenutzerTeam::new_by_id(id).get(&mut crate::db::establish_connection()()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
 	}

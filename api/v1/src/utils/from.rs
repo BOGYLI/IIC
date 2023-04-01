@@ -1,5 +1,5 @@
 use super::DBQueryableUtils;
-use crate::db::v1::{models, schema};
+use crate::db::{models, schema};
 
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
@@ -57,11 +57,9 @@ impl DBQueryableUtils<models::Benutzer, schema::benutzer::SqlType> for models::B
     fn new_by_id(id: i32) -> models::Benutzer {
         models::Benutzer {
             id: id,
-            vorname: String::new(),
-            nachname: String::new(),
+            name: String::new(),
+            mebistoken: String::new(),
             passwort: String::new(),
-            klasse: String::new(),
-            rolle: String::new(),
         }
     }
 }
@@ -141,7 +139,8 @@ impl DBQueryableUtils<models::SSpiel, schema::sspiel::SqlType> for models::SSpie
         models::SSpiel {
             id: id,
             name: String::new(),
-            apikey: String::new(),
+            url: String::new(),
+            apikeyid: 0,
             highscore: None,
             best: None,
         }
@@ -153,7 +152,8 @@ impl DBQueryableUtils<models::MSpiel, schema::mspiel::SqlType> for models::MSpie
         models::MSpiel {
             id: id,
             name: String::new(),
-            apikey: String::new(),
+            url: String::new(),
+            apikeyid: 0,
             highscore: None,
             best: None,
         }
@@ -193,6 +193,7 @@ impl DBQueryableUtils<models::Team, schema::team::SqlType> for models::Team {
         models::Team {
             id: id,
             name: String::new(),
+            apikeyid: 0,
             overallscore: 0,
         }
     }
