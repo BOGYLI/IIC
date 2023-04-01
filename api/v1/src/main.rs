@@ -15,6 +15,7 @@ use rocket::tokio::sync::broadcast::{channel, Sender, error::RecvError};
 use rocket::tokio::select;
 
 use rocket::Request;
+use rocket::response::Responder;
 
 
 use rocket::fs::TempFile;
@@ -223,18 +224,35 @@ async fn schueler(user: Benutzer) -> Template {
     })
 }
 
+#[derive(Debug, Responder)]
+enum ResponseError {
+    #[response(status = 400)]
+    BadRequest(Template),
+    #[response(status = 401)]
+    Unauthorized(Template),
+    #[response(status = 404)]
+    NotFound(Template),
+    #[response(status = 500)]
+    InternalServerError(Template),
+}
 
-#[catch(404)]
-fn not_found(req: &Request) -> Template {
-    Template::render("errors/404", context! {
+#[catch(401)]
+fn not_authorized(req: &Request) -> ResponseError {
+    ResponseError::Unauthorized(Template::render("errors/401", context! {
         uri: req.uri()
-    })
+    }))
+}
+#[catch(404)]
+fn not_found(req: &Request) -> ResponseError {
+    ResponseError::NotFound(Template::render("errors/404", context! {
+        uri: req.uri()
+    }))
 }
 #[catch(500)]
-fn internal(req: &Request) -> Template {
-    Template::render("errors/500", context! {
+fn internal(req: &Request) -> ResponseError {
+    ResponseError::InternalServerError(Template::render("errors/500", context! {
         uri: req.uri()
-    })
+    }))
 }
 
 use std::env;
@@ -264,6 +282,6 @@ fn rocket() -> _ {
         .mount("/api/v1/get", routes![api::get::umfrage, api::get::medien, api::get::template, api::get::tparameter, api::get::benutzer, api::get::ufrage, api::get::uantwort, api::get::artikel, api::del::sspiel, api::del::mspiel, api::del::team])
         .mount("/api/v1/new", routes![api::new::umfrageantwort, api::new::umfrage, api::new::uantwort, api::new::umfragebenutzer, api::new::ufrage, api::new::medien, api::new::artikel, api::new::artikelautor, api::new::benutzer, api::new::template, api::new::templatetparameter, api::new::tparameter, api::new::sspiel, api::new::mspiel, api::new::sspieler, api::new::mspieler, api::new::team, api::new::benutzerteam])
         .mount("/static", FileServer::from("static"))
-        .register("/", catchers![not_found, internal])
+        .register("/", catchers![not_authorized, not_found, internal])
         .attach(Template::fairing())
 }
