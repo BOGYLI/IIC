@@ -44,7 +44,7 @@ async fn api_v1(template: String) -> Template {
 
 #[get("/")]
 async fn index(perm: HTMLPermission) -> Template {
-    Template::render("idle", context! {
+    Template::render("index", context! {
     })
 }
 

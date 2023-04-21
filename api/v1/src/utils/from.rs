@@ -132,6 +132,28 @@ impl DBQueryableUtils<models::Artikel, schema::artikel::SqlType> for models::Art
 }*/
 
 
+impl DBQueryableUtils<models::Berechtigung, schema::berechtigung::SqlType> for models::Berechtigung {
+    fn new_by_id(id: i32) -> models::Berechtigung {
+        models::Berechtigung {
+            id: id,
+            name: String::new(),
+            beschreibung: String::new(),
+            apikeyid: 0
+        }
+    }
+}
+
+impl DBQueryableUtils<models::ApiKey, schema::apikey::SqlType> for models::ApiKey {
+    fn new_by_id(id: i32) -> models::ApiKey {
+        models::ApiKey {
+            id: id,
+            wert: String::new(),
+            zeitpunkt: String::new(),
+            dauer: 0			// Stunden
+        }
+    }
+}
+
 
 
 impl DBQueryableUtils<models::SSpiel, schema::sspiel::SqlType> for models::SSpiel {
