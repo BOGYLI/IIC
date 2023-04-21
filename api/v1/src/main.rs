@@ -24,6 +24,7 @@ pub mod db;
 pub mod api;
 pub mod utils;
 pub mod schema;
+pub mod catchers;
 
 use utils::cookies::*;
 
@@ -42,8 +43,8 @@ async fn api_v1(template: String) -> Template {
 
 
 #[get("/")]
-async fn index() -> Template {
-    Template::render("index", context! {
+async fn index(perm: HTMLPermission) -> Template {
+    Template::render("idle", context! {
     })
 }
 
@@ -158,6 +159,27 @@ async fn login(data: Form<Login<'_>>, cookies: &CookieJar<'_>) -> Result<Templat
     Err(Redirect::to(uri!(login_fail)))
 }
 
+#[derive(Deserialize, FromForm)]
+struct HTMLActivation<'r> {
+    pin: &'r str
+}
+use rocket::request::Outcome;
+#[post("/htmlactivation", data = "<data>")]
+async fn htmlactivation(data: Form<HTMLActivation<'_>>, cookies: &CookieJar<'_>) -> Result<Template, Status> {
+    match dotenvy::var("SCREENPIN") {
+        Ok(screenpin) => {
+            if screenpin == data.pin {
+                cookies.remove_private(Cookie::named("html_access"));
+                cookies.add_private(Cookie::new("html_access", "1"));
+                return Ok(Template::render("idle", context! {
+                }));
+            }
+        }
+        Err(_) => {}
+    }
+    Err(Status::Locked)
+}
+
 use crate::db::models::Benutzer;
 #[get("/whoami")]
 async fn whoami(user: Benutzer) -> Template {
@@ -224,36 +246,7 @@ async fn schueler(user: Benutzer) -> Template {
     })
 }
 
-#[derive(Debug, Responder)]
-enum ResponseError {
-    #[response(status = 400)]
-    BadRequest(Template),
-    #[response(status = 401)]
-    Unauthorized(Template),
-    #[response(status = 404)]
-    NotFound(Template),
-    #[response(status = 500)]
-    InternalServerError(Template),
-}
 
-#[catch(401)]
-fn not_authorized(req: &Request) -> ResponseError {
-    ResponseError::Unauthorized(Template::render("errors/401", context! {
-        uri: req.uri()
-    }))
-}
-#[catch(404)]
-fn not_found(req: &Request) -> ResponseError {
-    ResponseError::NotFound(Template::render("errors/404", context! {
-        uri: req.uri()
-    }))
-}
-#[catch(500)]
-fn internal(req: &Request) -> ResponseError {
-    ResponseError::InternalServerError(Template::render("errors/500", context! {
-        uri: req.uri()
-    }))
-}
 
 use std::env;
 #[launch]
@@ -262,19 +255,22 @@ fn rocket() -> _ {
     dotenvy::var("USERNAME").expect("mebis-lib requires USERNAME - credential");
     dotenvy::var("PASSWORD").expect("mebis-lib requires PASSWORD - credential");
     dotenvy::var("URL").expect("mebis-lib requires URL - api");
+    dotenvy::var("SCREENPIN").expect("SCREENPIN required for graphical authentication of trusted device");
     
     use rocket::config::{Config, TlsConfig, CipherSuite};
     let tls_config = TlsConfig::from_paths("certs/cert.pem", "certs/key.pem")
         .with_ciphers(CipherSuite::TLS_V13_SET)
         .with_preferred_server_cipher_order(true);
-
+        
+    use std::net::Ipv4Addr;
     let config = Config {
         tls: Some(tls_config),
+        address: Ipv4Addr::new(0, 0, 0, 0).into(),
         ..Default::default()
     };
     
     rocket::custom(config)
-        .mount("/", routes![index, favicon, api_v1, home, wordpress_post, login_page, login_fail, login, register, whoami, whoami2, placeholders, sspiel, lehrer, keinlehrer, schueler])
+        .mount("/", routes![index, favicon, api_v1, home, wordpress_post, login_page, login_fail, login, register, whoami, whoami2, placeholders, sspiel, lehrer, keinlehrer, schueler, htmlactivation])
         .mount("/features/v1", routes![feat_v1_news, feat_v1_navi, feat_v1_spiele, feat_v1_umfragen, feat_v1_geburtstag])
         .mount("/api/v1/delete", routes![api::del::umfrage, api::del::medien, api::del::template, api::del::tparameter, api::del::benutzer, api::del::ufrage, api::del::uantwort, api::del::artikel, api::del::sspiel, api::del::mspiel, api::del::team])
         .mount("/api/v1/edit", routes![api::edit::umfrageantwort, api::edit::umfrage, api::edit::uantwort, api::edit::umfragebenutzer, api::edit::ufrage, api::edit::medien, api::edit::artikel, api::edit::artikelautor, api::edit::benutzer, api::edit::template, api::edit::templatetparameter, api::edit::tparameter, api::edit::sspiel, api::edit::mspiel, api::edit::sspieler, api::edit::mspieler, api::edit::team, api::edit::benutzerteam])
@@ -282,6 +278,6 @@ fn rocket() -> _ {
         .mount("/api/v1/get", routes![api::get::umfrage, api::get::medien, api::get::template, api::get::tparameter, api::get::benutzer, api::get::ufrage, api::get::uantwort, api::get::artikel, api::del::sspiel, api::del::mspiel, api::del::team])
         .mount("/api/v1/new", routes![api::new::umfrageantwort, api::new::umfrage, api::new::uantwort, api::new::umfragebenutzer, api::new::ufrage, api::new::medien, api::new::artikel, api::new::artikelautor, api::new::benutzer, api::new::template, api::new::templatetparameter, api::new::tparameter, api::new::sspiel, api::new::mspiel, api::new::sspieler, api::new::mspieler, api::new::team, api::new::benutzerteam])
         .mount("/static", FileServer::from("static"))
-        .register("/", catchers![not_authorized, not_found, internal])
+        .register("/", catchers![catchers::not_authorized, catchers::locked, catchers::not_found, catchers::internal])
         .attach(Template::fairing())
 }

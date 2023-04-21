@@ -220,6 +220,28 @@ impl<'r> FromRequest<'r> for UpdatePermission {
 }
 
 
+pub struct HTMLPermission();
+impl HTMLPermission {
+	/*pub fn is_valid(key: &str) -> bool {
+		// select ApiKey WHERE id = 4
+		true
+	}*/ //private Cookie -> simple 1 / 0 Unterscheidung
+}
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for HTMLPermission {    
+    type Error = PermissionError;
+
+    async fn from_request(request: &'r Request<'_>) -> Outcome<HTMLPermission, PermissionError> {
+        match request.cookies()
+            .get_private("html_access")
+            .and_then(|cookie| if cookie.value() == "1"  {println!("{}", cookie.value()); Some(HTMLPermission())} else {println!("{}", cookie.value()); None}) {
+		Some(permission) => Outcome::Success(permission),
+		None => Outcome::Failure((Status::Locked, PermissionError::Invalid)),
+	}
+    }
+}
+
+
 
 
 /*
