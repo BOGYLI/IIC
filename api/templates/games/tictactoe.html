@@ -172,8 +172,261 @@
         div#headline {
             font-size: 70px;
         }
-        
     </style>
+    <script>
+        // Reload Page
+        let reloadPage = () => {
+            location.reload();
+        }
+
+        // Back Button
+        let goBack = () => {
+            window.location.href = 'Template besser.html';
+        }
+
+        // Winning Conditions:
+        let checkIfWon = () => {
+            if (document.getElementById("a1").value === "X" && document.getElementById("a2").value === "X" && document.getElementById("a3").value === "X") {
+                document.getElementById('winMessageX').style.visibility= 'visible';
+                return true;
+            } else if (document.getElementById("a4").value === "X" && document.getElementById("a5").value === "X" && document.getElementById("a6").value === "X") {
+                document.getElementById('winMessageX').style.visibility= 'visible';
+                return true;
+            } else if (document.getElementById("a7").value === "X" && document.getElementById("a8").value === "X" && document.getElementById("a9").value === "X") {
+                document.getElementById('winMessageX').style.visibility= 'visible';
+                return true;
+            } else if (document.getElementById("a1").value === "X" && document.getElementById("a4").value === "X" && document.getElementById("a7").value === "X") {
+                document.getElementById('winMessageX').style.visibility= 'visible';
+                return true;
+            } else if (document.getElementById("a2").value === "X" && document.getElementById("a5").value === "X" && document.getElementById("a8").value === "X") {
+                document.getElementById('winMessageX').style.visibility= 'visible';
+                return true;
+            } else if (document.getElementById("a3").value === "X" && document.getElementById("a6").value === "X" && document.getElementById("a9").value === "X") {
+                document.getElementById('winMessageX').style.visibility= 'visible';
+                return true;
+            } else if (document.getElementById("a1").value === "X" && document.getElementById("a5").value === "X" && document.getElementById("a9").value === "X") {
+                document.getElementById('winMessageX').style.visibility= 'visible';
+                return true;
+            } else if (document.getElementById("a3").value === "X" && document.getElementById("a5").value === "X" && document.getElementById("a7").value === "X") {
+                document.getElementById('winMessageX').style.visibility= 'visible';
+                return true;
+            } else if (document.getElementById("a1").value === "O" && document.getElementById("a2").value === "O" && document.getElementById("a3").value === "O") {
+                document.getElementById('winMessageO').style.visibility= 'visible';
+                return true;
+            } else if (document.getElementById("a4").value === "O" && document.getElementById("a5").value === "O" && document.getElementById("a6").value === "O") {
+                document.getElementById('winMessageO').style.visibility= 'visible';
+                return true;
+            } else if (document.getElementById("a7").value === "O" && document.getElementById("a8").value === "O" && document.getElementById("a9").value === "O") {
+                document.getElementById('winMessageO').style.visibility= 'visible';
+                return true;
+            } else if (document.getElementById("a1").value === "O" && document.getElementById("a4").value === "O" && document.getElementById("a7").value === "O") {
+                document.getElementById('winMessageO').style.visibility= 'visible';
+                return true;
+            } else if (document.getElementById("a2").value === "O" && document.getElementById("a5").value === "O" && document.getElementById("a8").value === "O") {
+                document.getElementById('winMessageO').style.visibility= 'visible';
+                return true;
+            } else if (document.getElementById("a3").value === "O" && document.getElementById("a6").value === "O" && document.getElementById("a9").value === "O") {
+                document.getElementById('winMessageO').style.visibility= 'visible';
+                return true;
+            } else if (document.getElementById("a1").value === "O" && document.getElementById("a5").value === "O" && document.getElementById("a9").value === "O") {
+                document.getElementById('winMessageO').style.visibility= 'visible';
+                return true;
+            } else if (document.getElementById("a3").value === "O" && document.getElementById("a5").value === "O" && document.getElementById("a7").value === "O") {
+                document.getElementById('winMessageO').style.visibility= 'visible';
+                return true;
+            }
+        }   
+
+        //set Marker
+        let count = 0
+        let setSymbol1 = (event) => {
+            if (checkIfWon()) {
+                event.preventDefault();
+                console.log('hello')
+                return;
+        }
+            if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
+                if (document.getElementById("a1").value === "") {
+                    document.getElementById("a1").value = "X";
+                    count += 1
+                    checkIfWon()
+                }
+            } else {
+                if (document.getElementById("a1").value === "") {
+                    document.getElementById("a1").value = "O";
+                    count += 1
+                    checkIfWon()
+                }
+            }
+        }
+        let setSymbol2 = (event) => {
+            if (checkIfWon()) {
+                event.preventDefault();
+                console.log('hello')
+                return;
+        }
+            if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
+                if (document.getElementById("a2").value === "") {
+                    document.getElementById("a2").value = "X";
+                    count += 1
+                    checkIfWon()
+                }
+            } else {
+                if (document.getElementById("a2").value === "") {
+                    document.getElementById("a2").value = "O";
+                    count += 1
+                    checkIfWon()
+                }
+            }
+        }
+        let setSymbol3 = (event) => {
+            if (checkIfWon()) {
+                event.preventDefault();
+                console.log('hello')
+                return;
+        }
+            if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
+                if (document.getElementById("a3").value === "") {
+                    document.getElementById("a3").value = "X";
+                    count += 1
+                    checkIfWon()
+                }
+            } else {
+                if (document.getElementById("a3").value === "") {
+                    document.getElementById("a3").value = "O";
+                    count += 1
+                    checkIfWon()
+                }
+            }
+        }
+        let setSymbol4 = (event) => {
+            if (checkIfWon()) {
+                event.preventDefault();
+                console.log('hello')
+                return;
+        }
+            if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
+                if (document.getElementById("a4").value === "") {
+                    document.getElementById("a4").value = "X";
+                    count += 1
+                    checkIfWon()
+                }
+            } else {
+                if (document.getElementById("a4").value === "") {
+                    document.getElementById("a4").value = "O";
+                    count += 1
+                    checkIfWon()
+                }
+            }
+        }
+        let setSymbol5 = (event) => {
+            if (checkIfWon()) {
+                event.preventDefault();
+                console.log('hello')
+                return;
+        }
+            if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
+                if (document.getElementById("a5").value === "") {
+                    document.getElementById("a5").value = "X";
+                    count += 1
+                    checkIfWon()
+                }
+            } else {
+                if (document.getElementById("a5").value === "") {
+                    document.getElementById("a5").value = "O";
+                    count += 1
+                    checkIfWon()
+                }
+            }
+        }
+        let setSymbol6 = (event) => {
+            if (checkIfWon()) {
+                event.preventDefault();
+                console.log('hello')
+                return;
+        }
+            if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
+                if (document.getElementById("a6").value === "") {
+                    document.getElementById("a6").value = "X";
+                    count += 1
+                    checkIfWon()
+                }
+            } else {
+                if (document.getElementById("a6").value === "") {
+                    document.getElementById("a6").value = "O";
+                    count += 1
+                    checkIfWon()
+                }
+            }
+        }
+        let setSymbol7 = (event) => {
+            if (checkIfWon()) {
+                event.preventDefault();
+                console.log('hello')
+                return;
+        }
+            if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
+                if (document.getElementById("a7").value === "") {
+                    document.getElementById("a7").value = "X";
+                    count += 1
+                    checkIfWon()
+                }
+            } else {
+                if (document.getElementById("a7").value === "") {
+                    document.getElementById("a7").value = "O";
+                    count += 1
+                    checkIfWon()
+                }
+            }
+        }
+        let setSymbol8 = (event) => {
+            if (checkIfWon()) {
+                event.preventDefault();
+                console.log('hello')
+                return;
+        }
+            if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
+                if (document.getElementById("a8").value === "") {
+                    document.getElementById("a8").value = "X";
+                    count += 1
+                    checkIfWon()
+                }
+            } else {
+                if (document.getElementById("a8").value === "") {
+                    document.getElementById("a8").value = "O";
+                    count += 1
+                    checkIfWon()
+                }
+            }
+        }
+        let setSymbol9 = (event) => {
+            if (checkIfWon()) {
+                event.preventDefault();
+                console.log('hello')
+                return;
+        }
+            if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
+                if (document.getElementById("a9").value === "") {
+                    document.getElementById("a9").value = "X";
+                    count += 1
+                    checkIfWon()
+                }
+            } else {
+                if (document.getElementById("a9").value === "") {
+                    document.getElementById("a9").value = "O";
+                    count += 1
+                    checkIfWon()
+                }
+            }
+        }
+
+        // Draw
+        let checkIfDraw = () => {
+            if (count === 9 && checkIfWon === false) {
+                document.getElementById('drawMessage').style.visibility= 'visible'
+            }
+        }
+    </script>
 </head>
 <body>
     <div id="headline">TIC-TAC-TOE</div>
@@ -221,259 +474,4 @@
         <button class="back" onclick="goBack()">Home Page</button>
     </div>
 </body>
-<script type="javascript">
-    // Reload Page
-let reloadPage = () => {
-    location.reload();
-}
-
-// Back Button
-let goBack = () => {
-    window.location.href = 'Template besser.html';
-}
-
-// Winning Conditions:
-let checkIfWon = () => {
-    if (document.getElementById("a1").value === "X" && document.getElementById("a2").value === "X" && document.getElementById("a3").value === "X") {
-        document.getElementById('winMessageX').style.visibility= 'visible';
-        return true;
-    } else if (document.getElementById("a4").value === "X" && document.getElementById("a5").value === "X" && document.getElementById("a6").value === "X") {
-        document.getElementById('winMessageX').style.visibility= 'visible';
-        return true;
-    } else if (document.getElementById("a7").value === "X" && document.getElementById("a8").value === "X" && document.getElementById("a9").value === "X") {
-        document.getElementById('winMessageX').style.visibility= 'visible';
-        return true;
-    } else if (document.getElementById("a1").value === "X" && document.getElementById("a4").value === "X" && document.getElementById("a7").value === "X") {
-        document.getElementById('winMessageX').style.visibility= 'visible';
-        return true;
-    } else if (document.getElementById("a2").value === "X" && document.getElementById("a5").value === "X" && document.getElementById("a8").value === "X") {
-        document.getElementById('winMessageX').style.visibility= 'visible';
-        return true;
-    } else if (document.getElementById("a3").value === "X" && document.getElementById("a6").value === "X" && document.getElementById("a9").value === "X") {
-        document.getElementById('winMessageX').style.visibility= 'visible';
-        return true;
-    } else if (document.getElementById("a1").value === "X" && document.getElementById("a5").value === "X" && document.getElementById("a9").value === "X") {
-        document.getElementById('winMessageX').style.visibility= 'visible';
-        return true;
-    } else if (document.getElementById("a3").value === "X" && document.getElementById("a5").value === "X" && document.getElementById("a7").value === "X") {
-        document.getElementById('winMessageX').style.visibility= 'visible';
-        return true;
-    } else if (document.getElementById("a1").value === "O" && document.getElementById("a2").value === "O" && document.getElementById("a3").value === "O") {
-        document.getElementById('winMessageO').style.visibility= 'visible';
-        return true;
-    } else if (document.getElementById("a4").value === "O" && document.getElementById("a5").value === "O" && document.getElementById("a6").value === "O") {
-        document.getElementById('winMessageO').style.visibility= 'visible';
-        return true;
-    } else if (document.getElementById("a7").value === "O" && document.getElementById("a8").value === "O" && document.getElementById("a9").value === "O") {
-        document.getElementById('winMessageO').style.visibility= 'visible';
-        return true;
-    } else if (document.getElementById("a1").value === "O" && document.getElementById("a4").value === "O" && document.getElementById("a7").value === "O") {
-        document.getElementById('winMessageO').style.visibility= 'visible';
-        return true;
-    } else if (document.getElementById("a2").value === "O" && document.getElementById("a5").value === "O" && document.getElementById("a8").value === "O") {
-        document.getElementById('winMessageO').style.visibility= 'visible';
-        return true;
-    } else if (document.getElementById("a3").value === "O" && document.getElementById("a6").value === "O" && document.getElementById("a9").value === "O") {
-        document.getElementById('winMessageO').style.visibility= 'visible';
-        return true;
-    } else if (document.getElementById("a1").value === "O" && document.getElementById("a5").value === "O" && document.getElementById("a9").value === "O") {
-        document.getElementById('winMessageO').style.visibility= 'visible';
-        return true;
-    } else if (document.getElementById("a3").value === "O" && document.getElementById("a5").value === "O" && document.getElementById("a7").value === "O") {
-        document.getElementById('winMessageO').style.visibility= 'visible';
-        return true;
-    }
-}   
-
-//set Marker
-let count = 0
-let setSymbol1 = (event) => {
-    if (checkIfWon()) {
-        event.preventDefault();
-        console.log('hello')
-        return;
-}
-    if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
-        if (document.getElementById("a1").value === "") {
-            document.getElementById("a1").value = "X";
-            count += 1
-            checkIfWon()
-        }
-    } else {
-        if (document.getElementById("a1").value === "") {
-            document.getElementById("a1").value = "O";
-            count += 1
-            checkIfWon()
-        }
-    }
-}
-let setSymbol2 = (event) => {
-    if (checkIfWon()) {
-        event.preventDefault();
-        console.log('hello')
-        return;
-}
-    if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
-        if (document.getElementById("a2").value === "") {
-            document.getElementById("a2").value = "X";
-            count += 1
-            checkIfWon()
-        }
-    } else {
-        if (document.getElementById("a2").value === "") {
-            document.getElementById("a2").value = "O";
-            count += 1
-            checkIfWon()
-        }
-    }
-}
-let setSymbol3 = (event) => {
-    if (checkIfWon()) {
-        event.preventDefault();
-        console.log('hello')
-        return;
-}
-    if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
-        if (document.getElementById("a3").value === "") {
-            document.getElementById("a3").value = "X";
-            count += 1
-            checkIfWon()
-        }
-    } else {
-        if (document.getElementById("a3").value === "") {
-            document.getElementById("a3").value = "O";
-            count += 1
-            checkIfWon()
-        }
-    }
-}
-let setSymbol4 = (event) => {
-    if (checkIfWon()) {
-        event.preventDefault();
-        console.log('hello')
-        return;
-}
-    if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
-        if (document.getElementById("a4").value === "") {
-            document.getElementById("a4").value = "X";
-            count += 1
-            checkIfWon()
-        }
-    } else {
-        if (document.getElementById("a4").value === "") {
-            document.getElementById("a4").value = "O";
-            count += 1
-            checkIfWon()
-        }
-    }
-}
-let setSymbol5 = (event) => {
-    if (checkIfWon()) {
-        event.preventDefault();
-        console.log('hello')
-        return;
-}
-    if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
-        if (document.getElementById("a5").value === "") {
-            document.getElementById("a5").value = "X";
-            count += 1
-            checkIfWon()
-        }
-    } else {
-        if (document.getElementById("a5").value === "") {
-            document.getElementById("a5").value = "O";
-            count += 1
-            checkIfWon()
-        }
-    }
-}
-let setSymbol6 = (event) => {
-    if (checkIfWon()) {
-        event.preventDefault();
-        console.log('hello')
-        return;
-}
-    if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
-        if (document.getElementById("a6").value === "") {
-            document.getElementById("a6").value = "X";
-            count += 1
-            checkIfWon()
-        }
-    } else {
-        if (document.getElementById("a6").value === "") {
-            document.getElementById("a6").value = "O";
-            count += 1
-            checkIfWon()
-        }
-    }
-}
-let setSymbol7 = (event) => {
-    if (checkIfWon()) {
-        event.preventDefault();
-        console.log('hello')
-        return;
-}
-    if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
-        if (document.getElementById("a7").value === "") {
-            document.getElementById("a7").value = "X";
-            count += 1
-            checkIfWon()
-        }
-    } else {
-        if (document.getElementById("a7").value === "") {
-            document.getElementById("a7").value = "O";
-            count += 1
-            checkIfWon()
-        }
-    }
-}
-let setSymbol8 = (event) => {
-    if (checkIfWon()) {
-        event.preventDefault();
-        console.log('hello')
-        return;
-}
-    if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
-        if (document.getElementById("a8").value === "") {
-            document.getElementById("a8").value = "X";
-            count += 1
-            checkIfWon()
-        }
-    } else {
-        if (document.getElementById("a8").value === "") {
-            document.getElementById("a8").value = "O";
-            count += 1
-            checkIfWon()
-        }
-    }
-}
-let setSymbol9 = (event) => {
-    if (checkIfWon()) {
-        event.preventDefault();
-        console.log('hello')
-        return;
-}
-    if (count === 0 || count === 2 || count === 4 || count === 6 || count === 8) {
-        if (document.getElementById("a9").value === "") {
-            document.getElementById("a9").value = "X";
-            count += 1
-            checkIfWon()
-        }
-    } else {
-        if (document.getElementById("a9").value === "") {
-            document.getElementById("a9").value = "O";
-            count += 1
-            checkIfWon()
-        }
-    }
-}
-
-// Draw
-let checkIfDraw = () => {
-    if (count === 9 && checkIfWon === false) {
-        document.getElementById('drawMessage').style.visibility= 'visible'
-    }
-}
-
-</script>
 </html>
