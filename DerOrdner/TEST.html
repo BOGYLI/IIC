@@ -44,13 +44,14 @@
         margin-right: 2.5%;
       }
 
-      .c-item{
+      .carousel-item{
         height: 670px;
 
       }
 
       .c-img{
         height: 100%;
+        width: 100%;
         object-fit: cover;
         filter:brightness(0.6);
       }
@@ -60,25 +61,14 @@
         transition: 0.5s;
       }
 
-
-
-
-
-
-
-      .card {
-      margin: 5px;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-      transition: 0.3s;
-    }
-    .card:hover {
-      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-    }
     .card-img-top {
-      height: 200px;
-      object-fit: cover;
+      max-height: 200px;
+  object-fit: contain;
     }
-
+    
+    .row{
+      padding-top: 2%;
+    }
 
 
 
@@ -136,28 +126,28 @@
 
 <div class="slide">
 
-  <div id="carouselExampleCaptions" class="carousel slide">
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
-    <div class="carousel-inner" data-ride="carousel">
-      <div class="carousel-item active c-item" data-interval="5000">
+    <div class="carousel-inner">
+      <div class="carousel-item active " data-bs-interval="2000">
         <img src="Bilder/fittosize_766_383_1ea7a75af8c9d3a25c013db972c17d75_230215_nabu_anklamerstadtbruch_766x383.jpeg" class="d-block w-100 c-img" >
         <div class="carousel-caption d-none d-md-block">
           <p class="fs-2 fw-bolder text-uppercase">Platzhalter</p>
           <p class="fs-5 text-capitalize">Platzhalter</p>
         </div>
       </div>
-      <div class="carousel-item c-item" data-interval="5000">
+      <div class="carousel-item " data-bs-interval="2000">
         <img src="Bilder/csm_Winterliche_Elbe_Auwald_Boizenburg_F_Nessler_c043460a5b.jpg" class="d-block w-100 c-img" alt="">
         <div class="carousel-caption d-none d-md-block">
           <p class="fs-2 fw-bolder text-uppercase">Platzhalter</p>
           <p class="fs-5 text-capitalize">Platzhalter</p>
         </div>
       </div>
-      <div class="carousel-item c-item" data-interval="5000">
+      <div class="carousel-item" data-bs-interval="2000">
         <img src="Bilder/natur-wald-teaser,id=43f535dc,b=praxisvita,w=1600,rm=sk.jpeg" class="d-block w-100 c-img" alt="">
         <div class="carousel-caption d-none d-md-block">
           <p class="fs-2 fw-bolder text-uppercase">Platzhalter</p>
@@ -179,53 +169,51 @@
 
 </div>
 
-<div class="container">
-  <div class="row row-cols-5 mt-5 cards">
-    <div class="col-3 col-sm-3 col-md-3 col-lg-3 w-25">
+<div class="row">
+  <div class="col-md-2 offset-md-1">
       <div class="card">
-        <img class="card-img-top" src="https://via.placeholder.com/200x200" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card 1</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
+          <img src="Bilder/Icons/gaming-gamepad-icon.png" class="card-img-top" alt="image">
+          <div class="card-body">
+              <h5 class="card-title text-center">Spiele</h5>
+          </div>
       </div>
-    </div>
-    <div class="col-3 col-sm-3 col-md-3 col-lg-3 w-25">
+  </div>
+  <div class="col-md-2">
       <div class="card">
-        <img class="card-img-top" src="https://via.placeholder.com/200x200" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card 2</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
+          <img src="Bilder/Icons/maps-pin-line-icon.png" class="card-img-top" alt="image">
+          <div class="card-body">
+              <h5 class="card-title text-center">Karte</h5>
+          </div>
       </div>
-    </div>
-    <div class="col-3 col-sm-3 col-md-3 col-lg-3 w-25">
+  </div>
+  <div class="col-md-2">
       <div class="card">
-        <img class="card-img-top" src="https://via.placeholder.com/200x200" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card 3</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
+          <img src="Bilder/Icons/birthday-cake-icon.png" class="card-img-top" alt="image">
+          <div class="card-body">
+              <h5 class="card-title text-center">Geburtstagswünschen</h5>
+          </div>
       </div>
-    </div>
-    <div class="col-3 col-sm-3 col-md-3 col-lg-3 w-25">
+  </div>
+  <div class="col-md-2">
       <div class="card">
-        <img class="card-img-top" src="https://via.placeholder.com/200x200" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card 4</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
+          <img src="Bilder/Icons/newspaper-icon.png" class="card-img-top" alt="image">
+          <div class="card-body">
+              <h5 class="card-title text-center">Nachrichten</h5>
+          </div>
       </div>
-    </div>
-    <div class="col-3 col-sm-3 col-md-3 col-lg-3 w-25">
+  </div>
+  <div class="col-md-2 ">
       <div class="card">
-        <img class="card-img-top" src="https://via.placeholder.com/200x200" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card 5</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
+          <img src="Bilder/Icons/question-inquiry-icon.png" class="card-img-top" alt="image">
+          <div class="card-body">
+              <h5 class="card-title text-center">Umfrage</h5>
+          </div>
       </div>
-    </div>
+  </div>
+</div>
+
+      
+
   </div>
 </div>
 
