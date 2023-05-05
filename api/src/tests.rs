@@ -19,20 +19,13 @@ use rocket::response::Responder;
 
 use rocket::fs::TempFile;
 
-use crate::db::models::*;
-use crate::db::*;
 
-use crate::utils::cookies::Admin;
-#[get("/dashboard")]
-pub async fn dashboard(/*rolle: Admin*/) -> Template {
-    let mut sspiel_data: Vec<SSpiel> = vec![];
-    match SSpiel::get_all(&mut crate::db::establish_connection()) {
-		Ok(data) => {
-            sspiel_data = data;
-        },
-		Err(_) => {}
-	};
-    Template::render("admin/dashboard", context! {
-        sspiel_data: sspiel_data
+
+#[get("/wordpress/<index>")]
+async fn wordpress_post(index: usize) -> Template {
+    let posts = wp_lib::Post::get_from_uri("https://bodensee-gymnasium.de").unwrap();
+    Template::render("placeholders/wordpress", context! {
+        title: posts[index].title.rendered.clone(),
+        content: posts[index].content.rendered.clone()
     })
 }

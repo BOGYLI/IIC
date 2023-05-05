@@ -164,9 +164,21 @@ pub fn apikey(data: Form<NewApiKey>, new: NewPermission) -> Result<Status, Statu
 #[post("/sspiel", data = "<data>") ]
 pub fn sspiel(data: Form<NewSSpiel>, new: NewPermission) -> Result<Status, Status> {
 	let mut conn = crate::db::establish_connection();
+<<<<<<< HEAD
+	let mut data2 = data.clone();
+	data2.apikeyid = crate::utils::apikey::generate();
+	match data.into_inner().new(&mut conn) {
+		Ok(_) => Ok(Status::Ok),
+		Err(e) => {
+			println!("{:?}", e);
+			println!("{:?}", data2);
+			Err(Status::InternalServerError)
+		}
+=======
 	match data.into_inner().new(&mut conn) {
 		Ok(_) => Ok(Status::Ok),
 		Err(e) => Err(Status::InternalServerError)
+>>>>>>> 51d987b925a4c1f27126efdd48feb41281051aa8
 	}
 }
 

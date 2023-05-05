@@ -19,20 +19,8 @@ use rocket::response::Responder;
 
 use rocket::fs::TempFile;
 
-use crate::db::models::*;
-use crate::db::*;
-
-use crate::utils::cookies::Admin;
-#[get("/dashboard")]
-pub async fn dashboard(/*rolle: Admin*/) -> Template {
-    let mut sspiel_data: Vec<SSpiel> = vec![];
-    match SSpiel::get_all(&mut crate::db::establish_connection()) {
-		Ok(data) => {
-            sspiel_data = data;
-        },
-		Err(_) => {}
-	};
-    Template::render("admin/dashboard", context! {
-        sspiel_data: sspiel_data
+#[get("/idlescreen")]
+pub async fn idlescreen() -> Template {
+    Template::render("tests/feedback/runde1/Idlescreen", context! {
     })
 }
