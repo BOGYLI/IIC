@@ -1,0 +1,34 @@
+##############################################################################
+#---------------------------D E B U G----------------------------------------#
+##############################################################################
+
+FROM rust:1.69-slim-buster AS debugbuilder
+RUN USER=root apt-get update -y
+RUN USER=root apt-get install libpq-dev -y
+WORKDIR /server
+ENV CARGO_HOME=/workdir/.cargo
+
+RUN cargo init .
+
+COPY ./Cargo.toml ./Cargo.lock ./
+RUN cargo install diesel_cli --no-default-features --features postgres
+RUN mkdir ./lib
+WORKDIR ./lib
+RUN cargo new --lib wp-lib
+RUN cargo new --lib mebis-lib
+COPY ./lib ./
+RUN rustup override set nightly
+RUN cargo build
+
+COPY . .
+
+RUN cargo build
+#COPY --from=debugbuilder /server/target/debug/api ./build/debug
+#RUN ls /server/target/release
+##############################################################################
+
+FROM debian:bullseye-slim AS release
+COPY --from=debugbuilder /server/target/debug/api /usr/local/bin
+EXPOSE 8000
+CMD ["/usr/local/bin/api"]
+
