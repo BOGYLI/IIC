@@ -1,0 +1,8 @@
+function api_new(form) {
+    let apikey = "{{ new_api_key }}";
+    let data = new FormData(form);
+    const request = new XMLHttpRequest();
+    request.open(form.method, form.action);
+    request.setRequestHeader("x-api-key", apikey);
+    request.send(data);
+}
