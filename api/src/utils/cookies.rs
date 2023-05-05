@@ -11,6 +11,11 @@ use crate::db::models::Benutzer;
 use crate::utils::DBQueryableUtils;
 use crate::db::DBQueryable;
 
+<<<<<<< HEAD
+pub use super::api_permissions::*;
+
+=======
+>>>>>>> 51d987b925a4c1f27126efdd48feb41281051aa8
 /*#[rocket::async_trait]
 impl<'r> FromRequest<'r> for Benutzer {
     type Error = std::convert::Infallible;
@@ -92,7 +97,11 @@ impl<'r> FromRequest<'r> for Lehrer {
 
 
 
+<<<<<<< HEAD
+/*
+=======
 
+>>>>>>> 51d987b925a4c1f27126efdd48feb41281051aa8
 #[derive(Debug)]
 pub enum ApiKeyError {
     BadCount,
@@ -127,12 +136,24 @@ impl<'r> FromRequest<'r> for ApiKey {
             _ => Outcome::Failure((Status::BadRequest, ApiKeyError::BadCount)),
         }
     }
+<<<<<<< HEAD
+}*/
+
+
+
+/*
+*************************************************************************************************************************************
+*************************************************************************************************************************************
+*/
+/*
+=======
 }
 
 
 
 
 
+>>>>>>> 51d987b925a4c1f27126efdd48feb41281051aa8
 #[derive(Debug)]
 pub enum PermissionError {
     Missing,
@@ -191,6 +212,11 @@ impl<'r> FromRequest<'r> for NewPermission {
 
     async fn from_request(request: &'r Request<'_>) -> Outcome<NewPermission, PermissionError> {
         let keys: Vec<_> = request.headers().get("x-api-key").collect();
+<<<<<<< HEAD
+        println!("{:?}", keys);
+        let keys: Vec<_> = vec!["s"];
+=======
+>>>>>>> 51d987b925a4c1f27126efdd48feb41281051aa8
         match keys.len() {
             0 => Outcome::Failure((Status::Unauthorized, PermissionError::Missing)),
             _ if NewPermission::is_valid(keys) => Outcome::Success(NewPermission()),
@@ -217,7 +243,15 @@ impl<'r> FromRequest<'r> for UpdatePermission {
             _ => Outcome::Failure((Status::Unauthorized, PermissionError::Invalid)),
         }
     }
+<<<<<<< HEAD
+}*/
+/*
+*************************************************************************************************************************************
+*************************************************************************************************************************************
+*/
+=======
 }
+>>>>>>> 51d987b925a4c1f27126efdd48feb41281051aa8
 
 
 pub struct HTMLPermission();
