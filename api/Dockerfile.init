@@ -1,0 +1,18 @@
+##############################################################################
+#---------------------------I N I T------------------------------------------#
+##############################################################################
+
+FROM rust:1.69-slim-buster AS debugbuilder
+RUN USER=root apt-get update -y
+RUN USER=root apt-get install libpq-dev -y
+WORKDIR /server
+ENV CARGO_HOME=/workdir/.cargo
+
+RUN cargo init .
+
+COPY ./migrations ./migrations
+COPY ./.env .
+RUN cargo install diesel_cli --no-default-features --features postgres
+
+CMD ["/workdir/.cargo/bin/diesel"]
+
