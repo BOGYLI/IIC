@@ -1,0 +1,70 @@
+.Bogy-Logo{
+    max-width: 15%;
+    height: auto;
+
+   }
+
+    .navbar{
+     border-bottom: 5px solid;
+     border-bottom-color:	rgb(232,232,232);
+
+   }
+
+   .h2{
+     color: rgb(96,96,96);
+     position: relative;
+     top:5px;
+     right: -10px;
+
+     }
+
+     .navbar-brand{
+       position: relative;
+       left: 1%
+
+     }
+
+     .dropdown{
+       padding-left: 2%;
+     }
+
+     .d-flex{
+       padding-right: 5%;
+     }
+
+     .slide{
+       margin-top: 2%;
+       margin-left: 2.5%;
+       margin-right: 2.5%;
+     }
+
+     .carousel-item{
+       height: 670px;
+
+     }
+
+     .c-img{
+       height: 100%;
+       width: 100%;
+       object-fit: cover;
+       filter:brightness(0.9);
+     }
+
+     .c-img:hover{
+       filter:brightness(0.7);
+       transition: 0.5s;
+     }
+
+   .card-img-top {
+     padding-top: 5%;
+     max-height: 150px;
+     object-fit: contain;
+   }
+    .card{
+     width: 90%;
+     height: 100%;
+    }
+   
+   .row{
+     padding-top: 2%;
+   }
