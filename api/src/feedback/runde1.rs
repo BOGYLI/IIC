@@ -24,3 +24,15 @@ pub async fn idlescreen() -> Template {
     Template::render("tests/feedback/runde1/Idlescreen", context! {
     })
 }
+
+#[get("/clickthebutton")]
+pub async fn idlescreen() -> Template {
+    Template::render("tests/feedback/runde1/Clickthebutton", context! {
+    })
+}
+
+#[get("/tictactoe")]
+pub async fn idlescreen() -> Template {
+    Template::render("tests/feedback/runde1/TicTacToe", context! {
+    })
+}
