@@ -22,8 +22,9 @@ use rocket::fs::TempFile;
 
 
 #[get("/wordpress/<index>")]
-async fn wordpress_post(index: usize) -> Template {
+pub async fn wordpress_post(index: usize) -> Template {
     let posts = wp_lib::Post::get_from_uri("https://bodensee-gymnasium.de").unwrap();
+    println!("{:?}", posts);
     Template::render("placeholders/wordpress", context! {
         title: posts[index].title.rendered.clone(),
         content: posts[index].content.rendered.clone()

@@ -27,6 +27,7 @@ pub mod schema;
 pub mod catchers;
 pub mod admin;
 pub mod user;
+pub mod tests;
 
 pub mod feedback;
 
@@ -79,10 +80,15 @@ fn rocket() -> _ {
         .with_ciphers(CipherSuite::TLS_V13_SET)
         .with_preferred_server_cipher_order(true);
         
+    use rocket::config::SecretKey;
     use std::net::Ipv4Addr;
+    let tmp = dotenvy::var("SECRET_KEY").expect("rocket requires SECRET_KEY - cookies");
+    let secret_key = tmp.as_bytes();
+    println!("{:?}", secret_key);
     let config = Config {
         tls: Some(tls_config),
         address: Ipv4Addr::new(0, 0, 0, 0).into(),
+        //secret_key: SecretKey::from(secret_key),
         ..Default::default()
     };
     
@@ -92,6 +98,8 @@ fn rocket() -> _ {
         .mount("/user", routes![user::register, user::login_page, user::login_fail, user::login_post, user::whoami, user::whoami_redirect])
         .mount("/admin", routes![admin::dashboard])
 
+        .mount("/tests", routes![tests::wordpress_post])
+
         .mount("/api/v1/delete", routes![api::del::umfrage, api::del::medien, api::del::template, api::del::tparameter, api::del::benutzer, api::del::ufrage, api::del::uantwort, api::del::artikel, api::del::sspiel, api::del::mspiel, api::del::team])
         .mount("/api/v1/edit", routes![api::edit::umfrageantwort, api::edit::umfrage, api::edit::uantwort, /*api::edit::umfragebenutzer,*/ api::edit::ufrage, api::edit::medien, api::edit::artikel, /*api::edit::artikelautor,*/ api::edit::benutzer, api::edit::template, /*api::edit::templatetparameter,*/ api::edit::tparameter, api::edit::sspiel, api::edit::mspiel, api::edit::sspieler, api::edit::mspieler, api::edit::team, /*api::edit::benutzerteam*/])
         .mount("/api/v1/get_all", routes![api::get_all::umfrageantwort, api::get_all::umfrage, api::get_all::uantwort, api::get_all::umfragebenutzer, api::get_all::ufrage, api::get_all::medien, api::get_all::artikel, api::get_all::artikelautor, api::get_all::benutzer, api::get_all::template, api::get_all::templatetparameter, api::get_all::tparameter, api::get_all::sspiel, api::get_all::mspiel, api::get_all::sspieler, api::get_all::mspieler, api::get_all::team, api::get_all::benutzerteam])
@@ -99,9 +107,14 @@ fn rocket() -> _ {
         .mount("/api/v1/new", routes![api::new::umfrageantwort, api::new::umfrage, api::new::uantwort, api::new::umfragebenutzer, api::new::ufrage, api::new::medien, api::new::artikel, api::new::artikelautor, api::new::benutzer, api::new::template, api::new::templatetparameter, api::new::tparameter, api::new::sspiel, api::new::mspiel, api::new::sspieler, api::new::mspieler, api::new::team, api::new::benutzerteam])
 
 
-        .mount("/feedback/runde1", routes![feedback::runde1::idlescreen, feedback::runde1::clickthebutton, feedback::runde1::tictactoe])
+        .mount("/feedback/runde1", routes![feedback::runde1::idlescreen, feedback::runde1::clickthebutton, feedback::runde1::tictactoe, feedback::runde1::games, feedback::runde1::karte, feedback::runde1::birthday, feedback::runde1::birthdaydemo, feedback::runde1::news, feedback::runde1::umfrage])
 
         .mount("/static", FileServer::from("static"))
         .register("/", catchers![catchers::not_authorized, catchers::locked, catchers::not_found, catchers::internal])
-        .attach(Template::fairing())
+        .attach(Template::custom(|engines|{
+            use std::collections::BTreeMap;
+            let url = BTreeMap::new();
+            engines.tera.register_function("media_url", api::wordpress::media_url(url.clone()));
+            engines.tera.register_function("format_date", api::wordpress::format_date(url.clone()))
+        }))
 }
