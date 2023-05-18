@@ -23,8 +23,7 @@ RUN cargo build
 COPY . .
 
 RUN cargo build
-#COPY --from=debugbuilder /server/target/debug/api ./build/debug
-#RUN ls /server/target/release
+
 ##############################################################################
 
 FROM debian:bullseye-slim AS release
