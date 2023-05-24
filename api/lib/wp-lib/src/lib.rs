@@ -1,6 +1,7 @@
 use ureq;
 use serde_json::{Result, Value};
 use serde_derive::{Deserialize, Serialize};
+use cache_lib as cache;
 
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -96,7 +97,15 @@ impl Media {
     pub fn from(uri: &str, id: String) -> Option<Media> {
         println!("{}", &format!("{}/wp-json/wp/v2/media/{}", uri, id));
         //println!("{:?}", &ureq::get(&format!("{}/wp-json/wp/v2/media", id)).call().unwrap().into_string().unwrap());
-        serde_json::from_str(&ureq::get(&format!("{}/wp-json/wp/v2/media/{}", uri, id)).call().unwrap().into_string().unwrap()).unwrap()
+        let mut response = String::new();
+        if cache::media::has(id.clone()) {
+            response = cache::media::get(id);
+        } else {
+            response = ureq::get(&format!("{}/wp-json/wp/v2/media/{}", uri, id)).call().unwrap().into_string().unwrap();
+            cache::media::add(id, response.clone())
+        }
+
+        serde_json::from_str(&response).unwrap()
     }
 }
 
@@ -120,7 +129,15 @@ impl Post {
         serde_json::from_str(&ureq::get(&format!("{}/wp-json/wp/v2/posts", uri)).call().unwrap().into_string().unwrap()).unwrap()
     }
     pub fn get_from_uri_limited(uri: &str, per_page: i64) -> Option<Vec<Post>> {
-        serde_json::from_str(&ureq::get(&format!("{}/wp-json/wp/v2/posts?per_page={}", uri, per_page)).call().unwrap().into_string().unwrap()).unwrap()
+        let mut response = String::new();
+        if cache::post::has() {
+            response = cache::post::get();
+        } else {
+            response = ureq::get(&format!("{}/wp-json/wp/v2/posts?per_page={}", uri, per_page)).call().unwrap().into_string().unwrap();
+            cache::post::add(response.clone());
+        }
+
+        serde_json::from_str(&response).unwrap()
     }
 }
 

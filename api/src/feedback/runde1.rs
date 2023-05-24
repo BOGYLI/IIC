@@ -33,6 +33,13 @@ pub async fn idlescreen() -> Template {
     })
 }
 
+#[get("/refresh")]
+pub async fn refresh() -> Redirect {
+    use cache_lib as cache;
+    cache::post::refresh();
+    Redirect::to(uri!("/feedback/runde1/idlescreen"))
+}
+
 #[get("/clickthebutton")]
 pub async fn clickthebutton() -> Template {
     Template::render("tests/feedback/runde1/Clickthebutton", context! {
@@ -86,8 +93,28 @@ pub async fn news() -> Template {
     })
 }
 
-#[get("/umfrage")]
-pub async fn umfrage() -> Template {
-    Template::render("tests/feedback/runde1/umfrage", context! {
+#[get("/umfragen")]
+pub async fn umfragen() -> Template {
+    let umfragen: Vec<String> = vec![];
+    Template::render("tests/feedback/runde1/umfragen", context! {
+        umfragen: umfragen
+    })
+}
+
+#[get("/umfrage/create")]
+pub async fn umfrage_create() -> Template {
+    Template::render("tests/feedback/runde1/umfrage/create", context! {
+    })
+}
+
+#[get("/umfrage/<id>")]
+pub async fn umfrage_view(id: i64) -> Template {
+    Template::render("tests/feedback/runde1/umfrage/view", context! {
+    })
+}
+
+#[get("/umfrage/result/<id>")]
+pub async fn umfrage_result(id: i64) -> Template {
+    Template::render("tests/feedback/runde1/umfrage/result", context! {
     })
 }
