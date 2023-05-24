@@ -115,7 +115,7 @@ h5 {
           </a>
         
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Action 1</a></li>
+            <li><a class="dropdown-item" href="/feedback/runde1/refresh">Refresh</a></li>
             <li><a class="dropdown-item" href="#">Action 2</a></li>
             <li><a class="dropdown-item" href="#">Action 3</a></li>
           </ul>
