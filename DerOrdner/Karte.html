@@ -3,7 +3,15 @@
 <head>
 
   <style>
-
+    #image1{
+      visibility: visible;
+    }
+    #image2{
+      visibility: visible;
+    }
+    #image3{
+      visibility: visible;
+    }
     .Bogy-Logo{
      max-width: 15%;
      height: auto;
@@ -52,7 +60,32 @@
 
 <body>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+let button1Clicked = () => {
+  /*getElementById(image1).style.visibility = 'visible';
+  getElementById(image2).style.visibility = 'hidden';
+  getElementById(image3).style.visibility = 'hidden';*/
+  getElementById(image1).removeAttribute("hidden");
+  getElementById(image2).setAttribute("hidden", "");
+  getElementById(image3).addAttribute("hidden", "");
+}
+let button2Clicked = () => {
+  /*getElementById(image1).style.visibility = 'hidden';
+  getElementById(image2).style.visibility = 'visible';
+  getElementById(image3).style.visibility = 'hidden';*/
+  getElementById(image2).removeAttribute("hidden");
+  getElementById(image1).addAttribute("hidden", "");
+  getElementById(image3).addAttribute("hidden", "");
+}
+let button3Clicked = () => {
+  /*getElementById(image1).style.visibility = 'hidden' ;
+  getElementById(image2).style.visibility = 'hidden';
+  getElementById(image3).style.visibility = 'visible';*/
+  getElementById(image3).removeAttribute("hidden");
+  getElementById(image2).addAttribute("hidden", "");
+  getElementById(image1).addAttribute("hidden", "");
+}
+</script>
 
 
 <header>
@@ -88,16 +121,18 @@
 
 <div class="navigation">
 <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
-  <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked>
+  <input type="radio" onclick="button1Clicked()" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked>
   <label class="btn btn-outline-primary btn-lg" for="vbtn-radio1">EG</label>
-  <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off">
+  <input type="radio" onclick="button2Clicked()" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off">
   <label class="btn btn-outline-primary btn-lg" for="vbtn-radio2">1.OG</label>
-  <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off">
+  <input type="radio" onclick="button3Clicked()" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off">
   <label class="btn btn-outline-primary btn-lg" for="vbtn-radio3">2.OG</label>
 </div>
 
 <div class = "map">
-<img class = "img"  src="img\EG.png" alt="EG">
+  <img id="image1" class="img" src="Bilder/Baupläne/EG.jpg" alt="Image 1">
+  <img id="image2" class="img" src="Bilder/Baupläne/1.OG.jpg" alt="Image 2">
+  <img id="image3" class="img" src="Bilder/Baupläne/1.OG.jpg" alt="Image 3">
 </div>
 </div>
 
