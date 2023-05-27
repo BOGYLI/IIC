@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #soundtoggle {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+        }
+        #musictoggle {
+            position: absolute;
+            bottom: 25px;
+            right: 75px;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="main" src="{{ init }}" frameborder="0" onclick="effect_click()"></iframe>
+    <button type="checkbox" onclick="music_toggle()" id="musictoggle">
+        <img src="/static/icons/sound_off.png" height="25px" width="25px" alt="">
+    </button>
+    <button type="checkbox" onclick="sound_toggle()" id="soundtoggle">
+        <img src="/static/icons/sound_on.png" height="25px" width="25px" alt="">
+    </button>
+    <audio src="/static/music/background.mp3" id="music" onended="restart_audio()"></audio>
+    <audio src="/static/sounds/click.mp3" id="effects"></audio>
+    <script>
+        let music = document.getElementById("music");
+        let effects = document.getElementById("effects");
+        let music_icon = document.querySelector("#musictoggle > img:nth-child(1)");
+        let sound_icon = document.querySelector("#soundtoggle > img:nth-child(1)");
+        let on = "/static/icons/sound_on.png";
+        let off = "/static/icons/sound_off.png";
+        console.log(music);
+        let music_playing = false;
+        let sound_playing = true;
+
+        function music_toggle() {
+            console.log("MUSIC");
+            if (music_playing) {
+                music.pause();
+                music_playing = false;
+                music_icon.src = off;
+            } else {
+                music.play();
+                music_playing = true;
+                music_icon.src = on;
+            }
+        }
+
+        function sound_toggle() {
+            console.log("SOUND");
+            if (sound_playing) {
+                sound_playing = false;
+                sound_icon.src = off;
+            } else {
+                sound_playing = true;
+                sound_icon.src = on;
+            }
+        }
+
+        function restart_audio() {
+            music.currentTime = 0;
+            music.pause();
+            music.play();
+        }
+
+        window.focus();
+
+        /*window.addEventListener("blur", () => {
+        setTimeout(() => {
+            if (document.activeElement.tagName === "IFRAME") {
+                effect_click();
+                console.log("clicked");
+                if (document.activeElement.tagName === "INPUT") {
+                    console.log(document.activeElement);
+                } else {
+                    window.focus();
+                }
+            }
+        });
+        }, { once: false });*/
+
+        function iframeURLChange(iframe, callback) {
+            var lastDispatched = null;
+
+            var dispatchChange = function () {
+                var newHref = iframe.contentWindow.location.href;
+
+                if (newHref !== lastDispatched) {
+                    callback(newHref);
+                    lastDispatched = newHref;
+                }
+            };
+
+            var unloadHandler = function () {
+                // Timeout needed because the URL changes immediately after
+                // the `unload` event is dispatched.
+                setTimeout(dispatchChange, 0);
+            };
+
+            function attachUnload() {
+                // Remove the unloadHandler in case it was already attached.
+                // Otherwise, there will be two handlers, which is unnecessary.
+                iframe.contentWindow.removeEventListener("unload", unloadHandler);
+                iframe.contentWindow.addEventListener("unload", unloadHandler);
+            }
+
+            iframe.addEventListener("load", function () {
+                attachUnload();
+
+                // Just in case the change wasn't dispatched during the unload event...
+                dispatchChange();
+            });
+
+            attachUnload();
+        }
+
+        iframeURLChange(document.getElementById("main"), function (newURL) {
+            console.log("URL changed:", newURL);
+            window.frames[0].document.addEventListener("click", effect_click);
+        });
+        /*window.frames[0].addEventListener("change", () => {
+            console.log("load");
+            window.frames[0].document.addEventListener("click", effect_click);
+        });*/
+
+        function effect_click() {
+            console.log("CLICK");
+            if (sound_playing) {
+                effects.currentTime = 0;
+                effects.play();
+            }
+        }
+    </script>
+</body>
+</html>
