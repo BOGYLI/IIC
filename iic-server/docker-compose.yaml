@@ -1,0 +1,41 @@
+version: '3'
+
+  services:
+    server:
+      image: iic-release
+      ports:
+        - 80:80
+      volumes:
+        - ./cache:/usr/local/bin/cache
+        - ./certs:/usr/local/bin/certs
+        - ./templates:/usr/local/bin/templates
+        - ./static:/usr/local/bin/static
+      environment:
+        # datenbank
+        DATABASE_URL: "postgres://iic-server:12345@0.0.0.0:5431/default"
+        # api-keys
+        ADMIN: "gjkSDFO0958gdlkj23459sdJERI34sDJ"
+        # screenpin
+        SCREENPIN: "123456"
+        # cookies
+        SECRET_KEY: "ATKqj3f1jBszjfhqvsiL2tGxdNRKJpdwy7JtohYpyHss"
+      depends_on:
+        - postgres
+
+    postgres:
+      image: postgres
+      restart: always
+      environment:
+        POSTGRES_USER: "iic-server"
+        POSTGRES_PASSWORD: "12345"
+        POSTGRES_DB: "default"
+      healthcheck:
+        test: [“CMD-SHELL”, “pg_isready”]
+          interval: 1s
+        timeout: 5s
+          retries: 10
+      volumes:
+        - ./pgdata:/var/lib/postgresql/data
+        - ./migrations:/docker-entrypoint-initdb.d
+
+
