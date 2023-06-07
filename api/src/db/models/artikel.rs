@@ -1,6 +1,6 @@
 use diesel::prelude::*;
 use crate::db::schema::*;
-use crate::db::models_new::*;
+//use crate::db::models_new::*;
 use rocket::serde::{Deserialize, Serialize};
 
 #[derive(Queryable, Identifiable,  AsChangeset, Clone, Serialize, Deserialize, FromForm)]

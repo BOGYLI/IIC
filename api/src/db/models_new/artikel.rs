@@ -1,8 +1,8 @@
 use diesel::prelude::*;
 use crate::db::schema::*;
 
-use crate::utils::apikey;
-use serde::{Serialize, Deserialize};
+/*use crate::utils::apikey;
+use serde::{Serialize, Deserialize};*/
 
 #[derive(Insertable, FromForm)]
 #[diesel(table_name = artikel)]

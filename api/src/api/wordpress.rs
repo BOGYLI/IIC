@@ -1,5 +1,5 @@
 use rocket_dyn_templates::{Template, context};
-use std::path::{Path, PathBuf};
+/*use std::path::{Path, PathBuf};
 use rocket::fs::NamedFile;
 
 use rocket::http::{Cookie, SameSite, CookieJar, Status};
@@ -17,7 +17,7 @@ use rocket::Request;
 use rocket::response::Responder;
 
 
-use rocket::fs::TempFile;
+use rocket::fs::TempFile;*/
 
 
 
@@ -47,12 +47,12 @@ use rocket_dyn_templates::serde::json::Value;
 use tera;
 use tera::Function;
 use std::collections::HashMap;
-use rocket_contrib::json::JsonValue;
+//use rocket_contrib::json::JsonValue;
 use rocket::serde::json::from_value;
 use rocket::serde::json::to_value;
 use tera::Number;
 
-pub fn media_url(urls: BTreeMap<String, String>) -> impl Function {
+pub fn media_url(_urls: BTreeMap<String, String>) -> impl Function {
     Box::new(move |args: &HashMap<std::string::String, Value>| -> Result<Value, tera::Error> {
         match args.get("id") {
             Some(val) => match from_value::<Number>(val.clone()) {
@@ -67,12 +67,12 @@ pub fn media_url(urls: BTreeMap<String, String>) -> impl Function {
     })
 }
 
-pub fn format_date(urls: BTreeMap<String, String>) -> impl Function {
+pub fn format_date(_urls: BTreeMap<String, String>) -> impl Function {
     Box::new(move |args: &HashMap<std::string::String, Value>| -> Result<Value, tera::Error> {
         match args.get("date") {
             Some(val) => match from_value::<String>(val.clone()) {
                 Ok(v) =>  {
-                    let date = v.split("T").collect::<Vec<&str>>();
+                    let date = v.split('T').collect::<Vec<&str>>();
                     Ok(to_value(date[0]).unwrap())
                 },
                 Err(e) => Err(e.into()),

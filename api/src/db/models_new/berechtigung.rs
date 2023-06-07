@@ -1,8 +1,9 @@
 use diesel::prelude::*;
 use crate::db::schema::*;
 
-use crate::utils;
-use serde::{Serialize, Deserialize};
+/*use crate::utils;
+use serde::{Serialize, Deserialize};*/
+use serde::Serialize;
 
 #[derive(Insertable, FromForm)]
 #[diesel(table_name = benutzer)]

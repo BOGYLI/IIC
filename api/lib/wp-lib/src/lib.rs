@@ -97,6 +97,7 @@ impl Media {
     pub fn from(uri: &str, id: String) -> Option<Media> {
         println!("{}", &format!("{}/wp-json/wp/v2/media/{}", uri, id));
         //println!("{:?}", &ureq::get(&format!("{}/wp-json/wp/v2/media", id)).call().unwrap().into_string().unwrap());
+        #[allow(unused_assignments)]
         let mut response = String::new();
         if cache::media::has(id.clone()) {
             response = cache::media::get(id);
@@ -129,6 +130,7 @@ impl Post {
         serde_json::from_str(&ureq::get(&format!("{}/wp-json/wp/v2/posts", uri)).call().unwrap().into_string().unwrap()).unwrap()
     }
     pub fn get_from_uri_limited(uri: &str, per_page: i64) -> Option<Vec<Post>> {
+        #[allow(unused_assignments)]
         let mut response = String::new();
         if cache::post::has() {
             response = cache::post::get();

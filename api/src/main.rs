@@ -34,6 +34,13 @@ pub mod feedback;
 use utils::cookies::*;
 
 #[get("/")]
+async fn start(perm: HTMLPermission) -> Template {
+    Template::render("iframe", context! {
+        init: "/feedback/runde1/idlescreen"
+    })
+}
+
+#[get("/index")]
 async fn index(perm: HTMLPermission) -> Template {
     Template::render("index", context! {
     })
@@ -50,14 +57,13 @@ pub struct HTMLActivation<'r> {
 }
 use rocket::request::Outcome;
 #[post("/htmlactivation", data = "<data>")]
-pub async fn htmlactivation(data: Form<HTMLActivation<'_>>, cookies: &CookieJar<'_>) -> Result<Template, Status> {
+pub async fn htmlactivation(data: Form<HTMLActivation<'_>>, cookies: &CookieJar<'_>) -> Result<Redirect, Status> {
     match dotenvy::var("SCREENPIN") {
         Ok(screenpin) => {
             if screenpin == data.pin {
                 cookies.remove_private(Cookie::named("html_access"));
                 cookies.add_private(Cookie::new("html_access", "1"));
-                return Ok(Template::render("idle", context! {
-                }));
+                return Ok(Redirect::to(uri!("/")));
             }
         }
         Err(_) => {}
@@ -84,16 +90,16 @@ fn rocket() -> _ {
     use std::net::Ipv4Addr;
     let tmp = dotenvy::var("SECRET_KEY").expect("rocket requires SECRET_KEY - cookies");
     let secret_key = tmp.as_bytes();
-    println!("{:?}", secret_key);
+    //println!("{:?}", secret_key);
     let config = Config {
         tls: Some(tls_config),
         address: Ipv4Addr::new(0, 0, 0, 0).into(),
-        //secret_key: SecretKey::from(secret_key),
+        secret_key: SecretKey::from(secret_key),
         ..Default::default()
     };
     
     rocket::custom(config)
-        .mount("/", routes![index, favicon, htmlactivation])
+        .mount("/", routes![start, index, favicon, htmlactivation])
 
         .mount("/user", routes![user::register, user::login_page, user::login_fail, user::login_post, user::whoami, user::whoami_redirect])
         .mount("/admin", routes![admin::dashboard])

@@ -1,13 +1,13 @@
 #!/bin/bash
 
-docker image rm api-debug
-docker image rm api-init
-docker image rm api-release
+docker image rm iic-debug
+#docker image rm iic-init
+docker image rm iic-release
 
-docker build -f Dockerfile.debug . -t api-debug
-docker build -f Dockerfile.init . -t api-init
-docker build -f Dockerfile.release . -t api-release
+docker build -f Dockerfile.debug . -t iic-debug
+#docker build -f Dockerfile.init . -t iic-init
+docker build -f Dockerfile.release . -t iic-release
 
-docker save api-debug:latest --output ../docker/api-debug.tar
-docker save api-init:latest --output ../docker/api-init.tar
-docker save api-release:latest --output ../docker/api-release.tar
+docker save iic-debug:latest --output ../docker/iic-debug.tar
+#docker save iic-init:latest --output ../docker/iic-init.tar
+docker save iic-release:latest --output ../docker/iic-release.tar

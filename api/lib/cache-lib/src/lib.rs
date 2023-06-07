@@ -8,7 +8,7 @@ pub mod media {
     pub fn add(id: String, value: String) {
         use std::fs::File;
         use std::fs;
-        File::create(format!("cache/media/{}", id));
+        File::create(format!("cache/media/{}", id)).unwrap();
         fs::write(format!("cache/media/{}", id), value).expect("Unable to write file");
     }
 
@@ -33,8 +33,9 @@ pub mod post {
         use std::fs::File;
         use std::fs;
         println!("adding cached version of: {}", id);
-        File::create(format!("cache/posts/{}", id));
-        fs::write(format!("cache/posts/{}", id), value).expect("Unable to write file");
+        File::create(format!("cache/posts/{}", id)).unwrap();
+        fs::write(format!("cache/posts/{}", id), value.clone()).expect("Unable to write file");
+        fs::write("cache/posts/fallback", value).expect("Unable to write file");
     }
 
     pub fn get() -> String {

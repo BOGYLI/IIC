@@ -1,6 +1,7 @@
 use rocket::request::Outcome;
 use rocket::http::Status;
-use rocket::request::{self, Request, FromRequest};
+use rocket::request::{Request, FromRequest};
+/*use rocket::request::{self, Request, FromRequest};
 use rocket::outcome::IntoOutcome;
 use rocket::outcome::try_outcome;
 use rocket::http::Cookie;
@@ -9,7 +10,7 @@ use rocket::http::SameSite;
 
 use crate::db::models::Benutzer;
 use crate::utils::DBQueryableUtils;
-use crate::db::DBQueryable;
+use crate::db::DBQueryable;*/
 
 
 #[derive(Debug)]

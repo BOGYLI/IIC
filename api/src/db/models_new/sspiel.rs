@@ -6,7 +6,7 @@ use serde::{Serialize, Deserialize};
 
 use serde::{Serializer}; // 1.0.104
 
-fn apikey_serialize<S>(x: &i32, s: S) -> Result<S::Ok, S::Error>
+fn apikey_serialize<S>(_x: &i32, s: S) -> Result<S::Ok, S::Error>
 where
     S: Serializer,
 {

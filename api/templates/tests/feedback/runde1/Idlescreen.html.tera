@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="Idlescreen.css">
-
-
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -166,7 +163,7 @@ h5 {
 
 <div class="row">
   <div class="col-md-2 offset-md-1">
-      <a href="/feedback/runde1/games"><div class="card c-img">
+      <a style="text-decoration:none;" href="/feedback/runde1/games"><div class="card c-img">
           <img src="/static/icons/gaming-gamepad-icon.png" class="card-img-top" alt="image">
           <div class="card-body">
               <h5 class="card-title text-center">Spiele</h5>
@@ -174,7 +171,7 @@ h5 {
       </div></a>
   </div>
   <div class="col-md-2">
-      <a href="/feedback/runde1/karte"><div class="card c-img">
+      <a style="text-decoration:none;" href="/feedback/runde1/karte"><div class="card c-img">
           <img src="/static/icons/maps-pin-line-icon.png" class="card-img-top" alt="image">
           <div class="card-body">
               <h5 class="card-title text-center">Karte</h5>
@@ -182,7 +179,7 @@ h5 {
       </div></a>
   </div>
   <div class="col-md-2">
-      <a href="/feedback/runde1/birthday"><div class="card c-img">
+      <a style="text-decoration:none;" href="/feedback/runde1/birthday"><div class="card c-img">
           <img src="/static/icons/birthday-cake-icon.png" class="card-img-top" alt="image">
           <div class="card-body">
               <h5 class="card-title text-center">Geburtstagswünschen</h5>
@@ -190,7 +187,7 @@ h5 {
       </div></a>
   </div>
   <div class="col-md-2">
-      <a href="/feedback/runde1/news"><div class="card c-img">
+      <a style="text-decoration:none;" href="/feedback/runde1/news"><div class="card c-img">
           <img src="/static/icons/newspaper-icon.png" class="card-img-top" alt="image">
           <div class="card-body">
               <h5 class="card-title text-center">Nachrichten</h5>
@@ -198,7 +195,7 @@ h5 {
       </div></a>
   </div>
   <div class="col-md-2 ">
-      <a href="/feedback/runde1/umfrage"><div class="card c-img">
+      <a style="text-decoration:none;" href="/feedback/runde1/umfragen"><div class="card c-img">
           <img src="/static/icons/question-inquiry-icon.png" class="card-img-top" alt="image">
           <div class="card-body">
               <h5 class="card-title text-center">Umfrage</h5>

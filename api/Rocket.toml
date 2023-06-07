@@ -8,15 +8,13 @@ address = "0.0.0.0"
 port = 8000
 workers = 4
 keep_alive = 5
-secret_key = "12345ghdfithbjdkfjreof945icdbndkfj4otekjfjrt"
+secret_key = "ySyrelzO/TfjzcJVjJSr64cKlr4D+KMERdui/SBBtrc="
 limits = { forms = 32768 }
 
 [release]
-address = "0.0.0.0"
 port = 80
-workers = 4
-keep_alive = 5
-secret_key = "12345ghdfithbjdkfjreof945icdbndkfj4otekjfjrt"
+ip_header = false
+secret_key = "ySyrelzO/TfjzcJVjJSr64cKlr4D+KMERdui/SBBtrc="
 limits = { forms = 32768 }
 
 [global.tls]

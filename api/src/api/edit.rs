@@ -7,7 +7,7 @@ use crate::utils::cookies::{UpdatePermission};
 
 //
 #[put("/umfrageantwort", data = "<data>") ]
-pub fn umfrageantwort(data: Form<Umfrageantwort>, update: UpdatePermission) -> Result<Status, Status> {
+pub fn umfrageantwort(data: Form<Umfrageantwort>, _update: UpdatePermission) -> Result<Status, Status> {
 	match data.into_inner().update(&mut crate::db::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
 		Err(_) => Err(Status::InternalServerError)
@@ -16,7 +16,7 @@ pub fn umfrageantwort(data: Form<Umfrageantwort>, update: UpdatePermission) -> R
 //
 
 #[put("/umfrage", data = "<data>") ]
-pub fn umfrage(data: Form<Umfrage>, update: UpdatePermission) -> Result<Status, Status> {
+pub fn umfrage(data: Form<Umfrage>, _update: UpdatePermission) -> Result<Status, Status> {
 	match data.into_inner().update(&mut crate::db::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
 		Err(_) => Err(Status::InternalServerError)
@@ -44,7 +44,7 @@ pub fn umfrageufrage(data: Form<UmfrageUFrage>, update: UpdatePermission) -> Res
 */
 
 #[put("/uantwort", data = "<data>") ]
-pub fn uantwort(data: Form<UAntwort>, update: UpdatePermission) -> Result<Status, Status> {
+pub fn uantwort(data: Form<UAntwort>, _update: UpdatePermission) -> Result<Status, Status> {
 	match data.into_inner().update(&mut crate::db::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
 		Err(_) => Err(Status::InternalServerError)
@@ -62,7 +62,7 @@ pub fn ufrageuantwort(data: Form<UFrageUAntwort>, update: UpdatePermission) -> R
 */
 
 #[put("/ufrage", data = "<data>") ]
-pub fn ufrage(data: Form<UFrage>, update: UpdatePermission) -> Result<Status, Status> {
+pub fn ufrage(data: Form<UFrage>, _update: UpdatePermission) -> Result<Status, Status> {
 	match data.into_inner().update(&mut crate::db::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
 		Err(_) => Err(Status::InternalServerError)
@@ -74,7 +74,7 @@ pub fn ufrage(data: Form<UFrage>, update: UpdatePermission) -> Result<Status, St
 
 
 #[put("/medien", data = "<data>") ]
-pub fn medien(data: Form<Medien>, update: UpdatePermission) -> Result<Status, Status> {
+pub fn medien(data: Form<Medien>, _update: UpdatePermission) -> Result<Status, Status> {
 	match data.into_inner().update(&mut crate::db::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
 		Err(_) => Err(Status::InternalServerError)
@@ -92,7 +92,7 @@ pub fn artikelmedien(data: Form<ArtikelAutor>, update: UpdatePermission) -> Resu
 */
 
 #[put("/artikel", data = "<data>") ]
-pub fn artikel(data: Form<Artikel>, update: UpdatePermission) -> Result<Status, Status> {
+pub fn artikel(data: Form<Artikel>, _update: UpdatePermission) -> Result<Status, Status> {
 	match data.into_inner().update(&mut crate::db::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
 		Err(_) => Err(Status::InternalServerError)
@@ -110,7 +110,7 @@ pub fn artikelautor(data: Form<ArtikelAutor>, update: UpdatePermission) -> Resul
 */
 
 #[put("/template", data = "<data>") ]
-pub fn template(data: Form<Template>, update: UpdatePermission) -> Result<Status, Status> {
+pub fn template(data: Form<Template>, _update: UpdatePermission) -> Result<Status, Status> {
 	match data.into_inner().update(&mut crate::db::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
 		Err(_) => Err(Status::InternalServerError)
@@ -128,7 +128,7 @@ pub fn templatetparameter(data: Form<TemplateTParameter>, update: UpdatePermissi
 */
 
 #[put("/tparameter", data = "<data>") ]
-pub fn tparameter(data: Form<TParameter>, update: UpdatePermission) -> Result<Status, Status> {
+pub fn tparameter(data: Form<TParameter>, _update: UpdatePermission) -> Result<Status, Status> {
 	match data.into_inner().update(&mut crate::db::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
 		Err(_) => Err(Status::InternalServerError)
@@ -141,7 +141,7 @@ pub fn tparameter(data: Form<TParameter>, update: UpdatePermission) -> Result<St
 
 
 #[put("/benutzer", data = "<data>") ]
-pub fn benutzer(data: Form<Benutzer>, update: UpdatePermission) -> Result<Status, Status> {
+pub fn benutzer(data: Form<Benutzer>, _update: UpdatePermission) -> Result<Status, Status> {
 	match data.into_inner().update(&mut crate::db::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
 		Err(_) => Err(Status::InternalServerError)
@@ -159,7 +159,7 @@ pub fn benutzer(data: Form<BenutzerBerechtigung>, update: UpdatePermission) -> R
 */
 
 #[put("/berechtigung", data = "<data>") ]
-pub fn berechtigung(data: Form<Berechtigung>, update: UpdatePermission) -> Result<Status, Status> {
+pub fn berechtigung(data: Form<Berechtigung>, _update: UpdatePermission) -> Result<Status, Status> {
 	match data.into_inner().update(&mut crate::db::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
 		Err(_) => Err(Status::InternalServerError)
@@ -171,7 +171,7 @@ pub fn berechtigung(data: Form<Berechtigung>, update: UpdatePermission) -> Resul
 
 
 #[put("/sspiel", data = "<data>") ]
-pub fn sspiel(data: Form<SSpiel>, update: UpdatePermission) -> Result<Status, Status> {
+pub fn sspiel(data: Form<SSpiel>, _update: UpdatePermission) -> Result<Status, Status> {
 	match data.into_inner().update(&mut crate::db::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
 		Err(_) => Err(Status::InternalServerError)
@@ -179,7 +179,7 @@ pub fn sspiel(data: Form<SSpiel>, update: UpdatePermission) -> Result<Status, St
 }
 
 #[put("/sspieler", data = "<data>") ]
-pub fn sspieler(data: Form<SSpieler>, update: UpdatePermission) -> Result<Status, Status> {
+pub fn sspieler(data: Form<SSpieler>, _update: UpdatePermission) -> Result<Status, Status> {
 	match data.into_inner().update(&mut crate::db::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
 		Err(_) => Err(Status::InternalServerError)
@@ -191,7 +191,7 @@ pub fn sspieler(data: Form<SSpieler>, update: UpdatePermission) -> Result<Status
 
 
 #[put("/mspieler", data = "<data>") ]
-pub fn mspieler(data: Form<MSpieler>, update: UpdatePermission) -> Result<Status, Status> {
+pub fn mspieler(data: Form<MSpieler>, _update: UpdatePermission) -> Result<Status, Status> {
 	match data.into_inner().update(&mut crate::db::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
 		Err(_) => Err(Status::InternalServerError)
@@ -199,7 +199,7 @@ pub fn mspieler(data: Form<MSpieler>, update: UpdatePermission) -> Result<Status
 }
 
 #[put("/mspiel", data = "<data>") ]
-pub fn mspiel(data: Form<MSpiel>, update: UpdatePermission) -> Result<Status, Status> {
+pub fn mspiel(data: Form<MSpiel>, _update: UpdatePermission) -> Result<Status, Status> {
 	match data.into_inner().update(&mut crate::db::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
 		Err(_) => Err(Status::InternalServerError)
@@ -207,7 +207,7 @@ pub fn mspiel(data: Form<MSpiel>, update: UpdatePermission) -> Result<Status, St
 }
 
 #[put("/team", data = "<data>") ]
-pub fn team(data: Form<Team>, update: UpdatePermission) -> Result<Status, Status> {
+pub fn team(data: Form<Team>, _update: UpdatePermission) -> Result<Status, Status> {
 	match data.into_inner().update(&mut crate::db::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
 		Err(_) => Err(Status::InternalServerError)
