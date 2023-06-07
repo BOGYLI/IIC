@@ -10,6 +10,7 @@ mod insert;
 mod query;
 pub use insert::*;
 pub use query::*;
+pub mod utils;
 
 
 pub fn establish_connection() -> PgConnection {
