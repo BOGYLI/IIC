@@ -17,7 +17,7 @@ rand = "0.8.5"
 tera = "1"
 
 wp-lib = { path = "./lib/wp-lib" }
-mebis-lib = { path = "./lib/mebis-lib" }
+#mebis-lib = { path = "./lib/mebis-lib" }
 cache-lib = { path = "./lib/cache-lib" }
 
 

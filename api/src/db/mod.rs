@@ -21,6 +21,7 @@ pub fn establish_connection() -> PgConnection {
 }
 
 pub trait DBInsertable<T: Queryable<S, diesel::pg::Pg>, S> {
+    #[allow(clippy::new_ret_no_self)]
     fn new(self, conn: &mut PgConnection) -> Result<T, diesel::result::Error> where Self: Sized;
 }
 

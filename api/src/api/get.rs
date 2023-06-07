@@ -1,8 +1,8 @@
 use crate::db::models::*;
-use rocket::form::Form;
+//use rocket::form::Form;
 use rocket::http::Status;
 
-use crate::utils::from::*;
+//use crate::utils::from::*;
 use crate::utils::DBQueryableUtils;
 use crate::db::DBQueryable;
 use crate::utils::cookies::{ReadPermission};
@@ -20,7 +20,7 @@ pub fn umfrageantwort(data: Form<Umfrageantwort>) -> Result<rocket::serde::json:
 */
 
 #[post("/umfrage/<id>") ]
-pub fn umfrage(id: i32, read: ReadPermission) -> Result<rocket::serde::json::Json<Umfrage>, Status> {
+pub fn umfrage(id: i32, _read: ReadPermission) -> Result<rocket::serde::json::Json<Umfrage>, Status> {
 	match Umfrage::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -48,7 +48,7 @@ pub fn umfrageufrage(data: Form<UmfrageBenutzer>) -> Result<rocket::serde::json:
 */
 
 #[post("/ufrage/<id>") ]
-pub fn ufrage(id: i32, read: ReadPermission) -> Result<rocket::serde::json::Json<UFrage>, Status> {
+pub fn ufrage(id: i32, _read: ReadPermission) -> Result<rocket::serde::json::Json<UFrage>, Status> {
 	match UFrage::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -66,7 +66,7 @@ pub fn ufrageuantwort(data: Form<UmfrageBenutzer>) -> Result<rocket::serde::json
 */
 
 #[post("/uantwort/<id>") ]
-pub fn uantwort(id: i32, read: ReadPermission) -> Result<rocket::serde::json::Json<UAntwort>, Status> {
+pub fn uantwort(id: i32, _read: ReadPermission) -> Result<rocket::serde::json::Json<UAntwort>, Status> {
 	match UAntwort::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -78,7 +78,7 @@ pub fn uantwort(id: i32, read: ReadPermission) -> Result<rocket::serde::json::Js
 
 
 #[post("/medien/<id>") ]
-pub fn medien(id: i32, read: ReadPermission) -> Result<rocket::serde::json::Json<Medien>, Status> {
+pub fn medien(id: i32, _read: ReadPermission) -> Result<rocket::serde::json::Json<Medien>, Status> {
 	match Medien::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -96,7 +96,7 @@ pub fn artikelmedien(data: Form<UmfrageBenutzer>) -> Result<rocket::serde::json:
 */
 
 #[post("/artikel/<id>") ]
-pub fn artikel(id: i32, read: ReadPermission) -> Result<rocket::serde::json::Json<Artikel>, Status> {
+pub fn artikel(id: i32, _read: ReadPermission) -> Result<rocket::serde::json::Json<Artikel>, Status> {
 	match Artikel::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -112,7 +112,7 @@ pub fn artikelautor(data: Form<ArtikelAutor>) -> Result<rocket::serde::json::Jso
 }*/
 
 #[post("/template/<id>") ]
-pub fn template(id: i32, read: ReadPermission) -> Result<rocket::serde::json::Json<Template>, Status> {
+pub fn template(id: i32, _read: ReadPermission) -> Result<rocket::serde::json::Json<Template>, Status> {
 	match Template::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -128,7 +128,7 @@ pub fn templatetparameter(data: Form<TemplateTParameter>) -> Result<rocket::serd
 }*/
 
 #[post("/tparameter/<id>") ]
-pub fn tparameter(id: i32, read: ReadPermission) -> Result<rocket::serde::json::Json<TParameter>, Status> {
+pub fn tparameter(id: i32, _read: ReadPermission) -> Result<rocket::serde::json::Json<TParameter>, Status> {
 	match TParameter::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -140,7 +140,7 @@ pub fn tparameter(id: i32, read: ReadPermission) -> Result<rocket::serde::json::
 
 
 #[post("/benutzer/<id>") ]
-pub fn benutzer(id: i32, read: ReadPermission) -> Result<rocket::serde::json::Json<Benutzer>, Status> {
+pub fn benutzer(id: i32, _read: ReadPermission) -> Result<rocket::serde::json::Json<Benutzer>, Status> {
 	match Benutzer::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -156,7 +156,7 @@ pub fn benutzerberechtigung(id: i32) -> Result<rocket::serde::json::Json<usize>,
 }*/
 
 #[post("/berechtigung/<id>") ]
-pub fn berechtigung(id: i32, read: ReadPermission) -> Result<rocket::serde::json::Json<Berechtigung>, Status> {
+pub fn berechtigung(id: i32, _read: ReadPermission) -> Result<rocket::serde::json::Json<Berechtigung>, Status> {
 	match Berechtigung::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -164,7 +164,7 @@ pub fn berechtigung(id: i32, read: ReadPermission) -> Result<rocket::serde::json
 }
 
 #[post("/apikey/<id>") ]
-pub fn apikey(id: i32, read: ReadPermission) -> Result<rocket::serde::json::Json<ApiKey>, Status> {
+pub fn apikey(id: i32, _read: ReadPermission) -> Result<rocket::serde::json::Json<ApiKey>, Status> {
 	match ApiKey::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -176,7 +176,7 @@ pub fn apikey(id: i32, read: ReadPermission) -> Result<rocket::serde::json::Json
 
 
 #[post("/sspiel/<id>") ]
-pub fn sspiel(id: i32, read: ReadPermission) -> Result<rocket::serde::json::Json<SSpiel>, Status> {
+pub fn sspiel(id: i32, _read: ReadPermission) -> Result<rocket::serde::json::Json<SSpiel>, Status> {
 	match SSpiel::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -197,7 +197,7 @@ pub fn sspieler(id: i32) -> Result<rocket::serde::json::Json<SSpieler>, Status> 
 
 
 #[post("/mspiel/<id>") ]
-pub fn mspiel(id: i32, read: ReadPermission) -> Result<rocket::serde::json::Json<MSpiel>, Status> {
+pub fn mspiel(id: i32, _read: ReadPermission) -> Result<rocket::serde::json::Json<MSpiel>, Status> {
 	match MSpiel::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -214,7 +214,7 @@ pub fn mspieler(id: i32) -> Result<rocket::serde::json::Json<MSpieler>, Status> 
 }*/
 
 #[post("/team/<id>") ]
-pub fn team(id: i32, read: ReadPermission) -> Result<rocket::serde::json::Json<Team>, Status> {
+pub fn team(id: i32, _read: ReadPermission) -> Result<rocket::serde::json::Json<Team>, Status> {
 	match Team::new_by_id(id).get(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)

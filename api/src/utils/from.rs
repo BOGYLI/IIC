@@ -1,14 +1,14 @@
 use super::DBQueryableUtils;
 use crate::db::{models, schema};
 
-use diesel::pg::PgConnection;
-use diesel::prelude::*;
+//use diesel::pg::PgConnection;
+//use diesel::prelude::*;
 
 
 impl DBQueryableUtils<models::Umfrage, schema::umfrage::SqlType> for models::Umfrage {
     fn new_by_id(id: i32) -> models::Umfrage {
         models::Umfrage {
-            id: id,
+            id,
             titel: String::new(),
         }
     }
@@ -17,7 +17,7 @@ impl DBQueryableUtils<models::Umfrage, schema::umfrage::SqlType> for models::Umf
 impl DBQueryableUtils<models::Medien, schema::medien::SqlType> for models::Medien {
     fn new_by_id(id: i32) -> models::Medien {
         models::Medien {
-            id: id,
+            id,
             typ: String::new(),
             pfad: String::new(),
             erstelldatum: String::new(),
@@ -28,7 +28,7 @@ impl DBQueryableUtils<models::Medien, schema::medien::SqlType> for models::Medie
 impl DBQueryableUtils<models::Template, schema::template::SqlType> for models::Template {
     fn new_by_id(id: i32) -> models::Template {
         models::Template {
-            id: id,
+            id,
             pfad: String::new(),
         }
     }
@@ -37,7 +37,7 @@ impl DBQueryableUtils<models::Template, schema::template::SqlType> for models::T
 impl DBQueryableUtils<models::TParameter, schema::tparameter::SqlType> for models::TParameter {
     fn new_by_id(id: i32) -> models::TParameter {
         models::TParameter {
-            id: id,
+            id,
             typ: String::new(),
             name: String::new(),
         }
@@ -56,7 +56,7 @@ impl DBQueryableUtils<models::TParameter, schema::tparameter::SqlType> for model
 impl DBQueryableUtils<models::Benutzer, schema::benutzer::SqlType> for models::Benutzer {
     fn new_by_id(id: i32) -> models::Benutzer {
         models::Benutzer {
-            id: id,
+            id,
             name: String::new(),
             mebistoken: String::new(),
             passwort: String::new(),
@@ -67,7 +67,7 @@ impl DBQueryableUtils<models::Benutzer, schema::benutzer::SqlType> for models::B
 impl DBQueryableUtils<models::UFrage, schema::ufrage::SqlType> for models::UFrage {
     fn new_by_id(id: i32) -> models::UFrage {
         models::UFrage {
-            id: id,
+            id,
             inhalt: String::new(),
         }
     }
@@ -76,7 +76,7 @@ impl DBQueryableUtils<models::UFrage, schema::ufrage::SqlType> for models::UFrag
 impl DBQueryableUtils<models::UAntwort, schema::uantwort::SqlType> for models::UAntwort {
     fn new_by_id(id: i32) -> models::UAntwort {
         models::UAntwort {
-            id: id,
+            id,
             inhalt: String::new(),
             typ: String::new(),
         }
@@ -113,7 +113,7 @@ impl DBQueryableUtils<models::UAntwort, schema::uantwort::SqlType> for models::U
 impl DBQueryableUtils<models::Artikel, schema::artikel::SqlType> for models::Artikel {
     fn new_by_id(id: i32) -> models::Artikel {
         models::Artikel {
-            id: id,
+            id,
             pfad: String::new(),
             erstelldatum: String::new(),
             status: String::new(),
@@ -135,7 +135,7 @@ impl DBQueryableUtils<models::Artikel, schema::artikel::SqlType> for models::Art
 impl DBQueryableUtils<models::Berechtigung, schema::berechtigung::SqlType> for models::Berechtigung {
     fn new_by_id(id: i32) -> models::Berechtigung {
         models::Berechtigung {
-            id: id,
+            id,
             name: String::new(),
             beschreibung: String::new(),
             apikeyid: 0
@@ -146,7 +146,7 @@ impl DBQueryableUtils<models::Berechtigung, schema::berechtigung::SqlType> for m
 impl DBQueryableUtils<models::ApiKey, schema::apikey::SqlType> for models::ApiKey {
     fn new_by_id(id: i32) -> models::ApiKey {
         models::ApiKey {
-            id: id,
+            id,
             wert: String::new(),
             zeitpunkt: String::new(),
             dauer: 0			// Stunden
@@ -159,7 +159,7 @@ impl DBQueryableUtils<models::ApiKey, schema::apikey::SqlType> for models::ApiKe
 impl DBQueryableUtils<models::SSpiel, schema::sspiel::SqlType> for models::SSpiel {
     fn new_by_id(id: i32) -> models::SSpiel {
         models::SSpiel {
-            id: id,
+            id,
             name: String::new(),
             url: String::new(),
             apikeyid: 0,
@@ -172,7 +172,7 @@ impl DBQueryableUtils<models::SSpiel, schema::sspiel::SqlType> for models::SSpie
 impl DBQueryableUtils<models::MSpiel, schema::mspiel::SqlType> for models::MSpiel {
     fn new_by_id(id: i32) -> models::MSpiel {
         models::MSpiel {
-            id: id,
+            id,
             name: String::new(),
             url: String::new(),
             apikeyid: 0,
@@ -213,7 +213,7 @@ impl DBQueryableUtils<models::MSpieler, schema::artikel::SqlType> for models::Ar
 impl DBQueryableUtils<models::Team, schema::team::SqlType> for models::Team {
     fn new_by_id(id: i32) -> models::Team {
         models::Team {
-            id: id,
+            id,
             name: String::new(),
             apikeyid: 0,
             overallscore: 0,

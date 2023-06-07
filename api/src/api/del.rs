@@ -2,7 +2,7 @@ use crate::db::models::*;
 use rocket::form::Form;
 use rocket::http::Status;
 
-use crate::utils::from::*;
+//use crate::utils::from::*;
 use crate::utils::DBQueryableUtils;
 use crate::db::DBQueryable;
 use crate::utils::cookies::{DeletePermission};
@@ -10,7 +10,7 @@ use crate::utils::cookies::{DeletePermission};
 
 //
 #[get("/umfrageantwort", data = "<data>") ]
-pub fn umfrageantwort(data: Form<Umfrageantwort>, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn umfrageantwort(data: Form<Umfrageantwort>, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match data.into_inner().delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -19,7 +19,7 @@ pub fn umfrageantwort(data: Form<Umfrageantwort>, del: DeletePermission) -> Resu
 //
 
 #[get("/umfrage/<id>") ]
-pub fn umfrage(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn umfrage(id: i32, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match Umfrage::new_by_id(id).delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -28,7 +28,7 @@ pub fn umfrage(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Js
 
 //
 #[get("/umfragebenutzer", data = "<data>") ]
-pub fn umfragebenutzer(data: Form<UmfrageBenutzer>, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn umfragebenutzer(data: Form<UmfrageBenutzer>, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match data.into_inner().delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -38,7 +38,7 @@ pub fn umfragebenutzer(data: Form<UmfrageBenutzer>, del: DeletePermission) -> Re
 
 //
 #[get("/umfrageufrage", data = "<data>") ]
-pub fn umfrageufrage(data: Form<UmfrageUFrage>, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn umfrageufrage(data: Form<UmfrageUFrage>, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match data.into_inner().delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -47,7 +47,7 @@ pub fn umfrageufrage(data: Form<UmfrageUFrage>, del: DeletePermission) -> Result
 //
 
 #[get("/ufrage/<id>") ]
-pub fn ufrage(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn ufrage(id: i32, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match UFrage::new_by_id(id).delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -56,7 +56,7 @@ pub fn ufrage(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Jso
 
 //
 #[get("/ufrageuantwort", data = "<data>") ]
-pub fn ufrageuantwort(data: Form<UFrageUAntwort>, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn ufrageuantwort(data: Form<UFrageUAntwort>, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match data.into_inner().delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -65,7 +65,7 @@ pub fn ufrageuantwort(data: Form<UFrageUAntwort>, del: DeletePermission) -> Resu
 //
 
 #[get("/uantwort/<id>") ]
-pub fn uantwort(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn uantwort(id: i32, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match UAntwort::new_by_id(id).delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -77,7 +77,7 @@ pub fn uantwort(id: i32, del: DeletePermission) -> Result<rocket::serde::json::J
 
 
 #[get("/medien/<id>") ]
-pub fn medien(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn medien(id: i32, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match Medien::new_by_id(id).delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -86,7 +86,7 @@ pub fn medien(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Jso
 
 //
 #[get("/artikelmedien", data = "<data>") ]
-pub fn artikelmedien(data: Form<ArtikelMedien>, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn artikelmedien(data: Form<ArtikelMedien>, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match data.into_inner().delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -95,7 +95,7 @@ pub fn artikelmedien(data: Form<ArtikelMedien>, del: DeletePermission) -> Result
 //
 
 #[get("/artikel/<id>") ]
-pub fn artikel(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn artikel(id: i32, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match Artikel::new_by_id(id).delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -104,7 +104,7 @@ pub fn artikel(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Js
 
 //
 #[get("/artikelautor", data = "<data>") ]
-pub fn artikelautor(data: Form<ArtikelAutor>, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn artikelautor(data: Form<ArtikelAutor>, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match data.into_inner().delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -113,7 +113,7 @@ pub fn artikelautor(data: Form<ArtikelAutor>, del: DeletePermission) -> Result<r
 //
 
 #[get("/template/<id>") ]
-pub fn template(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn template(id: i32, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match Template::new_by_id(id).delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -122,7 +122,7 @@ pub fn template(id: i32, del: DeletePermission) -> Result<rocket::serde::json::J
 
 //
 #[get("/templatetparameter", data = "<data>") ]
-pub fn templatetparameter(data: Form<TemplateTParameter>, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn templatetparameter(data: Form<TemplateTParameter>, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match data.into_inner().delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -131,7 +131,7 @@ pub fn templatetparameter(data: Form<TemplateTParameter>, del: DeletePermission)
 //
 
 #[get("/tparameter/<id>") ]
-pub fn tparameter(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn tparameter(id: i32, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match TParameter::new_by_id(id).delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -143,7 +143,7 @@ pub fn tparameter(id: i32, del: DeletePermission) -> Result<rocket::serde::json:
 
 
 #[get("/benutzer/<id>") ]
-pub fn benutzer(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn benutzer(id: i32, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match Benutzer::new_by_id(id).delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -152,7 +152,7 @@ pub fn benutzer(id: i32, del: DeletePermission) -> Result<rocket::serde::json::J
 
 //
 #[get("/benutzerberechtigung", data = "<data>") ]
-pub fn benutzerberechtigung(data: Form<BenutzerBerechtigung>, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn benutzerberechtigung(data: Form<BenutzerBerechtigung>, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match data.into_inner().delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -161,7 +161,7 @@ pub fn benutzerberechtigung(data: Form<BenutzerBerechtigung>, del: DeletePermiss
 //
 
 #[get("/berechtigung/<id>") ]
-pub fn berechtigung(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn berechtigung(id: i32, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match Berechtigung::new_by_id(id).delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -169,7 +169,7 @@ pub fn berechtigung(id: i32, del: DeletePermission) -> Result<rocket::serde::jso
 }
 
 #[get("/apikey/<id>") ]
-pub fn apikey(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn apikey(id: i32, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match ApiKey::new_by_id(id).delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -181,7 +181,7 @@ pub fn apikey(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Jso
 
 
 #[get("/sspiel/<id>") ]
-pub fn sspiel(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn sspiel(id: i32, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match SSpiel::new_by_id(id).delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -190,7 +190,7 @@ pub fn sspiel(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Jso
 
 //
 #[get("/sspieler", data = "<data>") ]
-pub fn sspieler(data: Form<SSpieler>, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn sspieler(data: Form<SSpieler>, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match data.into_inner().delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -203,7 +203,7 @@ pub fn sspieler(data: Form<SSpieler>, del: DeletePermission) -> Result<rocket::s
 
 
 #[get("/mspiel/<id>") ]
-pub fn mspiel(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn mspiel(id: i32, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match MSpiel::new_by_id(id).delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -212,7 +212,7 @@ pub fn mspiel(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Jso
 
 //
 #[get("/mspieler", data = "<data>") ]
-pub fn mspieler(data: Form<MSpieler>, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn mspieler(data: Form<MSpieler>, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match data.into_inner().delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -221,7 +221,7 @@ pub fn mspieler(data: Form<MSpieler>, del: DeletePermission) -> Result<rocket::s
 //
 
 #[get("/team/<id>") ]
-pub fn team(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn team(id: i32, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match Team::new_by_id(id).delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)
@@ -230,7 +230,7 @@ pub fn team(id: i32, del: DeletePermission) -> Result<rocket::serde::json::Json<
 
 //
 #[get("/benutzerteam", data = "<data>") ]
-pub fn benutzerteam(data: Form<BenutzerTeam>, del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
+pub fn benutzerteam(data: Form<BenutzerTeam>, _del: DeletePermission) -> Result<rocket::serde::json::Json<usize>, Status> {
 	match data.into_inner().delete(&mut crate::db::establish_connection()) {
 		Ok(data) => Ok(rocket::serde::json::Json(data)),
 		Err(_) => Err(Status::InternalServerError)

@@ -19,6 +19,9 @@ use rocket::response::Responder;
 
 use rocket::fs::TempFile;
 
+use crate::db::DBQueryable;
+use crate::db::models::Umfrage;
+
 #[get("/idlescreen")]
 pub async fn idlescreen() -> Template {
     let posts = wp_lib::Post::get_from_uri_limited("https://bodensee-gymnasium.de", 3).unwrap();
@@ -103,8 +106,20 @@ pub async fn umfragen() -> Template {
 
 #[get("/umfrage/create")]
 pub async fn umfrage_create() -> Template {
-    Template::render("tests/feedback/runde1/umfrage/create", context! {
-    })
+    match Umfrage::get_all(&mut crate::db::establish_connection()) {
+		Ok(data) => {
+            Template::render("tests/feedback/runde1/umfrage/create", context! {
+                umfragen: data
+            })
+        },
+		Err(_) => {
+            let data: Vec<Umfrage> = vec![];
+            Template::render("tests/feedback/runde1/umfrage/create", context! {
+                umfragen: data
+            })
+        }
+	}
+    
 }
 
 #[get("/umfrage/<id>")]
