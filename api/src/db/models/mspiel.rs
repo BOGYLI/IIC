@@ -3,7 +3,7 @@ use crate::db::schema::*;
 //use crate::db::models_new::*;
 use rocket::serde::{Deserialize, Serialize};
 
-#[derive(Queryable,   AsChangeset, Clone, Serialize, Deserialize, FromForm)]
+#[derive(Queryable,   AsChangeset, Clone, Serialize, Deserialize, FromForm, Selectable)]
 #[diesel(table_name = mspiel)]
 pub struct MSpiel {
 	pub id: i32,
@@ -14,7 +14,7 @@ pub struct MSpiel {
 	pub best: Option<i32>
 }
 
-#[derive(Queryable,   AsChangeset, Clone, Serialize, Deserialize, FromForm)]
+#[derive(Queryable,   AsChangeset, Clone, Serialize, Deserialize, FromForm, Selectable)]
 #[diesel(table_name = mspieler)]
 pub struct MSpieler {
 	pub matchid: i32,
@@ -28,7 +28,7 @@ pub struct MSpieler {
 	pub einstellungen2: String,
 }
 
-#[derive(Queryable,   AsChangeset, Clone, Serialize, Deserialize, FromForm)]
+#[derive(Queryable,   AsChangeset, Clone, Serialize, Deserialize, FromForm, Selectable)]
 #[diesel(table_name = team)]
 pub struct Team {
 	pub id: i32,
@@ -37,7 +37,7 @@ pub struct Team {
 	pub overallscore: i32,
 }
 
-#[derive(Queryable,   AsChangeset, Clone, Serialize, Deserialize, FromForm)]
+#[derive(Queryable,   AsChangeset, Clone, Serialize, Deserialize, FromForm, Selectable)]
 #[diesel(table_name = benutzerteam)]
 pub struct BenutzerTeam {
 	pub benutzerid: i32,

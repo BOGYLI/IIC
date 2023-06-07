@@ -1,5 +1,9 @@
 use rocket_dyn_templates::{Template, context};
-use std::path::{Path, PathBuf};
+use rocket::response::{Redirect};
+use rocket::serde::{Deserialize};
+use rocket::form::{Form};
+use rocket::http::{Cookie, CookieJar};
+/*use std::path::{Path, PathBuf};
 use rocket::fs::NamedFile;
 
 use rocket::http::{Cookie, SameSite, CookieJar, Status};
@@ -17,22 +21,22 @@ use rocket::Request;
 use rocket::response::Responder;
 use rocket::http::uri::Absolute;
 
-use rocket::fs::TempFile;
+use rocket::fs::TempFile;*/
 
 use crate::utils::cookies::Lehrer;
 
 
 #[get("/register")]
-pub async fn register(rolle: Lehrer) -> Template {
+pub async fn register(_rolle: Lehrer) -> Template {
     Template::render("user/register", context! {
         klassen: vec!["5a", "Q11"],
         rollen: vec!["Schueler", "Lehrer"]
     })
 }
 
-use crate::utils::DBQueryableUtils;
+/*use crate::utils::DBQueryableUtils;
 use crate::db::DBQueryable;
-use rocket::serde::json::Json;
+use rocket::serde::json::Json;*/
 
 #[get("/login")]
 pub async fn login_page() -> Template {
@@ -55,7 +59,7 @@ pub struct Login<'r> {
 pub async fn login_post(data: Form<Login<'_>>, cookies: &CookieJar<'_>) -> Result<Template, Redirect> {
     match data.token {
         Some(token) => {
-            match Benutzer::mebis(data.name.to_string(), token.to_string(), &mut crate::db::establish_connection()) {
+            /*match Benutzer::mebis(data.name.to_string(), token.to_string(), &mut crate::db::establish_connection()) {
                 Some(benutzer) => {
                     cookies.remove_private(Cookie::named("user_id"));
                     cookies.add_private(Cookie::new("user_id", benutzer.id.to_string()));
@@ -63,11 +67,17 @@ pub async fn login_post(data: Form<Login<'_>>, cookies: &CookieJar<'_>) -> Resul
                     }));
                 }
                 None => {}
+            }*/
+            if let Some(benutzer) = Benutzer::mebis(data.name.to_string(), token.to_string(), &mut crate::db::establish_connection()) {
+                cookies.remove_private(Cookie::named("user_id"));
+                cookies.add_private(Cookie::new("user_id", benutzer.id.to_string()));
+                return Ok(Template::render("user/loggedin", context! {
+                }));
             }
         },
         None => return Err(Redirect::to(uri!("/user/loginfail")))
     }
-    match data.passwort {
+    /*match data.passwort {
         Some(passwort) => {
             match Benutzer::authenticate(data.name.to_string(), passwort.to_string(), &mut crate::db::establish_connection()) {
                 Some(benutzer) => {
@@ -80,6 +90,17 @@ pub async fn login_post(data: Form<Login<'_>>, cookies: &CookieJar<'_>) -> Resul
             }
         },
         None => {}
+    }*/
+    if let Some(passwort) = data.passwort {
+        match Benutzer::authenticate(data.name.to_string(), passwort.to_string(), &mut crate::db::establish_connection()) {
+            Some(benutzer) => {
+                cookies.remove_private(Cookie::named("user_id"));
+                cookies.add_private(Cookie::new("user_id", benutzer.id.to_string()));
+                return Ok(Template::render("user/loggedin", context! {
+                }));
+            }
+            None => return Err(Redirect::to(uri!("/user/loginfail")))
+        }
     }
     Err(Redirect::to(uri!("/user/loginfail")))
 }

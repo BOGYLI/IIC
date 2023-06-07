@@ -1,5 +1,8 @@
+use rocket::http::Status;
 use rocket_dyn_templates::{Template, context};
-use std::path::{Path, PathBuf};
+use rocket::form::{Form};
+use rocket::response::{Redirect};
+/*use std::path::{Path, PathBuf};
 use rocket::fs::NamedFile;
 
 use rocket::http::{Cookie, SameSite, CookieJar, Status};
@@ -17,10 +20,11 @@ use rocket::Request;
 use rocket::response::Responder;
 
 
-use rocket::fs::TempFile;
+use rocket::fs::TempFile;*/
 
 use crate::db::DBQueryable;
 use crate::db::models::Umfrage;
+use crate::utils::DBQueryableUtils;
 
 #[get("/idlescreen")]
 pub async fn idlescreen() -> Template {
@@ -123,13 +127,24 @@ pub async fn umfrage_create() -> Template {
 }
 
 #[get("/umfrage/<id>")]
-pub async fn umfrage_view(id: i64) -> Template {
-    Template::render("tests/feedback/runde1/umfrage/view", context! {
-    })
+pub async fn umfrage_view(id: i32) -> Result<Template, Status> {
+    if let Ok(umfrage) = Umfrage::new_by_id(id).get(&mut crate::db::establish_connection()) {
+        Ok(Template::render("tests/feedback/runde1/umfrage/view", context! {
+            umfrage
+        }))
+    } else {
+        Err(Status::NotFound)
+    }
 }
 
 #[get("/umfrage/result/<id>")]
-pub async fn umfrage_result(id: i64) -> Template {
-    Template::render("tests/feedback/runde1/umfrage/result", context! {
-    })
+pub async fn umfrage_result(id: i32) -> Result<Template, Status> {
+    if let Ok(umfrage) = Umfrage::new_by_id(id).get(&mut crate::db::establish_connection()) {
+        let result = umfrage.result();
+        Ok(Template::render("tests/feedback/runde1/umfrage/result", context! {
+            result
+        }))
+    } else {
+        Err(Status::NotFound)
+    }
 }
