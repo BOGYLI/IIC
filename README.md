@@ -1,7 +1,5 @@
 # Interactive Information Center
 
-
-
 ## Getting started
 
 ```
