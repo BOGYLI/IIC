@@ -2,7 +2,11 @@
 
 mkdir certs migrations pgdata
 cd certs
+echo "Generating self-signed certificates..."
+stty -echo
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -subj '/CN=bogybarpi' -nodes
+stty echo
+echo "...fertig"
 cd ..
 cp -r ../api/static .
 cp -r ../api/templates .
@@ -13,17 +17,58 @@ cd ../api
 
 for migration in $(find . -type f -name "up.sql")
 do
-	cp "$migration" "../iic-server/$(migration/\/up./.)"
+	name=${migration:13:-7}.sql
+	cp "$migration" "../iic-server/migrations/$name"
 done
 
 cd ../iic-server
 
-term='s/secretkey/'$(openssl rand -base64 64)'/g'
-sed -i $term '.env'
-term='s/adminapikey/'$(openssl rand -base64 20)'/g'
-sed -i $term '.env'
-term='s/postgrespassword/'$(openssl rand -base64 6)'/g'
-sed -i $term '.env'
 
 
+
+
+
+echo "SECRET_KEY: \"$(printf %b "$(openssl rand -base64 64)")\"" >> .env
+echo "ADMIN: \"$(printf %b "$(openssl rand -base64 10)")\"" >> .env
+echo "POSTGRES_PASSWORD: \"$(printf %b "$(openssl rand -base64 25)")\"" >> .env
+
+echo "Screenpin muss gesetzt werden."
+echo "Diese muss auf dem Screen eingegeben werden, um ihn fuer den API-Zugriff zu verifizieren"
+echo "Achtung die Eingabe wird nicht angezeigt"
+
+screenpin="1"
+screenpin="2"
+
+while [ "$screenpin" != "$screenpin2" ]
+do
+	stty -echo
+	printf "%s" "Screenpin: "
+	read screenpin
+	printf "\n"
+	printf "%s" "Screenpin (nochmal): "
+	read screenpin2
+	printf "\n"
+	stty echo
+done
+
+echo "SCREENPIN: \"$screenpin\"" >> .env
+echo "Fertig"
+
+# secret=$(printf %b "$(openssl rand -base64 64)")
+# #printf %q "$(openssl rand -base64 64)"
+# term='s/secretkey/'$secret'/g'
+# echo $term
+# sed -i $term '.env'
+# #term='s/adminapikey/'$(openssl rand -base64 20)'/g'
+# secret=$(openssl rand -base64 64)
+# term='s/secretkey/'$secret'/g'
+# echo $term
+# sed -i $term '.env'
+# #term='s/postgrespassword/'$(openssl rand -base64 6)'/g'
+# secret=$(openssl rand -base64 64)
+# term='s/secretkey/'$secret'/g'
+# echo $term
+# sed -i $term '.env'
+
+echo "FINISHED"
 #rm ../api
