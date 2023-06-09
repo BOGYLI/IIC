@@ -18,7 +18,9 @@ cd ../api
 for migration in $(find . -type f -name "up.sql")
 do
 	name=${migration:13:-7}.sql
-	cp "$migration" "../iic-server/migrations/$name"
+	#cp "$migration" "../iic-server/migrations/$name"
+	echo "$migration" >> "../iic-server/migrations/up.sql"
+	echo "\n" >> "../iic-server/migrations/up.sql"
 done
 
 cd ../iic-server
@@ -53,22 +55,6 @@ done
 
 echo "SCREENPIN: \"$screenpin\"" >> .env
 echo "Fertig"
-
-# secret=$(printf %b "$(openssl rand -base64 64)")
-# #printf %q "$(openssl rand -base64 64)"
-# term='s/secretkey/'$secret'/g'
-# echo $term
-# sed -i $term '.env'
-# #term='s/adminapikey/'$(openssl rand -base64 20)'/g'
-# secret=$(openssl rand -base64 64)
-# term='s/secretkey/'$secret'/g'
-# echo $term
-# sed -i $term '.env'
-# #term='s/postgrespassword/'$(openssl rand -base64 6)'/g'
-# secret=$(openssl rand -base64 64)
-# term='s/secretkey/'$secret'/g'
-# echo $term
-# sed -i $term '.env'
 
 echo "FINISHED"
 #rm ../api
