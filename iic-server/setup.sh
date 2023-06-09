@@ -30,9 +30,9 @@ cd ../iic-server
 
 
 
-echo "SECRET_KEY: \"$(printf %b "$(openssl rand -base64 64)")\"" >> .env
-echo "ADMIN: \"$(printf %b "$(openssl rand -base64 10)")\"" >> .env
-echo "POSTGRES_PASSWORD: \"$(printf %b "$(openssl rand -base64 25)")\"" >> .env
+echo "SECRET_KEY=\"$(printf %b "$(openssl rand -base64 64)")\"" >> .env
+echo "ADMIN=\"$(printf %b "$(openssl rand -base64 10)")\"" >> .env
+echo "POSTGRES_PASSWORD=\"$(printf %b "$(openssl rand -base64 25)")\"" >> .env
 
 echo "Screenpin muss gesetzt werden."
 echo "Diese muss auf dem Screen eingegeben werden, um ihn fuer den API-Zugriff zu verifizieren"
@@ -53,7 +53,7 @@ do
 	stty echo
 done
 
-echo "SCREENPIN: \"$screenpin\"" >> .env
+echo "SCREENPIN=\"$screenpin\"" >> .env
 echo "Fertig"
 
 echo "FINISHED"
