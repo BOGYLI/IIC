@@ -8,11 +8,26 @@ RUN USER=root apt-get install libpq-dev -y
 WORKDIR /server
 ENV CARGO_HOME=/workdir/.cargo
 
-COPY . .
+RUN cargo init .
 
+COPY ./Cargo.toml ./Cargo.lock ./
+RUN cargo install diesel_cli --no-default-features --features postgres
+RUN mkdir /server/lib
+WORKDIR /server/lib
+RUN cargo new --lib wp-lib
+RUN cargo new --lib mebis-lib
+COPY ./lib /server/lib
 RUN rustup override set nightly
 RUN cargo build --release
 
+WORKDIR /server/api
+COPY . /server/api
+RUN ls .
+
+RUN rustup override set nightly
+RUN cargo build --release
+#COPY --from=builder /server/target/release/server ./build/release
+RUN ls /server/target/release
 ##############################################################################
 
 FROM debian:bullseye-slim AS release

@@ -25,11 +25,6 @@ done
 
 cd ../iic-server
 
-
-
-
-
-
 echo "SECRET_KEY=\"$(printf %b "$(openssl rand -base64 64)")\"" >> .env
 echo "ADMIN=\"$(printf %b "$(openssl rand -base64 10)")\"" >> .env
 echo "POSTGRES_PASSWORD=\"$(printf %b "$(openssl rand -base64 25)")\"" >> .env
@@ -54,7 +49,27 @@ do
 done
 
 echo "SCREENPIN=\"$screenpin\"" >> .env
+
+cd ../api
+
+echo "Baue docker Comtainer"
+./docker-build.sh
+
 echo "Fertig"
 
-echo "FINISHED"
-#rm ../api
+echo "Jetzt koennen noch unnoetige Dateien geloescht werden."
+echo "Diese waren zum Bau des Docker-Containers noetig."
+echo "Sie sind aber nicht zum Start des Containers noetig."
+read -p "Loesche Dateien? (Y/N): " confirm
+if [[ "$confirm" == [yY] || "$confirm" == [yY][eE][sS] ]]; then
+	rm ../api
+fi
+
+echo
+echo
+
+echo "Der Server kann jetzt mit 'docker-compose up -d' gestartet werden."
+read -p "Starten? (Y/N): " confirm
+if [[ "$confirm" == [yY] || "$confirm" == [yY][eE][sS] ]]; then
+	docker-compose up -d
+fi
