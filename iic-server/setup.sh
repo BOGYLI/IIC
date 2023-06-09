@@ -19,8 +19,8 @@ for migration in $(find . -type f -name "up.sql")
 do
 	name=${migration:13:-7}.sql
 	#cp "$migration" "../iic-server/migrations/$name"
-	echo "$migration" >> "../iic-server/migrations/up.sql"
-	echo "\n" >> "../iic-server/migrations/up.sql"
+	echo "$(cat $migration)" >> "../iic-server/migrations/up.sql"
+	#echo "" >> "../iic-server/migrations/up.sql"
 done
 
 cd ../iic-server
@@ -56,6 +56,7 @@ echo "Baue docker Comtainer"
 ./docker-build.sh
 
 echo "Fertig"
+cd ../iic-server
 
 echo "Jetzt koennen noch unnoetige Dateien geloescht werden."
 echo "Diese waren zum Bau des Docker-Containers noetig."
