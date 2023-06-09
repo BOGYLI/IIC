@@ -1,10 +1,13 @@
 #!/bin/bash
 
-cp -r ../api/certs ./certs
-cp -r ../api/static ./static
-cp -r ../api/templates ./templates
-cp -r ../api/cache ./cache
-cp ../api/Rocket.toml ./Rocket.toml
+mkdir certs migrations pgdata
+cd certs
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -subj '/CN=bogybarpi' -nodes
+cd ..
+cp -r ../api/static .
+cp -r ../api/templates .
+cp -r ../api/cache .
+cp ../api/Rocket.toml .
 
 cd ../api
 
