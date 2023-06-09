@@ -30,7 +30,7 @@
     </ol-->
 
     <ol>
-        {% antwort in result %}
+        {% for antwort in result %}
             <li>Typ: {{antwort.typ}} Antwort: {{antwort.antwortid}} Frage: {{antwort.frageid}} Wert: {{antwort.wert}}</li>
         {% endfor %}
     </ol>
