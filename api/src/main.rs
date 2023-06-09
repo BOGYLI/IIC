@@ -2,6 +2,7 @@
 use rocket_dyn_templates::{Template, context};
 //use std::path::{Path, PathBuf};
 use rocket::fs::NamedFile;
+use rocket::fs::{FileServer};
 
 use rocket::http::{Cookie, SameSite, CookieJar, Status};
 use rocket::response::{Flash, Redirect};
