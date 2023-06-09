@@ -1,24 +1,24 @@
 #[macro_use] extern crate rocket;
 use rocket_dyn_templates::{Template, context};
-use std::path::{Path, PathBuf};
+//use std::path::{Path, PathBuf};
 use rocket::fs::NamedFile;
 
 use rocket::http::{Cookie, SameSite, CookieJar, Status};
 use rocket::response::{Flash, Redirect};
 
-use rocket::{State, Shutdown};
-use rocket::fs::{relative, FileServer};
+//use rocket::{State, Shutdown};
+//use rocket::fs::{relative, FileServer};
 use rocket::form::{self, Form,  Error};
-use rocket::response::stream::{EventStream, Event};
+//use rocket::response::stream::{EventStream, Event};
 use rocket::serde::{Serialize, Deserialize};
-use rocket::tokio::sync::broadcast::{channel, Sender, error::RecvError};
+/*use rocket::tokio::sync::broadcast::{channel, Sender, error::RecvError};
 use rocket::tokio::select;
 
 use rocket::Request;
 use rocket::response::Responder;
 
 
-use rocket::fs::TempFile;
+use rocket::fs::TempFile;*/
 
 pub mod db;
 pub mod api;
@@ -76,9 +76,10 @@ use std::env;
 fn rocket() -> _ {
     //env::set_var("RUST_BACKTRACE", "full");
     dotenvy::dotenv().ok();
-    dotenvy::var("USERNAME").expect("mebis-lib requires USERNAME - credential");
+    /*dotenvy::var("USERNAME").expect("mebis-lib requires USERNAME - credential");
     dotenvy::var("PASSWORD").expect("mebis-lib requires PASSWORD - credential");
-    dotenvy::var("URL").expect("mebis-lib requires URL - api");
+    dotenvy::var("MEBIS_URL").expect("mebis-lib requires MEBIS_URL - api");*/
+    dotenvy::var("WORDPRESS_URL").expect("wp-lib requires WORDPRESS_URL - api");
     dotenvy::var("SCREENPIN").expect("SCREENPIN required for graphical authentication of trusted device");
     
     use rocket::config::{Config, TlsConfig, CipherSuite};
