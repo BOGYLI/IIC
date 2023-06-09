@@ -28,9 +28,10 @@ use crate::utils::DBQueryableUtils;
 
 #[get("/idlescreen")]
 pub async fn idlescreen() -> Template {
-    let posts = wp_lib::Post::get_from_uri_limited("https://bodensee-gymnasium.de", 3).unwrap();
+    let uri = dotenvy::var("WORDPRESS_URL").expect("wp-lib requires WORDPRESS_URL - api");
+    let posts = wp_lib::Post::get_from_uri_limited(&uri, 3).unwrap();
     //let media = wp_lib::Media::from(posts[0].featured_media).guid.rendered;
-    //let val = wp_lib::Media::from("https://bodensee-gymnasium.de", posts[0].clone().featured_media.to_string()).unwrap();
+    //let val = wp_lib::Media::from(&uri, posts[0].clone().featured_media.to_string()).unwrap();
     //println!("{:?}", val);
 
     //TODO Template correct built but not showed as html in browser

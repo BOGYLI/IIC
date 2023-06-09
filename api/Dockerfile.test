@@ -1,0 +1,24 @@
+##############################################################################
+#---------------------------R E L E A S E------------------------------------#
+##############################################################################
+
+FROM rust:1.69-slim-buster AS builder
+RUN USER=root apt-get update -y
+RUN USER=root apt-get install libpq-dev -y
+WORKDIR /server
+ENV CARGO_HOME=/workdir/.cargo
+
+COPY . .
+
+RUN rustup override set nightly
+RUN cargo build --release
+
+##############################################################################
+
+FROM debian:bullseye-slim AS release
+RUN USER=root apt-get update -y
+RUN USER=root apt-get install libpq-dev -y
+COPY --from=builder /server/target/release/api /usr/local/bin
+EXPOSE 80
+CMD ["/usr/local/bin/api"]
+

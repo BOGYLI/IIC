@@ -58,7 +58,8 @@ pub fn media_url(_urls: BTreeMap<String, String>) -> impl Function {
             Some(val) => match from_value::<Number>(val.clone()) {
                 Ok(v) =>  {
                     let num = from_value::<Number>(tera::Value::Number(v)).unwrap();
-                    let valu = to_value(wp_lib::Media::from("https://bodensee-gymnasium.de", num.to_string()).unwrap().guid.rendered).unwrap();
+                    let uri = dotenvy::var("WORDPRESS_URL").expect("wp-lib requires WORDPRESS_URL - api");
+                    let valu = to_value(wp_lib::Media::from(&uri, num.to_string()).unwrap().guid.rendered).unwrap();
                     Ok(valu)},
                 Err(e) => Err(e.into()),
             },
