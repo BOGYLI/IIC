@@ -15,7 +15,7 @@
           <form action="/api/v1/new/umfrage" method="post" onsubmit="return api_new(this)">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Titel</label>
-              <input type="text" class="form-control" id="title" name="title" aria-describedby="umfragenname">
+              <input type="text" class="form-control" id="titel" name="titel" aria-describedby="umfragenname">
               <div id="emailHelp" class="form-text">Titel der Umfrage.</div>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -23,7 +23,7 @@
         </div>
         <div class="col-4">
           {% for umfrage in umfragen %}
-            <p>{{umfrage}}</p>
+            <p><a href="/feedback/runde1/umfrage/edit/{{umfrage.id}}">{{umfrage.titel}} ({{umfrage.id}})</a></p>
           {% endfor %}
         </div>
         
@@ -37,6 +37,7 @@
         request.open(form.method, form.action);
         request.setRequestHeader("x-api-key", apikey);
         request.send(data);
+        location.reload();
         return false;
     }
     </script>

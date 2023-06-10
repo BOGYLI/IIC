@@ -23,7 +23,7 @@ use rocket::response::Responder;
 use rocket::fs::TempFile;*/
 
 use crate::db::DBQueryable;
-use crate::db::models::Umfrage;
+use crate::db::models::{Umfrage, UAntwort, UFrage};
 use crate::utils::DBQueryableUtils;
 
 #[get("/idlescreen")]
@@ -122,6 +122,72 @@ pub async fn umfrage_create() -> Template {
             Template::render("tests/feedback/runde1/umfrage/create", context! {
                 umfragen: data
             })
+        }
+	}
+    
+}
+
+#[get("/umfrage/edit/<id>")]
+pub async fn umfrage_edit(id: i32) -> Template {
+    match UAntwort::get_all(&mut crate::db::establish_connection()) {
+		Ok(antworten) => {
+            match UFrage::get_all(&mut crate::db::establish_connection()) {
+                Ok(fragen) => {
+                    match UFrage::get_by_umfrage(id/*, &mut crate::db::establish_connection() */) {
+                        Ok(umfragefragen) => {
+                            let mut antwmoegl: Vec<Vec<UAntwort>> = vec![];
+                            for ufrage in &umfragefragen {
+                                if let Ok(d) = ufrage.get_uantworten() {
+                                    antwmoegl.push(d);
+                                }
+                            }
+                            Template::render("tests/feedback/runde1/umfrage/edit", context! {
+                                umfrage: id,
+                                antworten,
+                                fragen,
+                                umfragefragen,
+                                antwortmoeglichkeiten: antwmoegl,
+                             })
+                        },
+                        Err(_) => {
+                            let umfragefragen: Vec<UFrage> = vec![];
+                            let antwmoegl: Vec<Vec<UAntwort>> = vec![];
+                            Template::render("tests/feedback/runde1/umfrage/edit", context! {
+                                umfrage: id,
+                                antworten,
+                                fragen,
+                                umfragefragen,
+                                antwmoegl,
+                             })
+                        }
+                    }
+                },
+                Err(_) => {
+                    let fragen: Vec<UFrage> = vec![];
+                    let umfragefragen: Vec<UFrage> = vec![];
+                    let antwmoegl: Vec<Vec<UAntwort>> = vec![];
+                    Template::render("tests/feedback/runde1/umfrage/edit", context! {
+                        umfrage: id,
+                        antworten,
+                        fragen,
+                        umfragefragen,
+                        antwmoegl,
+                     })
+                }
+            }
+        },
+		Err(_) => {
+            let antworten: Vec<UAntwort> = vec![];
+            let fragen: Vec<UFrage> = vec![];
+            let umfragefragen: Vec<UFrage> = vec![];
+            let antwmoegl: Vec<Vec<UAntwort>> = vec![];
+            Template::render("tests/feedback/runde1/umfrage/edit", context! {
+                umfrage: id,
+                antworten,
+                fragen,
+                umfragefragen,
+                antwmoegl,
+             })
         }
 	}
     
