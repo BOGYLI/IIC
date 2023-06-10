@@ -1,6 +1,7 @@
 use crate::db::models::*;
 use rocket::form::Form;
 use rocket::http::Status;
+use rocket::serde::json::Json;
 
 use crate::db::DBInsertable;
 use crate::utils::cookies::{NewPermission};
@@ -33,30 +34,45 @@ pub fn umfragebenutzer(data: Form<NewUmfrageBenutzer>, _new: NewPermission) -> R
 pub fn umfrageufrage(data: Form<NewUmfrageUFrage>, _new: NewPermission) -> Result<Status, Status> {
 	match data.into_inner().new(&mut crate::db::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
-		Err(_) => Err(Status::InternalServerError)
+		Err(e) => {
+			println!("{:?}", e);
+			Err(Status::InternalServerError)
+		}
 	}
 }
 
 #[post("/ufrage", data = "<data>") ]
-pub fn ufrage(data: Form<NewUFrage>, _new: NewPermission) -> Result<Status, Status> {
+pub fn ufrage(data: Form<NewUFrage>, _new: NewPermission) -> Result<Json<UFrage>, Status> {
 	match data.into_inner().new(&mut crate::db::establish_connection()) {
-		Ok(_) => Ok(Status::Ok),
+		Ok(d) => Ok(Json(d)),
 		Err(_) => Err(Status::InternalServerError)
 	}
 }
 
 #[post("/ufrageuantwort", data = "<data>") ]
 pub fn ufrageuantwort(data: Form<NewUFrageUAntwort>, _new: NewPermission) -> Result<Status, Status> {
-	match data.into_inner().new(&mut crate::db::establish_connection()) {
+	let data2 = data.into_inner();
+	println!("{:?}", &data2);
+	match data2.new(&mut crate::db::establish_connection()) {
+		Ok(_) => {
+			println!("OK");
+			Ok(Status::Ok)
+		},
+		Err(e) => {
+			println!("{:?}", e);
+			Err(Status::InternalServerError)
+		}
+	}
+	/*match data.into_inner().new(&mut crate::db::establish_connection()) {
 		Ok(_) => Ok(Status::Ok),
 		Err(_) => Err(Status::InternalServerError)
-	}
+	}*/
 }
 
 #[post("/uantwort", data = "<data>") ]
-pub fn uantwort(data: Form<NewUAntwort>, _new: NewPermission) -> Result<Status, Status> {
+pub fn uantwort(data: Form<NewUAntwort>, _new: NewPermission) -> Result<Json<UAntwort>, Status> {
 	match data.into_inner().new(&mut crate::db::establish_connection()) {
-		Ok(_) => Ok(Status::Ok),
+		Ok(d) => Ok(Json(d)),
 		Err(_) => Err(Status::InternalServerError)
 	}
 }

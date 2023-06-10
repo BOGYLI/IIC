@@ -23,7 +23,7 @@ pub struct NewUAntwort<'a> {
 	pub typ: &'a str,
 }
 
-#[derive(Insertable, FromForm)]
+#[derive(Insertable, FromForm, Debug)]
 #[diesel(table_name = ufrageuantwort)]
 pub struct NewUFrageUAntwort {
 	pub frageid: i32,
