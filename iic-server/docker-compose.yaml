@@ -1,10 +1,14 @@
 version: '3'
 services:
-  postgres:
+  db:
     image: postgres
     restart: always
-    env_file:
-      - .env
+    #env_file:
+    #  - .env
+    environment:
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_DB: $POSTGRES_DB
     healthcheck:
       test: 
         - CMD-SHELL
@@ -15,24 +19,29 @@ services:
     volumes:
       - ./pgdata:/var/lib/postgresql/data
       - ./migrations:/docker-entrypoint-initdb.d
+    networks:
+      - internal
 
   server:
-    image: iic-test
+    image: iic-release
     ports:
-      - 80:80
+      - 8000:8000
     volumes:
       - ./cache:/usr/local/bin/cache
-      - ./certs:/usr/local/bin/certs
-      - ./templates:/usr/local/bin/templates
-      - ./static:/usr/local/bin/static
-      - ./Rocket.toml:/usr/local/bin/Rocket.toml
+      - ./certs:/usr/local/bin/certs:ro
+      - ./templates:/usr/local/bin/templates:ro
+      - ./static:/usr/local/bin/static:ro
+      - ./Rocket.toml:/usr/local/bin/Rocket.toml:ro
+      - ./.env:/usr/local/bin/.env:ro
     environment:
       # datenbank
-      DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@0.0.0.0:5431/${POSTGRES_DB}"
-    env_file:
-      - .env
+      DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/${POSTGRES_DB}"
+    #env_file:
+    #  - .env
     depends_on:
-      - postgres
+      - db
+    networks: 
+      - internal
 
 
-
+networks: {internal: {}}
