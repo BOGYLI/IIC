@@ -196,9 +196,30 @@ pub async fn umfrage_edit(id: i32) -> Template {
 #[get("/umfrage/<id>")]
 pub async fn umfrage_view(id: i32) -> Result<Template, Status> {
     if let Ok(umfrage) = Umfrage::new_by_id(id).get(&mut crate::db::establish_connection()) {
-        Ok(Template::render("tests/feedback/runde1/umfrage/view", context! {
-            umfrage
-        }))
+        match UFrage::get_by_umfrage(id/*, &mut crate::db::establish_connection() */) {
+            Ok(questions) => {
+                let mut antwmoegl: Vec<Vec<UAntwort>> = vec![];
+                for ufrage in &questions {
+                    if let Ok(d) = ufrage.get_uantworten() {
+                        antwmoegl.push(d);
+                    }
+                }
+                Ok(Template::render("tests/feedback/runde1/umfrage/view", context! {
+                    umfrage,
+                    questions,
+                    antwortmoeglichkeiten: antwmoegl,
+                 }))
+            },
+            Err(_) => {
+                let questions: Vec<UFrage> = vec![];
+                let antwmoegl: Vec<Vec<UAntwort>> = vec![];
+                Ok(Template::render("tests/feedback/runde1/umfrage/view", context! {
+                    umfrage,
+                    questions,
+                    antwortmoeglichkeiten: antwmoegl,
+                 }))
+            }
+        }
     } else {
         Err(Status::NotFound)
     }

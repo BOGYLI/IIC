@@ -67,6 +67,7 @@
             {% endfor %}
         </div>
     </div>
+    <a href="/feedback/runde1/umfrage/{{umfrage}}">Fertig</a>
 
 
     <form hidden id="umfrageufrageform" method="post" action="/api/v1/new/umfrageufrage">
