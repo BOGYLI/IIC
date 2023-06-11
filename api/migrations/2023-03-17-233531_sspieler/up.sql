@@ -9,4 +9,4 @@ CREATE TABLE SSpieler(
 	PRIMARY KEY(benutzerId, spielId),
 	FOREIGN KEY(benutzerId) REFERENCES Benutzer(id),
 	FOREIGN KEY(spielId) REFERENCES SSpiel(id)
-)
+);

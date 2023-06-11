@@ -14,4 +14,4 @@ CREATE TABLE MSpieler(
 	FOREIGN KEY(team1Id) REFERENCES Team(id),
 	FOREIGN KEY(team2Id) REFERENCES Team(id),
 	FOREIGN KEY(spielId) REFERENCES MSpiel(id)
-)
+);
