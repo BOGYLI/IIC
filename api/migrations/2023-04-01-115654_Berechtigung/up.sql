@@ -7,4 +7,4 @@ CREATE TABLE Berechtigung(
 	
 	PRIMARY KEY(id),
 	FOREIGN KEY(apikeyId) REFERENCES ApiKey(id)
-)
+);

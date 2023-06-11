@@ -6,4 +6,4 @@ CREATE TABLE Team(
 	overallscore	INTEGER	NOT NULL,
 	
 	PRIMARY KEY(id)
-)
+);

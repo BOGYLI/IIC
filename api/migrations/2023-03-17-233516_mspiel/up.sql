@@ -10,4 +10,4 @@ CREATE TABLE MSpiel(
 	PRIMARY KEY(id),
 	FOREIGN KEY(apikeyId) REFERENCES ApiKey(id),
 	FOREIGN KEY(best) REFERENCES Team(id)
-)
+);

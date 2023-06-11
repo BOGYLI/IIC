@@ -10,4 +10,4 @@ CREATE TABLE SSpiel(
 	PRIMARY KEY(id),
 	FOREIGN KEY(apikeyId) REFERENCES ApiKey(id),
 	FOREIGN KEY(best) REFERENCES Benutzer(id)
-)
+);
