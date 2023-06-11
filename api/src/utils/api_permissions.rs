@@ -1,6 +1,12 @@
+use diesel::result::Error;
 use rocket::request::Outcome;
 use rocket::http::Status;
 use rocket::request::{Request, FromRequest};
+
+use crate::db::DBQueryable;
+use crate::db::models::ApiKey;
+
+use super::DBQueryableUtils;
 /*use rocket::request::{self, Request, FromRequest};
 use rocket::outcome::IntoOutcome;
 use rocket::outcome::try_outcome;
@@ -20,9 +26,15 @@ pub enum PermissionError {
 }
 pub struct ReadPermission();
 impl ReadPermission {
-	pub fn is_valid(key: Vec<&str>) -> bool {
+	pub fn is_valid(keys: Vec<&str>) -> bool {
 		// select ApiKey WHERE id = 0
-		true
+        let key = ApiKey::new_by_id(1).get(&mut crate::db::establish_connection()).expect("ApiKey mit id=0 muss existieren (normal durch migration)");
+        for k in keys {
+            if key.wert.eq(k) {
+                return true;
+            }
+        }
+		false
 	}
 }
 #[rocket::async_trait]
@@ -40,9 +52,15 @@ impl<'r> FromRequest<'r> for ReadPermission {
 }
 pub struct DeletePermission();
 impl DeletePermission {
-	pub fn is_valid(key: Vec<&str>) -> bool {
+	pub fn is_valid(keys: Vec<&str>) -> bool {
 		// select ApiKey WHERE id = 1
-		true
+		let key = ApiKey::new_by_id(2).get(&mut crate::db::establish_connection()).expect("ApiKey mit id=0 muss existieren (normal durch migration)");
+        for k in keys {
+            if key.wert.eq(k) {
+                return true;
+            }
+        }
+		false
 	}
 }
 #[rocket::async_trait]
@@ -60,9 +78,15 @@ impl<'r> FromRequest<'r> for DeletePermission {
 }
 pub struct NewPermission();
 impl NewPermission {
-	pub fn is_valid(key: Vec<&str>) -> bool {
+	pub fn is_valid(keys: Vec<&str>) -> bool {
 		// select ApiKey WHERE id = 2
-		true
+		let key = ApiKey::new_by_id(3).get(&mut crate::db::establish_connection()).expect("ApiKey mit id=0 muss existieren (normal durch migration)");
+        for k in &keys {
+            if key.wert.eq(k) {
+                return true;
+            }
+        }
+		false
 	}
 }
 #[rocket::async_trait]
@@ -71,8 +95,6 @@ impl<'r> FromRequest<'r> for NewPermission {
 
     async fn from_request(request: &'r Request<'_>) -> Outcome<NewPermission, PermissionError> {
         let keys: Vec<_> = request.headers().get("x-api-key").collect();
-        println!("{:?}", keys);
-        let keys: Vec<_> = vec!["s"];
         match keys.len() {
             0 => Outcome::Failure((Status::Unauthorized, PermissionError::Missing)),
             _ if NewPermission::is_valid(keys) => Outcome::Success(NewPermission()),
@@ -82,9 +104,15 @@ impl<'r> FromRequest<'r> for NewPermission {
 }
 pub struct UpdatePermission();
 impl UpdatePermission {
-	pub fn is_valid(key: Vec<&str>) -> bool {
+	pub fn is_valid(keys: Vec<&str>) -> bool {
 		// select ApiKey WHERE id = 3
-		true
+		let key = ApiKey::new_by_id(4).get(&mut crate::db::establish_connection()).expect("ApiKey mit id=0 muss existieren (normal durch migration)");
+        for k in keys {
+            if key.wert.eq(k) {
+                return true;
+            }
+        }
+		false
 	}
 }
 #[rocket::async_trait]
@@ -98,5 +126,21 @@ impl<'r> FromRequest<'r> for UpdatePermission {
             _ if UpdatePermission::is_valid(keys) => Outcome::Success(UpdatePermission()),
             _ => Outcome::Failure((Status::Unauthorized, PermissionError::Invalid)),
         }
+    }
+}
+
+
+impl ApiKey {
+    pub fn api_write() -> Result<ApiKey, Error> {
+        ApiKey::new_by_id(1).get(&mut crate::db::establish_connection())
+    }
+    pub fn api_read() -> Result<ApiKey, Error> {
+        ApiKey::new_by_id(2).get(&mut crate::db::establish_connection())
+    }
+    pub fn api_new() -> Result<ApiKey, Error> {
+        ApiKey::new_by_id(3).get(&mut crate::db::establish_connection())
+    }
+    pub fn api_edit() -> Result<ApiKey, Error> {
+        ApiKey::new_by_id(4).get(&mut crate::db::establish_connection())
     }
 }

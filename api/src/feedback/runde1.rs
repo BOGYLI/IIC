@@ -23,7 +23,7 @@ use rocket::response::Responder;
 use rocket::fs::TempFile;*/
 
 use crate::db::DBQueryable;
-use crate::db::models::{Umfrage, UAntwort, UFrage};
+use crate::db::models::{Umfrage, UAntwort, UFrage, ApiKey};
 use crate::utils::DBQueryableUtils;
 use crate::utils::cookies::HTMLPermission;
 
@@ -115,13 +115,15 @@ pub async fn umfrage_create(_perm: HTMLPermission) -> Template {
     match Umfrage::get_all(&mut crate::db::establish_connection()) {
 		Ok(data) => {
             Template::render("tests/feedback/runde1/umfrage/create", context! {
-                umfragen: data
+                umfragen: data,
+                api_new: ApiKey::api_new().expect("ApiKey muss existieren (normal durch migration)").wert,
             })
         },
 		Err(_) => {
             let data: Vec<Umfrage> = vec![];
             Template::render("tests/feedback/runde1/umfrage/create", context! {
-                umfragen: data
+                umfragen: data,
+                api_new: ApiKey::api_new().expect("ApiKey muss existieren (normal durch migration)").wert,
             })
         }
 	}
@@ -209,6 +211,7 @@ pub async fn umfrage_view(id: i32, _perm: HTMLPermission) -> Result<Template, St
                     umfrage,
                     questions,
                     antwortmoeglichkeiten: antwmoegl,
+                    api_new: ApiKey::api_new().expect("ApiKey muss existieren (normal durch migration)"),
                  }))
             },
             Err(_) => {
@@ -218,6 +221,7 @@ pub async fn umfrage_view(id: i32, _perm: HTMLPermission) -> Result<Template, St
                     umfrage,
                     questions,
                     antwortmoeglichkeiten: antwmoegl,
+                    api_new: ApiKey::api_new().expect("ApiKey muss existieren (normal durch migration)"),
                  }))
             }
         }
