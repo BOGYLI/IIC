@@ -71,7 +71,7 @@ echo "Diese waren zum Bau des Docker-Containers noetig."
 echo "Sie sind aber nicht zum Start des Containers noetig."
 read -p "Loesche Dateien? (Y/N): " confirm
 if [[ "$confirm" == [yY] || "$confirm" == [yY][eE][sS] ]]; then
-	rm ../api
+	rm -r ../api
 fi
 
 echo
