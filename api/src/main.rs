@@ -35,14 +35,14 @@ pub mod feedback;
 use utils::cookies::*;
 
 #[get("/")]
-async fn start(perm: HTMLPermission) -> Template {
+async fn start(_perm: HTMLPermission) -> Template {
     Template::render("iframe", context! {
         init: "/feedback/runde1/idlescreen"
     })
 }
 
 #[get("/index")]
-async fn index(perm: HTMLPermission) -> Template {
+async fn index(_perm: HTMLPermission) -> Template {
     Template::render("index", context! {
     })
 }
