@@ -31,7 +31,7 @@
 
     <script>
       function api_new(form) {
-        let apikey = "hallo";
+        let apikey = "{{api_new}}";
         let data = new FormData(form);
         const request = new XMLHttpRequest();
         request.open(form.method, form.action);
