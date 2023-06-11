@@ -15,7 +15,8 @@ cp ../api/Rocket.toml .
 
 cd ../api
 
-for migration in $(find . -type f -name "up.sql")
+#for migration in $(find . -type f -name "up.sql")
+for migration in $(find . -type f -name 'up.sql' -printf '%f\t%p\n' | sort -k1 | cut -d$'\t' -f2)
 do
 	name=${migration:13:-7}.sql
 	#cp "$migration" "../iic-server/migrations/$name"
