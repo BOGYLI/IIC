@@ -25,9 +25,10 @@ use rocket::fs::TempFile;*/
 use crate::db::DBQueryable;
 use crate::db::models::{Umfrage, UAntwort, UFrage};
 use crate::utils::DBQueryableUtils;
+use crate::utils::cookies::HTMLPermission;
 
 #[get("/idlescreen")]
-pub async fn idlescreen() -> Template {
+pub async fn idlescreen(_perm: HTMLPermission) -> Template {
     let uri = dotenvy::var("WORDPRESS_URL").expect("wp-lib requires WORDPRESS_URL - api");
     let posts = wp_lib::Post::get_from_uri_limited(&uri, 3).unwrap();
     //let media = wp_lib::Media::from(posts[0].featured_media).guid.rendered;
@@ -42,20 +43,20 @@ pub async fn idlescreen() -> Template {
 }
 
 #[get("/refresh")]
-pub async fn refresh() -> Redirect {
+pub async fn refresh(_perm: HTMLPermission) -> Redirect {
     use cache_lib as cache;
     cache::post::refresh();
     Redirect::to(uri!("/feedback/runde1/idlescreen"))
 }
 
 #[get("/clickthebutton")]
-pub async fn clickthebutton() -> Template {
+pub async fn clickthebutton(_perm: HTMLPermission) -> Template {
     Template::render("tests/feedback/runde1/Clickthebutton", context! {
     })
 }
 
 #[get("/tictactoe")]
-pub async fn tictactoe() -> Template {
+pub async fn tictactoe(_perm: HTMLPermission) -> Template {
     Template::render("tests/feedback/runde1/TicTacToe", context! {
     //Template::render("games/tictactoe", context! {
     })
@@ -63,19 +64,19 @@ pub async fn tictactoe() -> Template {
 
 
 #[get("/games")]
-pub async fn games() -> Template {
+pub async fn games(_perm: HTMLPermission) -> Template {
     Template::render("tests/feedback/runde1/games", context! {
     })
 }
 
 #[get("/karte")]
-pub async fn karte() -> Template {
+pub async fn karte(_perm: HTMLPermission) -> Template {
     Template::render("tests/feedback/runde1/karte", context! {
     })
 }
 
 #[get("/birthday")]
-pub async fn birthday() -> Template {
+pub async fn birthday(_perm: HTMLPermission) -> Template {
     Template::render("tests/feedback/runde1/birthday", context! {
     })
 }
@@ -96,13 +97,13 @@ pub async fn birthdaydemo(data: Form<Birthday>) -> Template {
 }
 
 #[get("/news")]
-pub async fn news() -> Template {
+pub async fn news(_perm: HTMLPermission) -> Template {
     Template::render("tests/feedback/runde1/news", context! {
     })
 }
 
 #[get("/umfragen")]
-pub async fn umfragen() -> Template {
+pub async fn umfragen(_perm: HTMLPermission) -> Template {
     let umfragen: Vec<String> = vec![];
     Template::render("tests/feedback/runde1/umfragen", context! {
         umfragen: umfragen
@@ -110,7 +111,7 @@ pub async fn umfragen() -> Template {
 }
 
 #[get("/umfrage/create")]
-pub async fn umfrage_create() -> Template {
+pub async fn umfrage_create(_perm: HTMLPermission) -> Template {
     match Umfrage::get_all(&mut crate::db::establish_connection()) {
 		Ok(data) => {
             Template::render("tests/feedback/runde1/umfrage/create", context! {
@@ -128,7 +129,7 @@ pub async fn umfrage_create() -> Template {
 }
 
 #[get("/umfrage/edit/<id>")]
-pub async fn umfrage_edit(id: i32) -> Template {
+pub async fn umfrage_edit(id: i32, _perm: HTMLPermission) -> Template {
     match UAntwort::get_all(&mut crate::db::establish_connection()) {
 		Ok(antworten) => {
             match UFrage::get_all(&mut crate::db::establish_connection()) {
@@ -194,7 +195,7 @@ pub async fn umfrage_edit(id: i32) -> Template {
 }
 
 #[get("/umfrage/<id>")]
-pub async fn umfrage_view(id: i32) -> Result<Template, Status> {
+pub async fn umfrage_view(id: i32, _perm: HTMLPermission) -> Result<Template, Status> {
     if let Ok(umfrage) = Umfrage::new_by_id(id).get(&mut crate::db::establish_connection()) {
         match UFrage::get_by_umfrage(id/*, &mut crate::db::establish_connection() */) {
             Ok(questions) => {
@@ -226,7 +227,7 @@ pub async fn umfrage_view(id: i32) -> Result<Template, Status> {
 }
 
 #[get("/umfrage/result/<id>")]
-pub async fn umfrage_result(id: i32) -> Result<Template, Status> {
+pub async fn umfrage_result(id: i32, _perm: HTMLPermission) -> Result<Template, Status> {
     if let Ok(umfrage) = Umfrage::new_by_id(id).get(&mut crate::db::establish_connection()) {
         let result = umfrage.result();
         Ok(Template::render("tests/feedback/runde1/umfrage/result", context! {
