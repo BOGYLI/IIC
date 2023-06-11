@@ -23,6 +23,13 @@ do
 	#echo "" >> "../iic-server/migrations/up.sql"
 done
 
+echo "" >> "../iic-server/migrations/up.sql"
+echo "INSERT INTO ApiKey (wert, zeitpunkt, dauer) VALUES (\"$(printf %b "$(openssl rand -base64 10)")\", "", "");" >> "../iic-server/migrations/up.sql"
+echo "INSERT INTO ApiKey (wert, zeitpunkt, dauer) VALUES (\"$(printf %b "$(openssl rand -base64 10)")\", "", "");" >> "../iic-server/migrations/up.sql"
+echo "INSERT INTO ApiKey (wert, zeitpunkt, dauer) VALUES (\"$(printf %b "$(openssl rand -base64 10)")\", "", "");" >> "../iic-server/migrations/up.sql"
+echo "INSERT INTO ApiKey (wert, zeitpunkt, dauer) VALUES (\"$(printf %b "$(openssl rand -base64 10)")\", "", "");" >> "../iic-server/migrations/up.sql"
+
+
 cd ../iic-server
 
 echo "SECRET_KEY=\"$(printf %b "$(openssl rand -base64 64)")\"" >> .env
