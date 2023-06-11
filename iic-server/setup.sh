@@ -25,10 +25,10 @@ do
 done
 
 echo "" >> "../iic-server/migrations/up.sql"
-echo "INSERT INTO ApiKey (wert, zeitpunkt, dauer) VALUES (\"$(printf %b "$(openssl rand -base64 10)")\", " ", 0);" >> "../iic-server/migrations/up.sql"
-echo "INSERT INTO ApiKey (wert, zeitpunkt, dauer) VALUES (\"$(printf %b "$(openssl rand -base64 10)")\", " ", 0);" >> "../iic-server/migrations/up.sql"
-echo "INSERT INTO ApiKey (wert, zeitpunkt, dauer) VALUES (\"$(printf %b "$(openssl rand -base64 10)")\", " ", 0);" >> "../iic-server/migrations/up.sql"
-echo "INSERT INTO ApiKey (wert, zeitpunkt, dauer) VALUES (\"$(printf %b "$(openssl rand -base64 10)")\", " ", 0);" >> "../iic-server/migrations/up.sql"
+echo "INSERT INTO ApiKey (wert, zeitpunkt, dauer) VALUES (\"$(printf %b "$(openssl rand -base64 10)")\", \" \", 0);" >> "../iic-server/migrations/up.sql"
+echo "INSERT INTO ApiKey (wert, zeitpunkt, dauer) VALUES (\"$(printf %b "$(openssl rand -base64 10)")\", \" \", 0);" >> "../iic-server/migrations/up.sql"
+echo "INSERT INTO ApiKey (wert, zeitpunkt, dauer) VALUES (\"$(printf %b "$(openssl rand -base64 10)")\", \" \", 0);" >> "../iic-server/migrations/up.sql"
+echo "INSERT INTO ApiKey (wert, zeitpunkt, dauer) VALUES (\"$(printf %b "$(openssl rand -base64 10)")\", \" \", 0);" >> "../iic-server/migrations/up.sql"
 
 
 cd ../iic-server
