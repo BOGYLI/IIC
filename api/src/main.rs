@@ -82,7 +82,6 @@ fn rocket() -> _ {
     dotenvy::var("MEBIS_URL").expect("mebis-lib requires MEBIS_URL - api");*/
     dotenvy::var("WORDPRESS_URL").expect("wp-lib requires WORDPRESS_URL - api");
     dotenvy::var("SCREENPIN").expect("SCREENPIN required for graphical authentication of trusted device");
-    
     use rocket::config::{Config, TlsConfig, CipherSuite};
     let tls_config = TlsConfig::from_paths("certs/cert.pem", "certs/key.pem")
         .with_ciphers(CipherSuite::TLS_V13_SET)
@@ -93,12 +92,24 @@ fn rocket() -> _ {
     let tmp = dotenvy::var("SECRET_KEY").expect("rocket requires SECRET_KEY - cookies");
     let secret_key = tmp.as_bytes();
     //println!("{:?}", secret_key);
-    let config = Config {
-        tls: Some(tls_config),
+    let mut config = Config {
         address: Ipv4Addr::new(0, 0, 0, 0).into(),
         secret_key: SecretKey::from(secret_key),
         ..Default::default()
     };
+
+    let mut https: bool = false;
+    if let Ok(_) = dotenvy::var("HTTPS") {
+        https = true;
+
+        config = Config {
+            tls: Some(tls_config),
+            address: Ipv4Addr::new(0, 0, 0, 0).into(),
+            secret_key: SecretKey::from(secret_key),
+            ..Default::default()
+        };
+        println!("HTTPS");
+    }
     
     rocket::custom(config)
         .mount("/", routes![start, index, favicon, htmlactivation])
