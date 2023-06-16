@@ -104,10 +104,18 @@ pub async fn news(_perm: HTMLPermission) -> Template {
 
 #[get("/umfragen")]
 pub async fn umfragen(_perm: HTMLPermission) -> Template {
-    let umfragen: Vec<String> = vec![];
-    Template::render("tests/feedback/runde1/umfragen", context! {
-        umfragen: umfragen
-    })
+    match Umfrage::get_all(&mut crate::db::establish_connection()) {
+		Ok(data) => {
+            Template::render("tests/feedback/runde1/umfragen", context! {
+                umfragen: data,
+            })
+        }, Err(_) => {
+            let data: Vec<Umfrage> = vec![];
+            Template::render("tests/feedback/runde1/umfragen", context! {
+                umfragen: data,
+            })
+        }
+    }
 }
 
 #[get("/umfrage/create")]
