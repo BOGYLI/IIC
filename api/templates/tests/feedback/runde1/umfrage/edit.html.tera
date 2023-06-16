@@ -76,7 +76,7 @@
       </form>
 
     <script>
-        let apikey = "hallo";
+        let apikey = "{{api_new}}";
       function api_new(form) {
         let data = new FormData(form);
         const request = new XMLHttpRequest();
