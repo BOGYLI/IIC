@@ -1,4 +1,6 @@
 pub mod media {
+    use std::{fs::DirEntry, io::Error};
+
     pub fn has(id: String) -> bool {
         use std::path::Path;
         println!("checking for cached version of: {}", id);
@@ -16,6 +18,24 @@ pub mod media {
         use std::fs;
         println!("getting for cached version of: {}", id);
         fs::read_to_string(format!("cache/media/{}", id)).expect("Unable to read file")
+    }
+
+    pub fn get_rnd() -> String {
+        use std::fs;
+        let paths = fs::read_dir("cache/media/").unwrap();
+        /*if paths.len() > 0 {
+            return paths[paths.len()-1];
+        } else {
+            return String::from("cache/media/backup")
+        }*/
+        for path in paths {
+            if let Ok(path) = path {
+                if let Some(path) = path.path().to_str() {
+                    return String::from(path);
+                }
+            }
+        }
+        return String::from("cache/media/backup");
     }
 }
 
@@ -43,6 +63,24 @@ pub mod post {
         use std::fs;
         println!("getting for cached version of: {}", id);
         fs::read_to_string(format!("cache/posts/{}", id)).expect("Unable to read file")
+    }
+
+    pub fn get_rnd() -> String {
+        use std::fs;
+        let paths = fs::read_dir("cache/posts/").unwrap();
+        /*if paths.len() > 0 {
+            return paths[paths.len()-1];
+        } else {
+            return String::from("cache/media/backup")
+        }*/
+        for path in paths {
+            if let Ok(path) = path {
+                if let Some(path) = path.path().to_str() {
+                    return String::from(path);
+                }
+            }
+        }
+        return String::from("cache/posts/backup");
     }
 
     pub fn refresh() {

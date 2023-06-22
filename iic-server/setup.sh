@@ -13,6 +13,9 @@ cp -r ../api/templates .
 cp -r ../api/cache .
 cp ../api/Rocket.toml .
 
+mv backup.media cache/media/backup
+mv backup.posts cache/posts/backup
+
 cd ../api
 
 #for migration in $(find . -type f -name "up.sql")

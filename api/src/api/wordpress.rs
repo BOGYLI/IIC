@@ -25,7 +25,7 @@ use rocket::fs::TempFile;*/
 pub async fn wordpress_post(index: usize) -> Template {
     let posts = wp_lib::Post::get_from_uri("https://bodensee-gymnasium.de").unwrap();
     println!("{:?}", posts);
-    Template::render("placeholders/wordpress", context! {
+    Template::render("tests/feedback/runde1/wordpress_post", context! {
         title: posts[index].title.rendered.clone(),
         content: posts[index].content.rendered.clone()
     })

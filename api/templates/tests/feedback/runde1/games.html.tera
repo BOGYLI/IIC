@@ -79,57 +79,91 @@
 
 <div class= "container">
 
-  <div class="row">
-
-    <div class = "col">
-      <div class="card border-0 upperCards" style="width: 39rem; padding-right: 2rem; " onclick="location.href = '#'">
-        <img src="/static/images/games/chess-rook-icon.png" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title text-center">Schach</h5>
-        </div>
-      </div>
-   </div>
-
-    
-      <div class = "col">
-        <div class="card border-0 " style="width: 39rem; padding-left: 2rem; " onclick="location.href = '/feedback/runde1/clickthebutton'">
-          <img src="/static/images/games/question-mark-circle-outline-icon.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title text-center">Question game</h5>
-          </div>
-      </div>
-    </div>
-  </div>  
+  
 
   <div class="row" style="padding-top: 3rem;">
 
     <div class = "col">
-      <div class="card border-0 upperCards" style="width: 39rem; padding-right: 2rem; " onclick="location.href = '/feedback/runde1/tictactoe'">
-        <img src="/static/images/games/tic-tac-toe-icon.png" class="card-img-top" alt="...">
+      <!--div class="card border-0 upperCards" style="width: 39rem; padding-right: 2rem; " onclick="location.href = '/feedback/runde1/tictactoe'">
+        <img src="/static/images/spiele/tic-tac-toe-icon.png" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title text-center">Tik Tac Toe</h5>
-        </div>
+        </div-->
+        <div class="card p-2" style="width: 18rem;">
+		<img src="/static/images/spiele/tic-tac-toe-icon.png" class="card-img-top" alt="...">
+		<div class="card-body">
+		<h5 class="card-title">Tic Tac Toe</h5>
+		<a href="/feedback/runde1/games/tictactoe" class="btn btn-primary">Spielen</a>
+		</div>
       </div>
    </div>
 
     
       <div class = "col">
-        <div class="card border-0 " style="width: 39rem; padding-left: 2rem; ">
-          <img src="Bilder/Icons/Spiele/user-chat-icon.png" class="card-img-top" alt="...">
+        <!--div class="card border-0 " style="width: 39rem; padding-left: 2rem; " onclick="location.href = '/feedback/runde1/games/simonsays'">
+          <img src="/static/images/spiele/user-chat-icon.png" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title text-center">Simon Says</h5>
           </div>
-      </div>
+      </div-->
+	<div class="card p-2" style="width: 18rem;">
+		<img src="/static/images/spiele/user-chat-icon.png" class="card-img-top" alt="...">
+		<div class="card-body">
+		<h5 class="card-title">Simon Says</h5>
+		<a href="/feedback/runde1/games/simonsays" class="btn btn-primary">Spielen</a>
+		</div>
+	</div>
     </div>
     </div>
 
     <div class="row" style="padding-top: 3rem;">
     <div class = "col">
-        <div class="card border-0 " style="width: 39rem; padding-left: 2rem; " onclick="location.href = '/feedback/runde1/clickthebutton'">
-          <img src="/static/images/games/question-mark-circle-outline-icon.png" class="card-img-top" alt="...">
+        <!--div class="card border-0 " style="width: 39rem; padding-left: 2rem; " onclick="location.href = '/feedback/runde1/clickthebutton'">
+          <img src="/static/images/spiele/question-mark-circle-outline-icon.png" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title text-center">Click the button</h5>
           </div>
+      </div-->
+      <div class="card p-2" style="width: 18rem;">
+		<img src="/static/images/spiele/question-mark-circle-outline-icon.png" class="card-img-top" alt="...">
+		<div class="card-body">
+		<h5 class="card-title">Click the button</h5>
+		<a href="/feedback/runde1/games/clickthebutton" class="btn btn-primary disabled" role="button" aria-disabled="true">Spielen</a>
+		</div>
+	</div>
+    </div>
+  </div>  
+
+<div class="row" style="padding-top: 3rem;">
+
+    <div class = "col">
+      <!--div class="card border-0 upperCards" style="width: 39rem; padding-right: 2rem; " onclick="location.href = '#'">
+        <img src="/static/images/spiele/chess-rook-icon.png" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title text-center">Schach</h5>
+        </div-->
+        <div class="card p-2" style="width: 18rem;">
+		<img src="/static/images/spiele/chess-rook-icon.png" class="card-img-top" alt="...">
+		<div class="card-body">
+		<h5 class="card-title">Schach</h5>
+		<a href="/feedback/runde1/games/schach" class="btn btn-primary disabled" role="button" aria-disabled="true">Spielen</a>
+		</div>
+      </div>
+   </div>
+
+    
+      <div class = "col">
+        <!--div class="card border-0 " style="width: 39rem; padding-left: 2rem; " onclick="location.href = '/feedback/runde1/clickthebutton'">
+          <img src="/static/images/spiele/question-mark-circle-outline-icon.png" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title text-center">Question game</h5>
+          </div-->
+          <div class="card p-2" style="width: 18rem;">
+		<img src="/static/images/spiele/question-mark-circle-outline-icon.png" class="card-img-top" alt="...">
+		<div class="card-body">
+		<h5 class="card-title">Question game</h5>
+		<a href="/feedback/runde1/games/questiongame" class="btn btn-primary disabled" role="button" aria-disabled="true">Spielen</a>
+		</div>
       </div>
     </div>
   </div>  
