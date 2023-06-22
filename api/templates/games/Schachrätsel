@@ -5,6 +5,72 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schachrätsel</title>
+    <style>
+
+    #tableWhite {
+        height: 872.062px ; 
+        width: 872.036px;
+        position: absolute;
+        visibility: hidden;
+        z-index: 23;
+        top: 38px;
+        bottom: 0px;
+        left:calc(50% - 436.031px);
+        right: 0 ;
+        border: none;
+    }
+    #tableWhite2 {
+        top: 38px;
+        bottom: 0px;
+        left:calc(50% - 436.031px);
+        right: 0 ;
+        height: 872.062px ;
+        width: 872.062px;
+        border: none;
+    }
+    #tableBlack {
+        height: 872.062px ;
+        width: 872.062px;
+        position: absolute;
+        visibility: hidden;
+        z-index: 23;
+        top: 38px;
+        bottom: 0;
+        left: calc(50% - 436.031px);
+        right: 0;
+        border: none;
+    }
+    #tableBlack2 {
+        top: 38px;
+        bottom: 0px;
+        left:calc(50% - 436.031px);
+        right: 0 ;
+        height: 872.062px ;
+        width: 872.062px;
+        border: none;
+    }
+    #puzzle {
+        position: relative;
+        pointer-events: none;
+        z-index: -1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    .buttons:hover {
+        background-color: #fd3f00;
+        opacity: 0.35;
+    }
+    .buttons {
+        position: relative;
+        border: none;
+    }
+    body {
+        text-align: center;
+        overflow: visible;
+    }
+    </style>
 </head>
   <body>
     <div id="puzzle"> 
