@@ -67,7 +67,7 @@
       }
       loadingBar.style.display = "block";
       
-      var unity_instance = None;
+      var unity_instance = null;
 
       var script = document.createElement("script");
       script.src = loaderUrl;
@@ -78,7 +78,7 @@
           loadingBar.style.display = "none";
           unity_instance = unityInstance;
           fullscreenButton.onclick = () => {
-            unityInstance.SetFullscreen(1);
+            unity_instance.SetFullscreen(1);
           };
         }).catch((message) => {
           alert(message);
