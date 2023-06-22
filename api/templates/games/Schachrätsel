@@ -71,6 +71,29 @@
         overflow: visible;
     }
     </style>
+    <script>
+    let allMoves = "" 
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = () => {
+      if (this.readyState == 4 && this.status == 200) {
+       allMoves = this.responseText;
+      }
+    };
+    xhttp.open("GET", "https://lichess.org/api/puzzle/daily", true);
+    xhttp.send();
+    window.onload = function () {
+        console.log(document.querySelector("#daily-puzzle"));
+        if (allMoves.split(" ").length%2 === 0) {
+          document.getElementById('tableWhite').style.visibility = 'visible'
+        } else {
+          document.getElementById('tableBlack').style.visibility = 'visible'
+        };
+    }
+    let clicked = (Id) => {
+        // paul
+    }
+
+    </script>
 </head>
   <body>
     <div id="puzzle"> 
