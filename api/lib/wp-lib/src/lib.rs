@@ -102,8 +102,12 @@ impl Media {
         if cache::media::has(id.clone()) {
             response = cache::media::get(id);
         } else {
-            response = ureq::get(&format!("{}/wp-json/wp/v2/media/{}", uri, id)).call().unwrap().into_string().unwrap();
-            cache::media::add(id, response.clone())
+            if let Ok(data) = ureq::get(&format!("{}/wp-json/wp/v2/media/{}", uri, id)).call() {
+                response = data.into_string().unwrap();
+                cache::media::add(id, response.clone())
+            } else {
+                response = cache::media::get_rnd();
+            }
         }
 
         serde_json::from_str(&response).unwrap()

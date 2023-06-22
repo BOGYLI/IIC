@@ -9,7 +9,7 @@
     
     <style>
 .Bogy-Logo{
-max-width: 15%;
+max-width: 50px;
 height: auto;
 
 }
@@ -103,22 +103,7 @@ h5 {
       </a>
 
 
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 300px;" >
-
-
-        <div class="dropdown">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-          </a>
-        
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="/feedback/runde1/refresh">Refresh</a></li>
-            <li><a class="dropdown-item" href="#">Action 2</a></li>
-            <li><a class="dropdown-item" href="#">Action 3</a></li>
-          </ul>
-        </div>
-
-      </form>
+      
     </div>
   </nav>
 </header>
@@ -139,7 +124,7 @@ h5 {
       {% else %}
       <div class="carousel-item " data-bs-interval="5000">
       {% endif %}
-        <a href="/wordpress/{{ article.id }}"><img src="{{ media_url(id=article.featured_media) }}" class="d-block w-100 c-img" ></a>
+        <a href="/feedback/runde1/wordpress_wrapper/{{ loop.index0 }}"><img src="{{ media_url(id=article.featured_media) }}" class="d-block w-100 c-img" ></a>
         <div class="carousel-caption d-none d-md-block">
           <p class="fs-2 fw-bolder text-uppercase">{{ article.title.rendered | safe }}</p>
           <p class="fs-5 text-capitalize">{{ format_date(date=article.date) }}</p>

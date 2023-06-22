@@ -49,13 +49,13 @@ pub async fn refresh(_perm: HTMLPermission) -> Redirect {
     Redirect::to(uri!("/feedback/runde1/idlescreen"))
 }
 
-#[get("/clickthebutton")]
+#[get("/games/clickthebutton")]
 pub async fn clickthebutton(_perm: HTMLPermission) -> Template {
     Template::render("tests/feedback/runde1/Clickthebutton", context! {
     })
 }
 
-#[get("/tictactoe")]
+#[get("/games/tictactoe")]
 pub async fn tictactoe(_perm: HTMLPermission) -> Template {
     Template::render("tests/feedback/runde1/TicTacToe", context! {
     //Template::render("games/tictactoe", context! {
@@ -248,4 +248,22 @@ pub async fn umfrage_result(id: i32, _perm: HTMLPermission) -> Result<Template, 
     } else {
         Err(Status::NotFound)
     }
+}
+
+
+#[get("/games/simonsays")]
+pub async fn simonsays(_perm: HTMLPermission) -> Template {
+    Template::render("tests/feedback/runde1/simonsays", context! {
+    })
+}
+
+
+#[get("/wordpress_wrapper/<index>")]
+pub async fn wordpress_post(index: usize) -> Template {
+    let uri = dotenvy::var("WORDPRESS_URL").expect("wp-lib requires WORDPRESS_URL - api");
+    let posts = wp_lib::Post::get_from_uri_limited(&uri, 3).unwrap();
+    Template::render("tests/feedback/runde1/wordpress_post_wrapper", context! {
+        title: posts[index].title.rendered.clone(),
+        index
+    })
 }

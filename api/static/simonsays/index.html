@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | InfotainmentCenterGames</title>
-    <link rel="shortcut icon" href="/static/simonsaysTemplateData/favicon.ico">
-    <link rel="stylesheet" href="/static/simonsaysTemplateData/style.css">
+    <link rel="shortcut icon" href="/static/simonsays/TemplateData/favicon.ico">
+    <link rel="stylesheet" href="/static/simonsays/TemplateData/style.css">
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -26,12 +26,12 @@
       </div>
     </div>
     <script>
-      var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/static/simonsays/InfotainmentCenterGames.loader.js";
+      var buildUrl = "/static/simonsays/Build";
+      var loaderUrl = buildUrl + "/InfotainmentCenterGames.loader.js";
       var config = {
-        dataUrl: buildUrl + "/static/simonsays/InfotainmentCenterGames.data.unityweb",
-        frameworkUrl: buildUrl + "/static/simonsays/InfotainmentCenterGames.framework.js.unityweb",
-        codeUrl: buildUrl + "/static/simonsays/InfotainmentCenterGames.wasm.unityweb",
+        dataUrl: buildUrl + "/InfotainmentCenterGames.data.unityweb",
+        frameworkUrl: buildUrl + "/InfotainmentCenterGames.framework.js.unityweb",
+        codeUrl: buildUrl + "/InfotainmentCenterGames.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "MSCardinal",
         productName: "InfotainmentCenterGames",
@@ -62,10 +62,12 @@
           mobileWarning.style.display = "none";
         }, 5000);
       } else {
-        canvas.style.width = "100%";
-        canvas.style.height = "100%";
+        canvas.style.width = "960";
+        canvas.style.height = "600";
       }
       loadingBar.style.display = "block";
+      
+      var unity_instance = None;
 
       var script = document.createElement("script");
       script.src = loaderUrl;
@@ -74,6 +76,7 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
+          unity_instance = unityInstance;
           fullscreenButton.onclick = () => {
             unityInstance.SetFullscreen(1);
           };
