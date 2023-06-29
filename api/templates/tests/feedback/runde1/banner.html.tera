@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+html{
+height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+background-color: black;
+text-align: center
+}
+button {
+z-index: 200;
+position: absolute;
+right: 10px;
+top: 10px;
+background-color: transparent;
+border: none;
+}
+button img {
+width: 20px;
+height: 20px;
+}
+</style>
+</head>
+<body onclick="trigger()">
+<button onclick="trigger()"><img src="white-x-png-5.png" /></button>
+<img src="Crab_Nebula.png" style="z-index: 100">
+<script>
+function trigger() {
+location.href='{{exit}}'
+}
+</script>
+</body>
+</html>
