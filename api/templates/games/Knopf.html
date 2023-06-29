@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<link>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drück den Knopf</title>
+    <style>
+        html {
+    	width: 100%;
+    	height: 100%;
+    	background-color: green;
+    	overflow: hidden;
+    }
+    body {
+    	width: 100%;
+    	height: 100%;
+    	background-color: green;
+    	overflow: hidden;
+    	text-align: center;
+    }
+  
+    #clickContainer {
+    	position: absolute;
+    	width: 100%;
+    	text-align: center;
+    	top: calc(33% - 20px);
+    	color: #00adff;
+    }
+
+    #buttonContainer {
+    	position: absolute;
+    	top: calc(50% - 50px);
+    }
+
+    #Clickme {
+    	height: 100px;
+    	width: 100px;
+    	background-color: #00adff;
+    	color: #000a80;
+    	border-radius: 100px;
+    	border: blue 1px dotted;
+    }
+
+    #clickme:hover {background-color: #0000ff;}
+    .back {
+    	align-self: flex-end;
+    	height: 100px;
+    	width: 200px;
+    	font-size: 30px;
+    	color:black;
+    	right: 100px;
+    	bottom: 60px;
+    	position:absolute;
+    }
+    </style>
+    <script>
+      let timesClicked = 0
+      var audio = new Audio('minecraft-bell-sound-effect.mp3');
+      let clicked = () => {
+        audio.pause();
+        audio.currentTime = 0
+        audio.play();
+        timesClicked += 1;
+        document.getElementById("timesClicked").innerHTML = timesClicked;
+        document.cookie += 1;
+        document.getElementById("alltimeTimesClicked").innerHTML = document.cookie.length;
+      }
+      let goBack = () => {
+        window.location.href = 'Template besser.html';
+      }
+    </script>
+</head> 
+<body>
+    <h1>Drück den Knopf</h1>
+    <h1 id="clickContainer">Klickzahl:<br><span id="timesClicked"></span></h1>
+    <h1 id="alltimeClickContainer">Insgesamte Klicks:<br><span id="alltimeTimesClicked"></span></h1>
+    <input id="Clickme" type="button" value="Click me" onclick="clicked()">
+    <div class="return">
+        <button class="back" onclick="goBack()">Home Page</button>
+    </div>
+</body>
+</html>

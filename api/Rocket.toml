@@ -1,0 +1,23 @@
+## defaults for _all_ profiles
+[default]
+address = "0.0.0.0"
+limits = { form = "64 kB", json = "1 MiB" }
+
+[debug]
+address = "0.0.0.0"
+port = 8000
+workers = 4
+keep_alive = 5
+secret_key = "ySyrelzO/TfjzcJVjJSr64cKlr4D+KMERdui/SBBtrc="
+limits = { forms = 32768 }
+
+[release]
+port = 80
+ip_header = false
+secret_key = "ySyrelzO/TfjzcJVjJSr64cKlr4D+KMERdui/SBBtrc="
+limits = { forms = 32768 }
+
+[global.tls]
+certs = "certs/cert.pem"
+key = "certs/key.pem"
+

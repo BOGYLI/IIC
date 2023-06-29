@@ -1,0 +1,20 @@
+##############################################################################
+#---------------------------R E L E A S E------------------------------------#
+##############################################################################
+
+FROM rust:1.69-slim-buster AS builder
+RUN USER=root apt-get update -y
+RUN USER=root apt-get install libpq-dev -y
+WORKDIR /server
+ENV CARGO_HOME=/workdir/.cargo
+
+COPY . .
+
+RUN rustup override set nightly
+RUN cargo build --release
+
+EXPOSE 8000
+RUN cp /server/target/release/api /usr/local/bin
+WORKDIR /usr/local/bin
+CMD ["/usr/local/bin/api"]
+

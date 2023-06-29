@@ -1,0 +1,12 @@
+<html>
+<head></head>
+<body>
+	<h1>Logindaten falsch - bitte nochmal versuchen</h1>
+<form action="/login" method="post">
+<input type="text" name="vorname" placeholder="Vorname"></input>
+<input type="text" name="nachname" placeholder="Nachname"></input>
+<input type="password" name="passwort" placeholder="Passwort"></input>
+<input type="submit" value="Login"></input>
+</form>
+</body>
+</html>

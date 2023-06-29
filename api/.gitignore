@@ -1,0 +1,6 @@
+/target
+.env
+/templates/IMPORT
+/cache/media/*
+/cache/posts/*
+Rocket.toml

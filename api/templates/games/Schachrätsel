@@ -1,0 +1,511 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schachrätsel</title>
+    <style>
+
+    #tableWhite {
+        height: 872.062px ; 
+        width: 872.036px;
+        position: absolute;
+        visibility: hidden;
+        z-index: 23;
+        top: 38px;
+        bottom: 0px;
+        left:calc(50% - 436.031px);
+        right: 0 ;
+        border: none;
+    }
+    #tableWhite2 {
+        top: 38px;
+        bottom: 0px;
+        left:calc(50% - 436.031px);
+        right: 0 ;
+        height: 872.062px ;
+        width: 872.062px;
+        border: none;
+    }
+    #tableBlack {
+        height: 872.062px ;
+        width: 872.062px;
+        position: absolute;
+        visibility: hidden;
+        z-index: 23;
+        top: 38px;
+        bottom: 0;
+        left: calc(50% - 436.031px);
+        right: 0;
+        border: none;
+    }
+    #tableBlack2 {
+        top: 38px;
+        bottom: 0px;
+        left:calc(50% - 436.031px);
+        right: 0 ;
+        height: 872.062px ;
+        width: 872.062px;
+        border: none;
+    }
+    #puzzle {
+        position: relative;
+        pointer-events: none;
+        z-index: -1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    .buttons:hover {
+        background-color: #fd3f00;
+        opacity: 0.35;
+    }
+    .buttons {
+        position: relative;
+        border: none;
+    }
+    body {
+        text-align: center;
+        overflow: visible;
+    }
+    </style>
+    <script>
+    let allMoves = "" 
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = () => {
+      if (this.readyState == 4 && this.status == 200) {
+       allMoves = this.responseText;
+      }
+    };
+    xhttp.open("GET", "https://lichess.org/api/puzzle/daily", true);
+    xhttp.send();
+    window.onload = function () {
+        console.log(document.querySelector("#daily-puzzle"));
+        if (allMoves.split(" ").length%2 === 0) {
+          document.getElementById('tableWhite').style.visibility = 'visible'
+        } else {
+          document.getElementById('tableBlack').style.visibility = 'visible'
+        };
+    }
+    let clicked = (Id) => {
+        // paul
+    }
+
+    </script>
+</head>
+  <body>
+    <div id="puzzle"> 
+      <iframe src="https://lichess.org/training/frame?theme=brown&bg=dark" style="width: 880px; height: 922px;" allowtransparency="true" frameborder="0" ></iframe>
+    </div> 
+    <div id="tableWhite">
+    <table id="tableWhite2"> 
+        <tr>
+          <td id="a8" class="buttons" onclick="clicked()">
+          </td>
+          <td id="b8" class="buttons" onclick="clicked()">
+          </td>
+          <td id="c8" class="buttons" onclick="clicked()">
+          </td>
+          <td id="d8" class="buttons" onclick="clicked()">
+          </td>
+          <td id="e8" class="buttons" onclick="clicked()">
+          </td>
+          <td id="f8" class="buttons" onclick="clicked()">
+          </td>
+          <td id="g8" class="buttons" onclick="clicked()">
+          </td>
+          <td id="h8" class="buttons" onclick="clicked()">
+          </td>
+        </tr>
+        <tr>
+          <td id="a7" class="buttons" onclick="clicked()">
+          </td>
+          <td id="b7" class="buttons" onclick="clicked()">
+          </td>
+          <td id="c7" class="buttons" onclick="clicked()">
+          </td>
+          <td id="d7" class="buttons" onclick="clicked()">
+          </td>
+          <td id="e7" class="buttons" onclick="clicked()">
+          </td>
+          <td id="f7" class="buttons" onclick="clicked()">
+          </td>
+          <td id="g7" class="buttons" onclick="clicked()">
+          </td>
+          <td id="h7" class="buttons" onclick="clicked()">
+          </td>
+        </tr>
+        <tr>
+          <td id="a6" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="b6" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="c6" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="d6" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="e6" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="f6" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="g6" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="h6" class="buttons" onclick="clicked()">
+            
+          </td> 
+        </tr>
+         <tr>
+          <td id="a5" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="b5" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="c5" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="d5" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="e5" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="f5" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="g5" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="h5" class="buttons" onclick="clicked()">
+            
+          </td> 
+        </tr>
+         <tr>
+          <td id="a4" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="b4" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="c4" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="d4" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="e4" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="f4" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="g4" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="h4" class="buttons" onclick="clicked()">
+            
+          </td> 
+        </tr>
+         <tr>
+          <td id="a3" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="b3" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="c3" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="d3" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="e3" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="f3" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="g3" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="h3" class="buttons" onclick="clicked()">
+            
+          </td> 
+        </tr>
+         <tr>
+          <td id="a2" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="b2" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="c2" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="d2" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="e2" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="f2" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="g2" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="h2" class="buttons" onclick="clicked()">
+            
+          </td> 
+        </tr>
+         <tr>
+          <td id="a1" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="b1" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="c1" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="d1" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="e1" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="f1" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="g1" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="h1" class="buttons" onclick="clicked()">
+            
+          </td> 
+        </tr>
+      </table>
+    </div>
+
+
+    <div id="tableBlack">
+      <table id="tableBlack2">
+        <tr>
+          <td id="h1s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="g1s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="f1s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="e1s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="d1s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="c1s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="b1s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="a1s" class="buttons" onclick="clicked()">
+            
+          </td> 
+         </tr>
+         <tr>
+          <td id="h2s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="g2s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="f2s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="e2s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="d2s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="c2s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="b2s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="a2s" class="buttons" onclick="clicked()">
+            
+          </td> 
+         </tr>
+         <tr>
+          <td id="h3s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="g3s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="f3s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="e3s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="d3s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="c3s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="b3s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="a3s" class="buttons" onclick="clicked()">
+            
+          </td> 
+         </tr>
+         <tr>
+          <td id="h4s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="g4s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="f4s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="e4s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="d4s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="c4s" class="buttons" onclick="clicked()">
+          </td>
+          <td id="b4s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="a4s" class="buttons" onclick="clicked()">
+            
+          </td> 
+         </tr>
+         <tr>
+          <td id="h5s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="g5s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="f5s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="e5s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="d5s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="c5s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="b5s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="a5s" class="buttons" onclick="clicked()">
+            
+          </td> 
+        </tr>
+        <tr>
+          <td id="h6s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="g6s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="f6s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="e6s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="d6s" class="buttons" onclick="clicked()">
+          </td>
+          <td id="c6s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="b6s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="a6s" class="buttons" onclick="clicked()">
+            
+          </td> 
+         </tr>
+         <tr>
+          <td id="h7s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="g7s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="f7s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="e7s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="d7s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="c7s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="b7s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="a7s" class="buttons" onclick="clicked()">
+            
+          </td>
+         </tr>
+         <tr>
+          <td id="h8s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="g8s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="f8s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="e8s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="d8s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="c8s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="b8s" class="buttons" onclick="clicked()">
+            
+          </td>
+          <td id="a8s" class="buttons" onclick="clicked()">
+            
+          </td>
+        </tr>
+    </table>
+  </div>
+  </body>
+</html>

@@ -1,3 +1,19 @@
 # Interactive Information Center
 
-Hier gibt's bald mehr zu sagen...
+## Getting started
+
+```
+cd iic-server
+./setup.sh
+```
+
+## Templates
+
+```
+iic-server/templates
+```
+
+### Feedback - Runde1
+```
+iic-server/templates/tests/feedback/runde1
+```
