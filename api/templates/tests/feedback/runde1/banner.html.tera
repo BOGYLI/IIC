@@ -31,8 +31,8 @@ height: 20px;
 </style>
 </head>
 <body onclick="trigger()">
-<button onclick="trigger()"><img src="white-x-png-5.png" /></button>
-<img src="Crab_Nebula.png" style="z-index: 100">
+<button onclick="trigger()"><img src="/static/images/crab.png" /></button>
+<img src="{{bild}}" style="z-index: 100">
 <script>
 function trigger() {
 location.href='{{exit}}'
