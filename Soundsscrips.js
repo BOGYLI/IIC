@@ -1,5 +1,5 @@
 // Array mit den verschiedenen Sound-Dateien
-var sounds = ["sound1.mp3", "sound2.mp3", "sound3.mp3"];
+var sounds = ["autumn-beach-sound-6084.mp3", "gentle-ocean-waves-birdsong-and-gull-7109.mp3", "calm-river-ambience-loop-125071.mp3"];
 
 // Funktion, um einen zufälligen Sound abzuspielen
 function playRandomSound() {
