@@ -30,6 +30,7 @@ services:
       - ./certs:/usr/local/bin/certs:ro
       - ./templates:/usr/local/bin/templates:ro
       - ./static:/usr/local/bin/static:ro
+      - ./banner:/usr/local/bin/banner
       - ./Rocket.toml:/usr/local/bin/Rocket.toml:ro
       - ./.env:/usr/local/bin/.env:ro
     environment:

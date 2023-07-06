@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir certs migrations pgdata
+mkdir certs migrations pgdata banner
 cd certs
 echo "Generating self-signed certificates..."
 stty -echo
