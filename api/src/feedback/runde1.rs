@@ -267,3 +267,30 @@ pub async fn wordpress_post(index: usize) -> Template {
         index
     })
 }
+
+
+#[get("/banner")]
+pub async fn banner(_perm: HTMLPermission) -> Template {
+    use std::fs;
+    let mut images: Vec<String> = Vec::new();
+    let paths = fs::read_dir("banner/").unwrap();
+    for path in paths {
+        if let Ok(path) = path {
+            if let Some(path) = path.path().to_str() {
+                images.push(path.to_owned());
+            }
+        }
+    }
+    println!("{:?}", images);
+    Template::render("tests/feedback/runde1/banner_list", context! {
+        list: images
+    })
+}
+
+#[get("/banner/<bild>")]
+pub async fn banner_name(bild: String, _perm: HTMLPermission) -> Template {
+    Template::render("tests/feedback/runde1/banner", context! {
+        exit: "/",
+        bild
+    })
+}
