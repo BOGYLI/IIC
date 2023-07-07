@@ -4,7 +4,7 @@ docker image rm iic-debug
 #docker image rm iic-init
 docker image rm iic-release
 
-docker build -f Dockerfile.debug . -t iic-debug
+#docker build -f Dockerfile.debug . -t iic-debug
 #docker build -f Dockerfile.init . -t iic-init
 docker build -f Dockerfile.release . -t iic-release
 
