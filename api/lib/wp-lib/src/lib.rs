@@ -136,8 +136,8 @@ impl Post {
     pub fn get_from_uri_limited(uri: &str, per_page: i64) -> Option<Vec<Post>> {
         #[allow(unused_assignments)]
         let mut response = String::new();
-        if cache::post::has() {
-            response = cache::post::get();
+        if cache::post::has(per_page) {
+            response = cache::post::get(per_page);
         } else {
             response = ureq::get(&format!("{}/wp-json/wp/v2/posts?per_page={}", uri, per_page)).call().unwrap().into_string().unwrap();
             cache::post::add(response.clone());

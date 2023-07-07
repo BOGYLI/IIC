@@ -1,13 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<link>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work in progress...</title>
-</head>
-<body>
-    <h1>Click The Button</h1>
-    <p>Noch in Arbeit</p>
+    <title>Drück den Knopf</title>
+    <style>
+    html {
+    	width: 100%;
+    	height: 100%;
+    	overflow: hidden;
+    }
+    body {
+    	width: 100%;
+    	height: 100%;
+    	overflow: hidden;
+    	text-align: left;
+    }
+    #Headline {
+    	font-size: 60px;
+    }
+    #hintergrund1 {
+    	height: 100%; 
+    	width: 100%;
+    	top: 0px;
+    	left: 0px;
+        position: absolute;
+    	overflow: hidden;
+    	z-index: -2;
+    	visibility:visible;
+    }
+    #hintergrund2 { 
+    	height: 100%;
+    	width: 100%;
+    	top: 0px;
+    	left: 0px;
+        position: absolute;
+    	overflow: hidden;
+    	z-index: -1;
+    	visibility: hidden;
+    }
+    #hintergrund3 {
+    	height: 100%;
+    	width: 100%;
+    	top: 0px;
+    	left: 0px;
+        position: absolute;
+    	overflow: hidden;
+    	z-index: -1;
+    	visibility: hidden;
+    }
+
+    #clickContainer {
+        position: absolute;
+        width: 100%;
+        top: 93%;
+        left: 44%;
+        color: #000000;
+        font-family: monospace;
+        font-size: 221%;
+    }
+    #ja {
+    	text-align: center;
+    	height:100%;
+    	width:100%;
+    }
+    #buttonContainer {
+    	position: absolute;
+    	top: calc(50% - 50px);
+    }
+
+    #Clickme {
+        height: 20%;
+        width: 17%;
+        color: #241266;
+        border-radius: 100%;
+        font-size: 40px;
+        top: 60%;
+        left: -2%;
+        opacity: 0;
+        position: relative;
+    }
+    #alltimeClickContainer {
+        position: relative;
+        top: 50%;
+        left: 44%;
+        font-family: monospace;
+        font-size: 221%;
+    }
+    #clickme:hover {background-color: #0000ff;}
+    .back {
+    	align-self: flex-end;   
+    	height: 17%;
+        width: 11%;
+        font-size: 30px;
+        color: black;
+        right: 2%;
+        bottom: 49%;
+        position: absolute;
+    	opacity: 0;
+    }
+    </style>
+    <script>
+        let timesClicked = 0
+    var audio = new Audio('minecraft-bell-sound-effect.mp3');
+
+    let api_edit = (form, callback) => {
+        let apikey = "{{ edit_api_key }}";
+        let data = new FormData(form);
+        const request = new XMLHttpRequest();
+        request.onreadystatechange = function() { 
+        if (request.readyState == 4 && request.status == 200)
+            callback(request.response);
+        }
+        request.open(form.method, form.action);
+        request.setRequestHeader("x-api-key", apikey);
+        request.send(data);
+    }
+    let api_read = (form, callback) => {
+        let apikey = "{{ read_api_key }}";
+        let data = new FormData(form);
+        const request = new XMLHttpRequest();
+        request.onreadystatechange = function() { 
+        if (request.readyState == 4 && request.status == 200)
+            callback(request.response);
+        }
+        request.open(form.method, form.action);
+        request.setRequestHeader("x-api-key", apikey);
+        request.send(data);
+    }
+
+    let clicked = () => {
+        audio.pause();
+        audio.currentTime = 0
+        audio.play();
+        timesClicked += 1;
+        document.getElementById("timesClicked").innerHTML = timesClicked;
+        document.cookie += 1;
+        document.getElementById("alltimeTimesClicked").innerHTML = document.cookie.length;
+        document.getElementById("highscore").value += 1;
+        api_edit(document.getElementById("clickform"), () => {});
+    }
+    let goBack = () => {
+        //window.location.href = '/feedback/runde1/idlescreen';
+    } 
+    let hovered = () => {
+        document.getElementById("hintergrund2").style.visibility = "visible";
+    }
+    let notHovered = () => {
+        document.getElementById("hintergrund2").style.visibility = "hidden";
+    }
+    let homeHovered = () => {
+        document.getElementById("").style.visibility = "visible";
+    }
+    let homeNotHovered = () => {
+        document.getElementById("").style.visibility = "hidden";
+    } 
+    let kp = () => {
+        api_edit(document.getElementById("nameform").getElementById("name")).value = "clickthebutton"
+    }
+
+    let get_highscore = () => {
+        let data = api_read(document.getElementById('global_highscore'), (data) => {});
+    }
+    </script>
+</head> 
+<body onload="get_highscore()">
+    <div id="clickContainer"><span id="timesClicked"></span></div>
+    <div id="alltimeClickContainer"><span id="alltimeTimesClicked"></span></div>
+    <div id="ja">
+        <input onmouseleave="notHovered()" onmouseover="hovered()" id="Clickme" type="button" value="Click me" onclick="clicked()">
+        <!-- <input onpointerleave="notHovered()" onpointerdown="hovered()" id="Clickme" type="button" value="Click me" onpointerdown="clicked()"> -->
+    </div>
+    <img id="hintergrund1" src="/static/images/spiele/Knopf.png" alt="">
+    <img id="hintergrund2" src="/static/images/spiele/Knopf nicht gedrückt.png" alt="">
+    <img id="hintergrund3" src="" alt="">
+    <div class="return">
+        <button class="back" onpointerdown="goBack()">Home Page</button>
+    </div>
+    <form id="nameform" action="/api/v1/new/sspiel" hidden style="display: none">
+        <input type="text" name="name" id="name">
+        <input type="text" name="url" id="url">
+    </form>
+    <form id="form2" action="/api/v1/new/benutzer" hidden style="display: none">
+        <input type="text" name="namepasswort" id="namepasswort">
+        <input type="text" name="mebistoken" id="mebistoken">
+    </form>
+    <form id="sspielerform" action="/api/v1/new/sspieler" hidden style="display: none">
+        <input type="text" name="benutzerid" id="new_sbenutzerid">
+        <input type="text" name="spielid" id="new_sspielid">
+        <input type="text" name="level" id="new_slevel">
+        <input type="text" name="highscore" id="new_shighscore">
+        <input type="text" name="einstellungen" id="new_seinstellungen">
+    </form>
+    <form id="clickform" action="/api/v1/edit/sspieler" hidden style="display: none">
+        <input type="text" name="id" id="id">
+        <input type="text" name="benutzerid" id="benutzerid">
+        <input type="text" name="spielid" id="spielid">
+        <input type="text" name="level" id="level">
+        <input type="text" name="highscore" id="highscore">
+        <input type="text" name="einstellungen" id="einstellungen">
+    </form>
 </body>
 </html>

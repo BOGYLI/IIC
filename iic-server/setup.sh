@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir certs migrations pgdata banner
+mkdir certs migrations pgdata banner music revealjs
 cd certs
 echo "Generating self-signed certificates..."
 stty -echo
@@ -11,6 +11,9 @@ cd ..
 cp -r ../api/static .
 cp -r ../api/templates .
 cp -r ../api/cache .
+cp -r ../api/banner .
+cp -r ../api/revealjs .
+cp -r ../api/music .
 cp ../api/Rocket.toml .
 
 mv backup.media cache/media/backup
@@ -32,6 +35,13 @@ echo "INSERT INTO ApiKey (wert, zeitpunkt, dauer) VALUES ('$(printf %b "$(openss
 echo "INSERT INTO ApiKey (wert, zeitpunkt, dauer) VALUES ('$(printf %b "$(openssl rand -base64 10)")', ' ', 0);" >> "../iic-server/migrations/up.sql"
 echo "INSERT INTO ApiKey (wert, zeitpunkt, dauer) VALUES ('$(printf %b "$(openssl rand -base64 10)")', ' ', 0);" >> "../iic-server/migrations/up.sql"
 echo "INSERT INTO ApiKey (wert, zeitpunkt, dauer) VALUES ('$(printf %b "$(openssl rand -base64 10)")', ' ', 0);" >> "../iic-server/migrations/up.sql"
+
+# spiele - screen-Benutzer
+echo "INSERT INTO Benutzer (id, name, passwort, mebistoken) VALUES (1, 'infotainmentcenter', '$(printf %b "$(openssl rand -base64 10)")', 'hat-kein-mebis-token')" >> "../iic-server/migrations/up.sql"
+
+# clickthebutton
+echo "INSERT INTO SSpiel (id, name, apikeyid, url, highscore, best) VALUES (1, 'clickthebutton', -1, '/feedback/runde1/games/clickthebutton', 0, 1)" >> "../iic-server/migrations/up.sql"
+echo "INSERT INTO SSpieler (benutzerid, spielid, level, highscore, einstellungen) VALUES (1, 1, 1, 0, '')" >> "../iic-server/migrations/up.sql"
 
 
 cd ../iic-server

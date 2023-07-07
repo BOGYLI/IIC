@@ -102,7 +102,7 @@ h5 {
         <b class="h2 fw-bolder ">SimonSays</b>
       </a>
       
-      <button onclick="document.getElementById('simon').">Starten</button>
+      <!--button onclick="document.getElementById('simon').">Starten</button-->
 
     </div>
   </nav>

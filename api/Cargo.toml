@@ -16,6 +16,8 @@ dotenvy = "0.15"
 rand = "0.8.5"
 tera = "1"
 
+rocket-multipart-form-data = "0.10.5"
+
 wp-lib = { path = "./lib/wp-lib" }
 #mebis-lib = { path = "./lib/mebis-lib" }
 cache-lib = { path = "./lib/cache-lib" }

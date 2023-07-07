@@ -122,7 +122,7 @@ let iframe = document.getElementById("ifr");
 iframe.addEventListener("load", function() {
 	document.getElementById("spinner").style.display = "none";
 });
-iframe.src = "/feedback/runde1/wordpress/{{ index }}";
+iframe.src = "/feedback/runde1/wordpress/{{count}}/{{ index }}";
 </script>
 
 </html>

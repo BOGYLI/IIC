@@ -31,6 +31,8 @@ services:
       - ./templates:/usr/local/bin/templates:ro
       - ./static:/usr/local/bin/static:ro
       - ./banner:/usr/local/bin/banner
+      - ./revealjs:/usr/local/bin/revealjs
+      - ./music:/usr/local/bin/music
       - ./Rocket.toml:/usr/local/bin/Rocket.toml:ro
       - ./.env:/usr/local/bin/.env:ro
     environment:

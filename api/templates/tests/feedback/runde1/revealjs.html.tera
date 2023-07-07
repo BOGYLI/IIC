@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+html{
+height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+text-align: center
+}
+button {
+z-index: 200;
+position: absolute;
+right: 10px;
+top: 10px;
+background-color: transparent;
+border: none;
+}
+button img {
+width: 20px;
+height: 20px;
+}
+</style>
+<script>
+function trigger() {
+location.href='{{exit | safe}}'
+}
+</script>
+</head>
+<body onclick="trigger()">
+<button onclick="trigger()"><img src="/static/images/white-x-png-5.png" /></button>
+<iframe src="/revealjs/{{reveal}}" width="100%" height="100%" style="z-index: 100; overflow: hidden">
+</body>
+</html>

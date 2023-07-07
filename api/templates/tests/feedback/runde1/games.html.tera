@@ -230,7 +230,7 @@ h5 {
 		<img src="/static/images/spiele/question-mark-circle-outline-icon.png" class="card-img-top" alt="...">
 		<div class="card-body">
 		<h5 class="card-title">Click the button</h5>
-		<a href="/feedback/runde1/games/clickthebutton" class="btn btn-primary disabled" role="button" aria-disabled="true">Spielen</a>
+		<a href="/feedback/runde1/games/clickthebutton" class="btn btn-primary" role="button">Spielen</a>
 		</div>
 	</div>
     </div>

@@ -21,10 +21,10 @@ use rocket::fs::TempFile;*/
 
 
 
-#[get("/wordpress/<index>")]
-pub async fn wordpress_post(index: usize) -> Template {
-    let posts = wp_lib::Post::get_from_uri("https://bodensee-gymnasium.de").unwrap();
-    println!("{:?}", posts);
+#[get("/wordpress/<count>/<index>")]
+pub async fn wordpress_post(count: i64, index: usize) -> Template {
+    let uri = dotenvy::var("WORDPRESS_URL").expect("wp-lib requires WORDPRESS_URL - api");
+    let posts = wp_lib::Post::get_from_uri_limited(&uri, count).unwrap();
     Template::render("tests/feedback/runde1/wordpress_post", context! {
         title: posts[index].title.rendered.clone(),
         content: posts[index].content.rendered.clone()

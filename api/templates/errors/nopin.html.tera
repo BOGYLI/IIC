@@ -24,10 +24,10 @@
               <label for="floatingInput">Pin</label>
           </div>
 
-          <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+          <button class="w-100 btn btn-lg btn-primary" type="submit" onclick="fullscreen()">Login</button>
           <p class="mt-5 mb-3 text-muted">© 2022 – 2023</p>
         </form>
-        <video id="qr-video"></video>
+        <!--video id="qr-video"></video>
         <script src="/static/js/libs/qr-scanner/qr-scanner.umd.min.js"></script>
         <script>
 			const videoElem = document.getElementById("qr-video");
@@ -48,6 +48,20 @@
 				result => console.log('decoded qr code:', result),
 				// No options provided. This will use the old api and is deprecated in the current version until next major version.
 			);*/
+</script--><script>
+      function fullscreen() {
+        // Supports most browsers and their versions.
+        var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+        if (requestMethod) { // Native full screen.
+            requestMethod.call(element);
+        } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+            var wscript = new ActiveXObject("WScript.Shell");
+            if (wscript !== null) {
+                wscript.SendKeys("{F11}");
+            }
+        }
+      }
 		</script>
     </main>
     <script src="/static/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>

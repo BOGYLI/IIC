@@ -41,11 +41,11 @@ pub mod media {
 
 pub mod post {
     use chrono::Local;
-    pub fn has() -> bool {
+    pub fn has(count: i64) -> bool {
         let id = Local::now().format("%Y-%m-%d").to_string();
         use std::path::Path;
         println!("checking for cached version of: {} -> {}", id, Path::new(&format!("cache/posts/{}", id)).exists());
-        Path::new(&format!("cache/posts/{}", id)).exists()
+        Path::new(&format!("cache/posts/{}_{}", id, count)).exists()
     }
 
     pub fn add(value: String) {
@@ -58,11 +58,11 @@ pub mod post {
         fs::write("cache/posts/fallback", value).expect("Unable to write file");
     }
 
-    pub fn get() -> String {
+    pub fn get(count: i64) -> String {
         let id = Local::now().format("%Y-%m-%d").to_string();
         use std::fs;
         println!("getting for cached version of: {}", id);
-        fs::read_to_string(format!("cache/posts/{}", id)).expect("Unable to read file")
+        fs::read_to_string(format!("cache/posts/{}_{}", id, count)).expect("Unable to read file")
     }
 
     pub fn get_rnd() -> String {

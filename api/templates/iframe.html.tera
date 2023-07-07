@@ -37,7 +37,8 @@
     <button type="checkbox" onclick="sound_toggle()" id="soundtoggle">
         <img src="/static/icons/sound_on.png" height="25px" width="25px" alt="">
     </button>
-    <audio src="/static/music/background.mp3" id="music" onended="restart_audio()"></audio>
+    <!--audio src="/static/music/background.mp3" id="music" onended="restart_audio()"></audio-->
+    <audio src="/music/background.mp3" id="music" onended="restart_audio()"></audio>
     <audio src="/static/sounds/click.mp3" id="effects"></audio>
     <script>
         let music = document.getElementById("music");

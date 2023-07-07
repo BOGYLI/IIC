@@ -480,7 +480,7 @@
         </tr>
     </table>
     </div>
-    <div class="return">
+    <div class="return" style="display: none">
         <button class="back" onclick="goBack()">Home Page</button>
     </div>
     <div id="newgamecontainer">

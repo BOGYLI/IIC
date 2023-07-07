@@ -126,9 +126,12 @@ fn rocket() -> _ {
         .mount("/api/v1/new", routes![api::new::umfrageantwort, api::new::umfrageufrage, api::new::umfrage, api::new::uantwort, api::new::umfragebenutzer, api::new::ufrage, api::new::ufrageuantwort, api::new::medien, api::new::artikel, api::new::artikelautor, api::new::benutzer, api::new::template, api::new::templatetparameter, api::new::tparameter, api::new::sspiel, api::new::mspiel, api::new::sspieler, api::new::mspieler, api::new::team, api::new::benutzerteam])
 
 
-        .mount("/feedback/runde1", routes![feedback::runde1::idlescreen, feedback::runde1::clickthebutton, feedback::runde1::tictactoe, feedback::runde1::games, feedback::runde1::karte, feedback::runde1::birthday, feedback::runde1::birthdaydemo, feedback::runde1::news, feedback::runde1::umfragen, feedback::runde1::umfrage_create, feedback::runde1::umfrage_view, feedback::runde1::umfrage_result, feedback::runde1::umfrage_edit, feedback::runde1::refresh, feedback::runde1::simonsays, api::wordpress::wordpress_post, feedback::runde1::wordpress_post])
+        .mount("/feedback/runde1", routes![feedback::runde1::idlescreen, feedback::runde1::clickthebutton_game, feedback::runde1::clickthebutton, feedback::runde1::tictactoe, feedback::runde1::tictactoe_game, feedback::runde1::games, feedback::runde1::karte, feedback::runde1::birthday, feedback::runde1::birthdaydemo, feedback::runde1::news, feedback::runde1::umfragen, feedback::runde1::umfrage_create, feedback::runde1::umfrage_view, feedback::runde1::umfrage_result, feedback::runde1::umfrage_edit, feedback::runde1::refresh, feedback::runde1::simonsays, api::wordpress::wordpress_post, feedback::runde1::wordpress_post, feedback::runde1::banner, feedback::runde1::banner_upload, /*feedback::runde1::banner_upload_get, */feedback::runde1::banner_name, feedback::runde1::admin, feedback::runde1::admin_container, feedback::runde1::music_upload, feedback::runde1::revealjs_name, feedback::runde1::revealjs_upload, feedback::runde1::revealjs, feedback::runde1::music])
 
         .mount("/static", FileServer::from("static"))
+        .mount("/music", FileServer::from("music"))
+        .mount("/revealjs", FileServer::from("revealjs"))
+        .mount("/banner", FileServer::from("banner"))
         .register("/", catchers![catchers::not_authorized, catchers::locked, catchers::not_found, catchers::internal])
         .attach(Template::custom(|engines|{
             use std::collections::BTreeMap;
