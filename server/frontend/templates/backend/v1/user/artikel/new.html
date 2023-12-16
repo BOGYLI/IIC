@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Neuer Artikel mit Template <em>{{template.pfad}}</em></h1>
+
+    <form action="/b/v1/user/artikel/new/{{template.id}}" method="post">
+        {% for parameter in parameters %}
+            <textarea type="{{parameter.typ}}" name="{{parameter.id}}" id="{{parameter.id}}" placeholder="{{parameter.name}}"></textarea>
+        {% endfor %}
+        <input type="submit" value="Speichern">
+    </form>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .actions {
+            display: flex;
+        }
+        .group {
+            border: 1px solid black;
+            padding: 10px;
+            margin: 10px;
+            width: fit-content;
+        }
+        .date {
+            font-size: x-small;
+            margin-left: 5px;
+        }
+        .active {
+            background-color: grey;
+        }
+    </style>
+</head>
+<body>
+    <h1>Willkommen in Deiner Posterübersicht</h1>
+    <p>Um ein neues Poster hochzuladen stelle sicher, dass es im PDF- / Bildformat ist!</p>
+    <div class="actions">
+        <div class="group">
+            <h3 id="poster-upload">Poster hochladen</h3>
+            <form action="/b/v1/user/poster/new" method="post" enctype="multipart/form-data">
+                <input type="file" name="poster" id="poster" accept=".pdf,image/*">
+                <input type="submit" value="Hochladen">
+            </form>
+        </div>
+    
+        <div class="group">
+            <h3>Posterentwürfe</h3>
+            <ul>
+                {% for poster in entwuerfe %}
+                    <li><a href="/b/v1/user/poster/edit/{{poster.id}}">Poster-{{poster.id}} <span class="date">({{poster.erstelldatum}})</span></a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    
+        <div class="group">
+            <h3>Poster in Veröffentlichungsprozess</h3>
+            <ul>
+                {% for poster in reviews %}
+                    <li><a href="/b/v1/user/poster/status/{{poster.id}}" >Poster-{{poster.id}} <span class="date">({{poster.erstelldatum}})</span></a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    
+        <div class="group">
+            <h3>Veröffentlichte Poster</h3>
+            <ul>
+                {% for poster in publics %}
+                    <li><a href="/b/v1/user/poster/view/{{poster.id}}">Poster-{{poster.id}} <span class="date">({{poster.erstelldatum}})</span></a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+
+<script>
+    const dropArea = document.querySelector("#poster-upload");
+    console.log(dropArea);
+    //dragText = dropArea.querySelector("h6");
+    //button = dropArea.querySelector("button");
+    input = dropArea.querySelector("#poster");
+    let file; 
+    
+    /*button.onclick = ()=>{
+    input.click(); 
+    }*/
+    
+    input.addEventListener("change", function(){
+    
+    file = this.files[0];
+    dropArea.classList.add("active");
+    viewfile();
+    });
+    
+    dropArea.addEventListener("dragover", (event)=>{
+    event.preventDefault();
+    dropArea.classList.add("active");
+    //dragText.textContent = "Release to Upload File";
+    });
+    
+    
+    dropArea.addEventListener("dragleave", ()=>{
+    dropArea.classList.remove("active");
+    //dragText.textContent = "Drag & Drop";
+    }); 
+    
+    dropArea.addEventListener("drop", (event)=>{
+    event.preventDefault(); 
+    
+    file = event.dataTransfer.files[0];
+    viewfile(); 
+    });
+    
+    function viewfile() {
+    let fileType = file.type; 
+    let validExtensions = ["application/pdf", "img/jpg", "img/png"];
+    if(validExtensions.includes(fileType)){ 
+    
+    }else{
+    alert("Bitte entweder Pdf- oder Bild- Datei hochladen");
+    dropArea.classList.remove("active");
+    //dragText.textContent = "Drag & Drop";
+    }
+    }
+    </script>
+</html>

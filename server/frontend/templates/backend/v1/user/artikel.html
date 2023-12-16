@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .actions {
+            display: flex;
+        }
+        .group {
+            border: 1px solid black;
+            padding: 10px;
+            margin: 10px;
+            width: fit-content;
+        }
+        .date {
+            font-size: x-small;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Willkommen in Deiner Artikelübersicht</h1>
+    <p>Um einen Artikel zu schreiben wähle zunächst ein HTML-Template aus!</p>
+    <div class="actions">
+        <div class="group">
+            <h3>Artikel schreiben</h3>
+            Templates:<br>
+            <ul>
+                {% for template in templates %}
+                    <li><a href="/b/v1/user/artikel/new/{{template.id}}">{{template.pfad}}</a></li>
+                {% endfor %}
+            </ul>
+            <a href="/b/v1/user/artikel/index_templates">Templateliste aktualisieren</a>
+        </div>
+    
+        <div class="group">
+            <h3>Artikelentwürfe</h3>
+            <ul>
+                {% for artikel in entwuerfe %}
+                    <li><a href="/b/v1/user/artikel/edit/{{artikel.id}}">Artikel-{{artikel.id}} <span class="date">({{artikel.erstelldatum}})</span></a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    
+        <div class="group">
+            <h3>Artikel in Veröffentlichungsprozess</h3>
+            <ul>
+                {% for artikel in reviews %}
+                    <li><a href="/b/v1/user/artikel/status/{{artikel.id}}" >Artikel-{{artikel.id}} <span class="date">({{artikel.erstelldatum}})</span></a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    
+        <div class="group">
+            <h3>Veröffentlichte Artikel</h3>
+            <ul>
+                {% for artikel in publics %}
+                    <li><a href="/b/v1/user/artikel/view/{{artikel.id}}">Artikel-{{artikel.id}} <span class="date">({{artikel.erstelldatum}})</span></a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

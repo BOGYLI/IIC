@@ -1,0 +1,47 @@
+site_name: Interactive Infotainment Center Documentation
+site_url: http://localhost:8000
+nav:
+  - Home: index.md
+
+  - User Guide:
+    - Artikel schreiben: guide/write-article.md
+    - Poster anzeigen: guide/show-poster.md
+    - Revealjs-Präsentation: guide/revealjs.md
+
+  - Developer Guide:  
+    - Setup:  
+      - Simples Setup: dev/simple-setup.md
+      - Komplexes Setup: dev/setup.md
+    - Api/Url:
+      - Frontend:
+        - dev/api/f/index.md
+        - v1:
+          - dev/api/f/v1/index.md
+          - dev/api/f/v1/games.md
+      - Backend:
+        - dev/api/b/index.md
+        - v1:
+          - dev/api/b/v1/index.md
+          - user:
+            - dev/api/b/v1/user/index.md
+            - dev/api/b/v1/user/artikel.md
+            - dev/api/b/v1/user/mspiel.md
+            - dev/api/b/v1/user/poster.md
+            - dev/api/b/v1/user/presentation.md
+            - dev/api/b/v1/user/sspiel.md
+            - dev/api/b/v1/user/umfrage.md
+      - System:
+        - dev/api/s/index.md
+        - v1:
+          - dev/api/s/v1/index.md
+
+    - Templates: 
+      - dev/templates/index.md
+
+    - Datenbankschema:
+      - dev/database/index.md
+
+    - Programmieren/Erweitern:
+      - dev/extend/index.md
+  
+theme: readthedocs

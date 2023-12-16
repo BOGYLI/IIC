@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <style>
+
+    .Bogy-Logo{
+     max-width: 50px;
+     height: auto;
+
+    }
+
+     .navbar{
+      border-bottom: 5px solid;
+      border-bottom-color:	rgb(232,232,232);
+
+    }
+    
+    .container{
+      padding-top: 1rem;
+      margin-top: 2rem;
+    }
+
+    .card-img-top{
+        filter:brightness(0.9);
+        object-fit: cover;
+    }
+
+.h2{
+color: rgb(96,96,96);
+position: relative;
+top:5px;
+right: -10px;
+}
+
+h2 {
+color: rgb(96,96,96);
+width: 100%;
+text-align: center;
+margin-top: 50px;
+}
+
+html {
+  height: 100%
+}
+body {
+  height: 100%
+}
+
+.oben {
+  height: 55%;
+  display: flex;
+}
+.links {
+  width: calc(50% - 50px);
+  height: 100%;
+  margin-left: 0;
+  background-color: red;
+}
+.rechts {
+  width: calc(50% - 50px);
+  height: 100%;
+  margin-right: 0;
+  float: right;
+  margin-left: auto;
+  background-color: green;
+}
+
+.myframe {
+    margin-left: 25%;
+    width: 50%;
+    margin-top: 10%;
+    border: 2px solid #005594;
+}
+  </style>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Umfragen</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link rel="stylesheet" href="/static/css/revealjs-explorer/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<script>
+    function trigger() {
+    location.href='{{exit | safe}}'
+    }
+    </script>
+</head>
+
+
+
+
+<body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+
+<header>
+
+<nav class="navbar navbar-light .bg-white">
+<div class="container-fluid">
+  <a class="navbar-brand" href="{{ idlescreen_url }}">
+    <img src="/static/images/logo.jpg" class="Bogy-Logo" >
+    <b class="h2 fw-bolder">Revealjs-Preview</b>
+  </a>
+
+</div>
+</nav>
+</header>
+<iframe class="myframe" src="/revealjs/{{reveal}}" width="50%" height="50%" style="overflow: hidden">
+</body>
+
+</html>

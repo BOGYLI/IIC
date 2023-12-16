@@ -1,0 +1,72 @@
+.container {
+    height: 100%;
+}
+
+.window {
+    height: 100%;
+}
+
+
+.reveal-presentation {
+    display: flex;
+    border: 1px solid #005594;
+    padding: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    color: #005594;
+}
+
+.reveal-presentation:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.reveal-presentation img {
+    height: 20px;
+}
+
+.reveal-presentation .actions i {
+    line-height: 20px;
+    margin-left: 5px;
+}
+
+.reveal-presentation span {
+    margin-left: 20px;
+    line-height: 20px;
+    margin-right: auto;
+}
+
+.reveal-presentation .actions {
+    float: right;
+}
+
+.content {
+    border: 2px solid #005594;
+    padding: 5px;
+    min-height: 80%;
+    position: relative;
+}
+
+.content h6 {
+    position: absolute;
+    font-size: 500%;
+    color: #00549460;
+    margin-left: 30%;
+    margin-top: 12%;
+}
+
+
+
+
+.content.active {
+    background-color: #005594;
+}
+
+.content.active h6 {
+    margin-left: 18%;
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.content.active .reveal-presentation {
+    color: white;
+    border-color: white;
+}

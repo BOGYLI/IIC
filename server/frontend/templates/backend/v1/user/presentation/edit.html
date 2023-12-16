@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .actions {
+            display: flex;
+        }
+        .group {
+            border: 1px solid black;
+            padding: 10px;
+            margin: 10px;
+            width: fit-content;
+        }
+        .date {
+            font-size: x-small;
+            margin-left: 5px;
+        }
+        .active {
+            background-color: grey;
+        }
+    </style>
+</head>
+<body>
+    <h1>Präsentation  <em>{{presentation.datei | split(pat="/") | nth(n=3) }}</em> bearbeiten</h1>
+    <p>Um eine Präsentation zubearbeiten kannst Du hier die bearbeitete Datei hochladen!<br>
+    Dadurch wird die bisherige hier hinterlegte Datei entgültig gelöscht.</p>
+    <div class="actions">
+        <div class="group">
+            <h3 id="presentation-upload">Präsentation ersetzen</h3>
+            <form action="/b/v1/user/presentation/edit/{{presentation.id}}" method="post" enctype="multipart/form-data">
+                <input type="file" name="presentation" id="presentation" accept=".html">
+                <input type="submit" value="Hochladen">
+            </form>
+        </div><br>
+        <a href="/b/v1/user/presentation/download/{{presentation.id}}">Download</a><br>
+
+        <form action="/api/v1/update/revealjs" method="post" id="presentation-review">
+            <input type="number" name="id" id="id" value="{{presentation.id}}" hidden>
+            <input type="text" name="datei" id="datei" value="{{presentation.datei}}" hidden>
+            <input type="text" name="erstelldatum" id="erstelldatum" value="{{presentation.erstelldatum}}" hidden>
+            <input type="text" name="status" id="status" value="review" hidden>
+            <input type="text" name="oeffentlich" id="oeffentlich" value="true" hidden>
+            <input type="submit" value="Veröffentlichung einleiten">
+        </form><br>
+        <form action="/b/v1/user/presentation/delete/{{presentation.id}}" method="post">
+            <input type="submit" value="Löschen">
+        </form>
+    </div>
+</body>
+<script>   /**
+    * Helper function for POSTing data as JSON with fetch.
+    *
+    * @param {Object} options
+    * @param {string} options.url - URL to POST data to
+    * @param {FormData} options.formData - `FormData` instance
+    * @return {Object} - Response body from URL that was POSTed to
+    */
+   async function postFormDataAsJson({ url, formData }) {
+       const plainFormData = Object.fromEntries(formData.entries());
+       plainFormData.id = parseInt(plainFormData.id);
+       plainFormData.oeffentlich = (plainFormData.oeffentlich === 'true');
+       const formDataJsonString = JSON.stringify(plainFormData);
+       console.log(formDataJsonString);
+   
+       const fetchOptions = {
+           method: "POST",
+           headers: {
+               "Content-Type": "application/json",
+               Accept: "application/json",
+           },
+           body: formDataJsonString,
+       };
+   
+       const response = await fetch(url, fetchOptions);
+   
+       if (!response.ok) {
+           const errorMessage = await response.text();
+           throw new Error(errorMessage);
+       }
+   
+       location.href = "/b/v1/user/presentation";
+   
+       //return response.json();
+   }
+   
+   /**
+    * Event handler for a form submit event.
+    *
+    * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit_event
+    *
+    * @param {SubmitEvent} event
+    */
+   async function handleFormSubmit(event) {
+       event.preventDefault();
+   
+       const form = event.currentTarget;
+       const url = form.action;
+   
+       try {
+           const formData = new FormData(form);
+           const responseData = await postFormDataAsJson({ url, formData });
+   
+           console.log({ responseData });
+       } catch (error) {
+           console.error(error);
+       }
+   }
+   
+   const exampleForm = document.getElementById("presentation-review");
+   exampleForm.addEventListener("submit", handleFormSubmit);
+   </script>
+<script>
+    const dropArea = document.querySelector("#presentation-upload");
+    console.log(dropArea);
+    //dragText = dropArea.querySelector("h6");
+    //button = dropArea.querySelector("button");
+    input = dropArea.querySelector("#presentation");
+    let file; 
+    
+    /*button.onclick = ()=>{
+    input.click(); 
+    }*/
+    
+    input.addEventListener("change", function(){
+    
+    file = this.files[0];
+    dropArea.classList.add("active");
+    viewfile();
+    });
+    
+    dropArea.addEventListener("dragover", (event)=>{
+    event.preventDefault();
+    dropArea.classList.add("active");
+    //dragText.textContent = "Release to Upload File";
+    });
+    
+    
+    dropArea.addEventListener("dragleave", ()=>{
+    dropArea.classList.remove("active");
+    //dragText.textContent = "Drag & Drop";
+    }); 
+    
+    dropArea.addEventListener("drop", (event)=>{
+    event.preventDefault(); 
+    
+    file = event.dataTransfer.files[0];
+    viewfile(); 
+    });
+    
+    function viewfile() {
+    let fileType = file.type; 
+    let validExtensions = ["text/html"];
+    if(validExtensions.includes(fileType)){ 
+    
+    }else{
+    alert("Bitte nut HTML - Datei hochladen");
+    dropArea.classList.remove("active");
+    //dragText.textContent = "Drag & Drop";
+    }
+    }
+    </script>
+</html>

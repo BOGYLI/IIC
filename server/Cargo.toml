@@ -1,0 +1,40 @@
+[package]
+name = "server"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix-web = {version = "4", features = ["cookies", "secure-cookies", "openssl"] }
+diesel = { version = "2.1.3", features = ["postgres"]}
+serde = "1.0.189"
+openssl = { version = "0.10" }
+
+actix-web-ext_proc-macro = { path = "libs/actix-web-ext_proc-macro" }
+diesel-ext_traits = { path = "libs/diesel-ext_traits" }
+wp-lib = { path = "libs/wp-lib" }
+cache-lib = { path = "libs/cache-lib" }
+
+
+dotenvy = "0.15.7"
+serde_derive = "1.0.189"
+rand = "0.8.5"
+
+
+env_logger = "0.10.0"
+log = "0.4.20"
+tera = "1.8"
+actix-web-lab = "0.19.2"
+actix-jwt-auth-middleware = "0.3.0"
+exonum-crypto = "1.0.0"
+jwt-compact = { version = "0.8.0", features = ["exonum-crypto"]}
+actix-files = "0.6.2"
+serde_with = "3.4.0"
+chrono = "0.4.31"
+actix-multipart = "0.6.1"
+futures = "0.3.29"
+actix-session = { version = "0.8.0", features = ["cookie-session"]}
+actix-identity = "0.6.0"
+actix-web-grants = "3.0.2"
+reqwest = "0.11.22"

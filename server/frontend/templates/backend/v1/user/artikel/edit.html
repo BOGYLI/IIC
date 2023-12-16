@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Artikel vom <em>{{artikel.erstelldatum}}</em> bearbeiten</h1>
+
+    <form action="/b/v1/user/artikel/edit/{{artikel.id}}" method="post">
+        {% for value in values %}
+            <textarea type="{{value.1.typ}}" name="{{value.1.id}}" id="{{value.1.id}}" placeholder="{{value.1.name}}">{{value.2}}</textarea><br>
+        {% endfor %}
+        <input type="submit" value="Speichern">
+    </form><br>
+    <form action="/api/v1/update/artikel" method="post" id="artikel-review">
+        <input type="number" name="id" id="id" value="{{artikel.id}}" hidden>
+        <input type="test" name="erstelldatum" id="erstelldatum" value="{{artikel.erstelldatum}}" hidden>
+        <input type="text" name="status" id="status" value="review" hidden>
+        <input type="number" name="templateid" id="templateid" value="{{artikel.templateid}}" hidden>
+        <input type="submit" value="Veröffentlichung einleiten">
+    </form><br>
+    <form action="/b/v1/user/artikel/delete/{{artikel.id}}" method="post">
+        <input type="submit" value="Löschen">
+    </form>
+</body>
+<script>
+    /**
+ * Helper function for POSTing data as JSON with fetch.
+ *
+ * @param {Object} options
+ * @param {string} options.url - URL to POST data to
+ * @param {FormData} options.formData - `FormData` instance
+ * @return {Object} - Response body from URL that was POSTed to
+ */
+async function postFormDataAsJson({ url, formData }) {
+	const plainFormData = Object.fromEntries(formData.entries());
+    plainFormData.id = parseInt(plainFormData.id);
+    plainFormData.templateid = parseInt(plainFormData.templateid);
+	const formDataJsonString = JSON.stringify(plainFormData);
+
+	const fetchOptions = {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Accept: "application/json",
+		},
+		body: formDataJsonString,
+	};
+
+	const response = await fetch(url, fetchOptions);
+
+	if (!response.ok) {
+		const errorMessage = await response.text();
+		throw new Error(errorMessage);
+	}
+
+    location.href = "/b/v1/user/artikel";
+
+	//return response.json();
+}
+
+/**
+ * Event handler for a form submit event.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit_event
+ *
+ * @param {SubmitEvent} event
+ */
+async function handleFormSubmit(event) {
+	event.preventDefault();
+
+	const form = event.currentTarget;
+	const url = form.action;
+
+	try {
+		const formData = new FormData(form);
+		const responseData = await postFormDataAsJson({ url, formData });
+
+		console.log({ responseData });
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+const exampleForm = document.getElementById("artikel-review");
+exampleForm.addEventListener("submit", handleFormSubmit);
+</script>
+</html>
